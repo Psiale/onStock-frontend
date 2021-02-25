@@ -6,6 +6,7 @@ import SignupForm from '../components/SignupForm';
 const Auth = () => {
   const history = useHistory();
   const handleSubmit = () => {
+    // do this with the store, I think maybe a isAuth boolean to make it work
     history.push('/dashboard');
   };
   return (
