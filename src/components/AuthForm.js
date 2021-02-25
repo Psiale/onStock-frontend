@@ -1,10 +1,13 @@
-import React, { useState } from 'react-dom';
+/* eslint-disable no-console */
+/* eslint-disable no-restricted-globals */
+import React, { useState } from 'react';
 import Proptypes from 'prop-types';
 
 const AuthForm = ({ labels, btnText, handleSubmit }) => {
   const [value, setValue] = useState('');
   const handleChange = () => {
     setValue(event.target.value);
+    console.log(value);
   };
   return (
     <>
