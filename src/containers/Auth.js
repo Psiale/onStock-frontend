@@ -1,10 +1,12 @@
 /* eslint-disable no-console */
+import { useHistory } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
 import SignupForm from '../components/SignupForm';
 
 const Auth = () => {
+  const history = useHistory();
   const handleSubmit = () => {
-    console.log('heeeeelo');
+    history.push('/dashboard');
   };
   return (
     <>
