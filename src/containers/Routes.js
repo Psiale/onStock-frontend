@@ -1,4 +1,5 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Auth from './Auth';
 
 const Routes = () => (
   <BrowserRouter>
@@ -7,4 +8,4 @@ const Routes = () => (
       <Route />
     </Switch>
   </BrowserRouter>
-)
+);
