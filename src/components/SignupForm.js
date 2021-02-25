@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import Proptypes from 'prop-types';
 
@@ -14,24 +15,29 @@ const SignupForm = ({ handleSubmit }) => {
       ...values,
       [evt.target.name]: value,
     });
+
+    console.log(values);
   };
 
-  const createInput = (htmlFor, value) => (
-    <>
-      <label htmlFor={htmlFor}>
-        {htmlFor}
-        <input id={htmlFor} type="text" value={value} onChange={handleChange} />
-      </label>
-    </>
-  );
+  const createInput = (htmlFor, inputValue, changeHandle) => {
+    console.log(inputValue);
+    return (
+      <>
+        <label htmlFor={htmlFor}>
+          {htmlFor}
+          <input id={htmlFor} name={htmlFor} type="text" value={inputValue} onChange={changeHandle} />
+        </label>
+      </>
+    );
+  };
   return (
     <>
       <form onSubmit={handleSubmit}>
-        {createInput('name', values.name)}
-        {createInput('email', values.email)}
-        {createInput('password', values.password)}
-        {createInput('password confirmation', values.password_confirmation)}
-        <input type="submit" value="Sign up" />
+        {createInput('name', values.name, handleChange)}
+        {createInput('email', values.email, handleChange)}
+        {createInput('password', values.password, handleChange)}
+        {createInput('password_confirmation', values.password_confirmation, handleChange)}
+        <input type="submit" value="Login" />
       </form>
     </>
   );

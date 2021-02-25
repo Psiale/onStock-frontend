@@ -1,10 +1,11 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import Proptypes from 'prop-types';
 
 const LoginForm = ({ handleSubmit }) => {
   const [values, setValues] = useState({
-    name: '',
     email: '',
+    password: '',
   });
   const handleChange = evt => {
     const { value } = evt.target;
@@ -12,21 +13,26 @@ const LoginForm = ({ handleSubmit }) => {
       ...values,
       [evt.target.name]: value,
     });
+
+    console.log(values);
   };
 
-  const createInput = (htmlFor, value) => (
-    <>
-      <label htmlFor={htmlFor}>
-        {htmlFor}
-        <input id={htmlFor} type="text" value={value} onChange={handleChange} />
-      </label>
-    </>
-  );
+  const createInput = (htmlFor, inputValue, changeHandle) => {
+    console.log(inputValue);
+    return (
+      <>
+        <label htmlFor={htmlFor}>
+          {htmlFor}
+          <input id={htmlFor} name={htmlFor} type="text" value={inputValue} onChange={changeHandle} />
+        </label>
+      </>
+    );
+  };
   return (
     <>
       <form onSubmit={handleSubmit}>
-        {createInput('email', values.email)}
-        {createInput('password', values.password)}
+        {createInput('email', values.email, handleChange)}
+        {createInput('password', values.password, handleChange)}
         <input type="submit" value="Login" />
       </form>
     </>
