@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-import AuthForm from '../components/AuthForm';
+import LoginForm from '../components/LoginForm';
+import SignupForm from '../components/SignupForm';
 
 const Auth = () => {
   const handleSubmit = () => {
@@ -7,8 +8,8 @@ const Auth = () => {
   };
   return (
     <>
-      <AuthForm labels={['name:', 'email:', 'password:', 'password confirmation:']} btnText="Sign Up" handleSubmit={handleSubmit} />
-      <AuthForm labels={['email:', 'password:']} btnText="Log in" handleSubmit={handleSubmit} />
+      <LoginForm handleSubmit={handleSubmit} />
+      <SignupForm handleSubmit={handleSubmit} />
     </>
   );
 };
