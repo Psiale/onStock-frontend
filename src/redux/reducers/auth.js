@@ -2,6 +2,7 @@ import {
   ACCESS_REQUEST,
   REQUEST_FAILED,
   REQUEST_PENDING,
+  REQUEST_SUCCEED,
 } from '../constants/auth';
 
 const initialState = {
@@ -22,9 +23,9 @@ const authReducer = (state = initialState, action) => {
     case ACCESS_REQUEST:
       return {
         ...state,
-        is_auth: true,
-        loading: false,
-        auth_token: action.payload,
+        is_auth: false,
+        loading: true,
+        credentials: action.payload,
         error: '',
       };
     case REQUEST_FAILED:
@@ -35,7 +36,13 @@ const authReducer = (state = initialState, action) => {
         auth_token: '',
         error: action.payload,
       };
-
+    case REQUEST_SUCCEED:
+      return {
+        ...state,
+        is_auth: true,
+        loading: false,
+        auth_token: action.payload,
+      }
     default: return state;
   }
 };
