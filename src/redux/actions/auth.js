@@ -13,3 +13,7 @@ export const fetchAccessRequest = credentials => ({
   type: ACCESS_REQUEST,
   payload: credentials,
 });
+
+export const fetchPending = () => ({
+  type: REQUEST_PENDING,
+});

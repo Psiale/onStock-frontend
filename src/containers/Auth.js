@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
 import SignupForm from '../components/SignupForm';
@@ -19,4 +21,10 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+const mapStateToProps = state => {(
+  loading: state.loading,
+  credentials: state.credentials,
+)}
+const mapDispatchToProps = dispatch => {}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
