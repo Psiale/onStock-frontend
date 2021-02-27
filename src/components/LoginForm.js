@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
 import React, { useState } from 'react';
-import Proptypes from 'prop-types';
 
-const LoginForm = ({ handleSubmit }) => {
+const LoginForm = () => {
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -30,17 +29,13 @@ const LoginForm = ({ handleSubmit }) => {
   };
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={null}>
         {createInput('email', values.email, handleChange)}
         {createInput('password', values.password, handleChange)}
         <input type="submit" value="Login" />
       </form>
     </>
   );
-};
-
-LoginForm.propTypes = {
-  handleSubmit: Proptypes.func.isRequired,
 };
 
 export default LoginForm;

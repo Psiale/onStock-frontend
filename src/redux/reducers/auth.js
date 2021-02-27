@@ -9,7 +9,7 @@ const initialState = {
   is_auth: false,
   loading: false,
   credentials: '',
-  auth_token: '',
+  authToken: '',
   error: '',
 };
 
@@ -25,7 +25,8 @@ const authReducer = (state = initialState, action) => {
         ...state,
         is_auth: false,
         loading: true,
-        credentials: action.payload,
+        credentials: action.credentials,
+        auth_token: action.payload,
         error: '',
       };
     case REQUEST_FAILED:
@@ -33,7 +34,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         is_auth: false,
         loading: false,
-        auth_token: '',
+        authToken: '',
         error: action.payload,
       };
     case REQUEST_SUCCEED:
@@ -41,8 +42,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         is_auth: true,
         loading: false,
-        auth_token: action.payload,
-      }
+      };
     default: return state;
   }
 };
