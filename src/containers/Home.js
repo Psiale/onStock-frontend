@@ -8,6 +8,7 @@ const Home = () => (
   </>
 );
 
+// I need to change this mapStateToProps
 const mapStateToProps = state => ({
   items: state.itemsStore.items,
   loading: state.itemsStore.loading,
