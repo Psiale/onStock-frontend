@@ -1,16 +1,12 @@
 /* eslint-disable no-console */
-import AuthForm from '../components/AuthForm';
+// import React, { useEffect } from 'react';
+import LoginForm from '../components/LoginForm';
+import SignupForm from '../components/SignupForm';
 
-const Auth = () => {
-  const handleSubmit = () => {
-    console.log('heeeeelo');
-  };
-  return (
-    <>
-      <AuthForm labels={['name:', 'email:', 'password:', 'password confirmation:']} btnText="Sign Up" handleSubmit={handleSubmit} />
-      <AuthForm labels={['email:', 'password:']} btnText="Log in" handleSubmit={handleSubmit} />
-    </>
-  );
-};
-
+const Auth = () => (
+  <>
+    <LoginForm />
+    <SignupForm />
+  </>
+);
 export default Auth;
