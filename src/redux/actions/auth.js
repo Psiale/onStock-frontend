@@ -1,7 +1,5 @@
 /* eslint-disable no-console */
-import axios from 'axios';
-
-import { postRequest, getRequest } from '../../api/helpers';
+import { postRequest } from '../../api/helpers';
 
 import {
   ACCESS_REQUEST,
@@ -29,9 +27,10 @@ export const fetchRequestSuccess = () => ({
   type: REQUEST_SUCCEED,
 });
 
-export const loginRequest = async data => dispatch => {
+export const loginRequest = data => async dispatch => {
   dispatch(fetchPending());
   postRequest('auth/login', data).then(response => {
+    console.log(response);
     const authToken = response.data;
     dispatch(fetchAccessRequest(authToken, data));
   });
