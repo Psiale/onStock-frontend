@@ -15,11 +15,11 @@ export const fetchRequestFailed = error => ({
 
 export const fetchAccessRequest = (authToken, credentials) => {
   console.log(`this is the authToken: ${authToken} and this the credentials: ${credentials}`);
-  return ({
+  return {
     type: ACCESS_REQUEST,
     payload: authToken,
     credentials,
-  });
+  };
 };
 
 export const fetchPending = () => ({

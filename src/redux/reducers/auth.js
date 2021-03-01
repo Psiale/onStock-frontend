@@ -16,13 +16,14 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   console.log(`Im the auth reducer and this is the action content: ${action.payload}`);
-  switch (action) {
+  switch (action.type) {
     case REQUEST_PENDING:
       return {
         ...state,
         loading: true,
       };
     case ACCESS_REQUEST:
+      console.log('access request happening');
       return {
         ...state,
         is_auth: false,
