@@ -32,17 +32,14 @@ const LoginForm = ({ loginRequest }) => {
     console.log(values);
   };
 
-  const createInput = (htmlFor, inputValue, changeHandle) => {
-    console.log(inputValue);
-    return (
-      <>
-        <label htmlFor={htmlFor}>
-          {htmlFor}
-          <input id={htmlFor} name={htmlFor} type="text" value={inputValue} onChange={changeHandle} />
-        </label>
-      </>
-    );
-  };
+  const createInput = (htmlFor, inputValue, changeHandle) => (
+    <>
+      <label htmlFor={htmlFor}>
+        {htmlFor}
+        <input id={htmlFor} name={htmlFor} type="text" value={inputValue} onChange={changeHandle} />
+      </label>
+    </>
+  );
   return (
     <>
       <form onSubmit={handleSubmit}>

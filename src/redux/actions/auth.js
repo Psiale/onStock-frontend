@@ -13,11 +13,14 @@ export const fetchRequestFailed = error => ({
   payload: error,
 });
 
-export const fetchAccessRequest = (authToken, credentials) => ({
-  type: ACCESS_REQUEST,
-  payload: authToken,
-  credentials,
-});
+export const fetchAccessRequest = (authToken, credentials) => {
+  console.log(`this is the authToken: ${authToken} and this the credentials: ${credentials}`);
+  return ({
+    type: ACCESS_REQUEST,
+    payload: authToken,
+    credentials,
+  });
+};
 
 export const fetchPending = () => ({
   type: REQUEST_PENDING,
@@ -30,7 +33,8 @@ export const fetchRequestSuccess = () => ({
 export const loginRequest = data => async dispatch => {
   dispatch(fetchPending());
   postRequest('auth/login', data).then(response => {
-    console.log(response);
+    console.log(response.data);
+    console.log(`this are the credentials: ${data}`);
     const authToken = response.data;
     dispatch(fetchAccessRequest(authToken, data));
   });
@@ -39,7 +43,8 @@ export const loginRequest = data => async dispatch => {
 export const signupRequest = data => async dispatch => {
   dispatch(fetchPending());
   postRequest('signup', data).then(response => {
-    console.log(response);
+    console.log(response.data);
+    console.log(`this are the credentials: ${data}`);
     const authToken = response.data;
     dispatch(fetchAccessRequest(authToken, data));
   });
@@ -48,7 +53,7 @@ export const signupRequest = data => async dispatch => {
   // export const getElementsRequest = authToken  => async dispatch => {
   //   dispatch(fetchPending());
   //   //ese auth_token lo voy a tomar del estado, obviamente
-  //   axios.defaults.headers.common = { 'Authorization': `Bearer ${authToken}`};
+  // axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
 
   //   getRequest('coffee_shops').then(response => {
   //     console.log(response);

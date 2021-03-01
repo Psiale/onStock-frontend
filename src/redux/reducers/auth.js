@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   ACCESS_REQUEST,
   REQUEST_FAILED,
@@ -14,6 +15,7 @@ const initialState = {
 };
 
 const authReducer = (state = initialState, action) => {
+  console.log(`Im the auth reducer and this is the action content: ${action.payload}`);
   switch (action) {
     case REQUEST_PENDING:
       return {

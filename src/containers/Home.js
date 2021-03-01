@@ -4,7 +4,13 @@ import { connect } from 'react-redux';
 
 const Home = ({ credentials }) => (
   <>
-    <p> Sup from Home</p>
+    <p>
+      This are the credentials:
+      {' '}
+      {
+    credentials
+    }
+    </p>
   </>
 );
 
@@ -15,21 +21,7 @@ const mapStateToProps = state => ({
 });
 
 Home.propTypes = {
-  credentials: Proptypes.shape({
-    name: Proptypes.string,
-    email: Proptypes.string,
-    password: Proptypes.string,
-    password_confirmation: Proptypes.string,
-  }),
-};
-
-Home.defaultProps = {
-  credentials: {
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-  },
+  credentials: Proptypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, null)(Home);
