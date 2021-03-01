@@ -2,7 +2,7 @@ import React from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 
-const Home = () => (
+const Home = ({ credentials }) => (
   <>
     <p> Sup from Home</p>
   </>
@@ -10,9 +10,26 @@ const Home = () => (
 
 // I need to change this mapStateToProps
 const mapStateToProps = state => ({
-  items: state.itemsStore.items,
-  loading: state.itemsStore.loading,
-  filter: state.filterStore.filter,
+  auth_token: state.authStore.items,
+  credentials: state.authStore.credentials,
 });
+
+Home.propTypes = {
+  credentials: Proptypes.shape({
+    name: Proptypes.string,
+    email: Proptypes.string,
+    password: Proptypes.string,
+    password_confirmation: Proptypes.string,
+  }),
+};
+
+Home.defaultProps = {
+  credentials: {
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
+  },
+};
 
 export default connect(mapStateToProps, null)(Home);
