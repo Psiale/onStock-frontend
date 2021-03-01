@@ -1,15 +1,17 @@
 /* eslint-disable no-console */
 import {
   ACCESS_REQUEST,
+  LOGIN_REQUEST,
   REQUEST_FAILED,
   REQUEST_PENDING,
   REQUEST_SUCCEED,
 } from '../constants/auth';
 
 const initialState = {
-  is_auth: false,
+  isAuth: '',
   loading: false,
   credentials: '',
+  login_credentials: '',
   authToken: '',
   error: '',
 };
@@ -26,16 +28,23 @@ const authReducer = (state = initialState, action) => {
       console.log('access request happening');
       return {
         ...state,
-        is_auth: false,
         loading: true,
         credentials: action.credentials,
+        auth_token: action.payload,
+        error: '',
+      };
+    case LOGIN_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        login_credentials: action.login_credentials,
         auth_token: action.payload,
         error: '',
       };
     case REQUEST_FAILED:
       return {
         ...state,
-        is_auth: false,
+        isAuth: false,
         loading: false,
         authToken: '',
         error: action.payload,
@@ -43,7 +52,7 @@ const authReducer = (state = initialState, action) => {
     case REQUEST_SUCCEED:
       return {
         ...state,
-        is_auth: true,
+        isAuth: true,
         loading: false,
       };
     default: return state;

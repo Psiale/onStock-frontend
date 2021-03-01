@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-one-expression-per-line */
+/* eslint-disable no-trailing-spaces */
 import React from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -5,9 +7,7 @@ import { connect } from 'react-redux';
 const Home = ({ credentials }) => (
   <>
     <p>
-      {
-    credentials.email
-    }
+      Welcome back: {credentials.name}
     </p>
   </>
 );
