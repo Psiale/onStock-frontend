@@ -8,7 +8,7 @@ import {
 } from '../constants/auth';
 
 const initialState = {
-  isAuth: false,
+  is_auth: false,
   loading: false,
   credentials: '',
   login_credentials: '',
@@ -44,7 +44,7 @@ const authReducer = (state = initialState, action) => {
     case REQUEST_FAILED:
       return {
         ...state,
-        isAuth: false,
+        is_auth: false,
         loading: false,
         authToken: '',
         error: action.payload,
@@ -52,7 +52,7 @@ const authReducer = (state = initialState, action) => {
     case REQUEST_SUCCEED:
       return {
         ...state,
-        isAuth: true,
+        is_auth: true,
         loading: false,
       };
     default: return state;

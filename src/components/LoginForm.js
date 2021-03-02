@@ -63,7 +63,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  isAuth: state.authStore.isAuth,
+  isAuth: state.authStore.is_auth,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 
 import { signupRequest } from '../redux/actions/auth';
 
-const SignupForm = ({ signupRequest, isAuth }) => {
+const SignupForm = ({ signupRequest }) => {
   const [values, setValues] = useState({
     name: '',
     email: '',
@@ -26,8 +26,7 @@ const SignupForm = ({ signupRequest, isAuth }) => {
         password: values.password,
         password_confirmation: values.password_confirmation,
       },
-    );
-    (isAuth) ? history.push('/dashboard') : null;
+    ).then(history.push('/dashboard'));
   };
   const handleChange = evt => {
     const { value } = evt.target;
@@ -65,15 +64,10 @@ const SignupForm = ({ signupRequest, isAuth }) => {
 
 SignupForm.propTypes = {
   signupRequest: Proptypes.func.isRequired,
-  isAuth: Proptypes.bool.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
   signupRequest: data => dispatch(signupRequest(data)),
 });
 
-const mapStateToProps = state => ({
-  isAuth: state.authStore.isAuth,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignupForm);
+export default connect(null, mapDispatchToProps)(SignupForm);
