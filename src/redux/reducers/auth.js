@@ -8,7 +8,7 @@ import {
 } from '../constants/auth';
 
 const initialState = {
-  isAuth: '',
+  isAuth: false,
   loading: false,
   credentials: '',
   login_credentials: '',

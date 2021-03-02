@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-console */
 import React, { useState } from 'react';
 import Proptypes from 'prop-types';
@@ -6,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 
 import { signupRequest } from '../redux/actions/auth';
 
-const SignupForm = ({ signupRequest }) => {
+const SignupForm = ({ signupRequest, isAuth }) => {
   const [values, setValues] = useState({
     name: '',
     email: '',
@@ -25,7 +26,8 @@ const SignupForm = ({ signupRequest }) => {
         password: values.password,
         password_confirmation: values.password_confirmation,
       },
-    ).then(history.push('/dashboard'));
+    );
+    (isAuth) ? history.push('/dashboard') : null;
   };
   const handleChange = evt => {
     const { value } = evt.target;
@@ -63,9 +65,15 @@ const SignupForm = ({ signupRequest }) => {
 
 SignupForm.propTypes = {
   signupRequest: Proptypes.func.isRequired,
+  isAuth: Proptypes.bool.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
   signupRequest: data => dispatch(signupRequest(data)),
 });
-export default connect(null, mapDispatchToProps)(SignupForm);
+
+const mapStateToProps = state => ({
+  isAuth: state.authStore.isAuth,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignupForm);

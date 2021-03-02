@@ -17,7 +17,7 @@ export const fetchRequestFailed = error => ({
 });
 
 export const fetchAccessRequest = (type, authToken, info) => {
-  console.log(`this is the authToken: ${authToken} and this the credentials: ${info}`);
+  console.log(`this is the type ${type}`);
 
   if (type === 'login') {
     return {
@@ -57,9 +57,12 @@ export const signupRequest = data => async dispatch => {
   dispatch(fetchPending());
   postRequest('signup', data).then(response => {
     console.log(response.data);
-    console.log(`this are the credentials: ${data}`);
     const authToken = response.data;
+    dispatch(fetchRequestSuccess());
     dispatch(fetchAccessRequest('signup', authToken, data));
+  }).catch(error => {
+    console.log(error);
+    dispatch(fetchRequestFailed(error));
   });
 
   // esto debe ir en la store que se ocupe de la información del negocio del usuario

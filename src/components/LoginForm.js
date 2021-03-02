@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-console */
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
@@ -5,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import Proptypes from 'prop-types';
 import { loginRequest } from '../redux/actions/auth';
 
-const LoginForm = ({ loginRequest }) => {
+const LoginForm = ({ loginRequest, isAuth }) => {
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -20,7 +21,8 @@ const LoginForm = ({ loginRequest }) => {
         email: values.email,
         password: values.password,
       },
-    ).then(history.push('/dashboard'));
+    );
+    (isAuth) ? history.push('/dashboard') : null;
   };
   const handleChange = evt => {
     const { value } = evt.target;
@@ -53,10 +55,15 @@ const LoginForm = ({ loginRequest }) => {
 
 LoginForm.propTypes = {
   loginRequest: Proptypes.func.isRequired,
+  isAuth: Proptypes.bool.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
   loginRequest: data => dispatch(loginRequest(data)),
 });
 
-export default connect(null, mapDispatchToProps)(LoginForm);
+const mapStateToProps = state => ({
+  isAuth: state.authStore.isAuth,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
