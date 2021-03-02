@@ -55,6 +55,17 @@ const authReducer = (state = initialState, action) => {
         is_auth: true,
         loading: false,
       };
+    case 'DEFAULT':
+      console.log("I'm running");
+      return {
+        ...state,
+        is_auth: false,
+        loading: false,
+        credentials: '',
+        login_credentials: '',
+        authToken: '',
+        error: '',
+      };
     default: return state;
   }
 };

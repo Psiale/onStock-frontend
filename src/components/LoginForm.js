@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import Proptypes from 'prop-types';
 import { loginRequest } from '../redux/actions/auth';
 
-const LoginForm = ({ loginRequest, isAuth }) => {
+const LoginForm = ({ loginRequest }) => {
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -21,8 +21,7 @@ const LoginForm = ({ loginRequest, isAuth }) => {
         email: values.email,
         password: values.password,
       },
-    );
-    (isAuth) ? history.push('/dashboard') : null;
+    ).then(history.push('/dashboard'));
   };
   const handleChange = evt => {
     const { value } = evt.target;
@@ -34,11 +33,18 @@ const LoginForm = ({ loginRequest, isAuth }) => {
     console.log(values);
   };
 
-  const createInput = (htmlFor, inputValue, changeHandle) => (
+  const createInput = (htmlFor, inputValue, changeHandle, type = 'text') => (
     <>
       <label htmlFor={htmlFor}>
         {htmlFor}
-        <input id={htmlFor} name={htmlFor} type="text" value={inputValue} onChange={changeHandle} />
+        <input
+          required
+          id={htmlFor}
+          name={htmlFor}
+          type={type}
+          value={inputValue}
+          onChange={changeHandle}
+        />
       </label>
     </>
   );
@@ -46,7 +52,7 @@ const LoginForm = ({ loginRequest, isAuth }) => {
     <>
       <form onSubmit={handleSubmit}>
         {createInput('email', values.email, handleChange)}
-        {createInput('password', values.password, handleChange)}
+        {createInput('password', values.password, handleChange, 'password')}
         <input type="submit" value="Login" />
       </form>
     </>
@@ -55,15 +61,10 @@ const LoginForm = ({ loginRequest, isAuth }) => {
 
 LoginForm.propTypes = {
   loginRequest: Proptypes.func.isRequired,
-  isAuth: Proptypes.bool.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
   loginRequest: data => dispatch(loginRequest(data)),
 });
 
-const mapStateToProps = state => ({
-  isAuth: state.authStore.is_auth,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(null, mapDispatchToProps)(LoginForm);
