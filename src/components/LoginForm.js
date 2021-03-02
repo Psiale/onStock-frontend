@@ -51,7 +51,7 @@ const LoginForm = ({ loginRequest }) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        {createInput('email', values.email, handleChange)}
+        {createInput('email', values.email, handleChange, 'email')}
         {createInput('password', values.password, handleChange, 'password')}
         <input type="submit" value="Login" />
       </form>
