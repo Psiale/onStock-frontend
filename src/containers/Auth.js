@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -7,7 +7,7 @@ import LoginForm from '../components/LoginForm';
 import SignupForm from '../components/SignupForm';
 
 const Auth = ({ isAuth, initialState }) => {
-  useEffect(() => {
+  useLayoutEffect(() => {
     console.log('im running');
     initialState();
   }, [isAuth]);
