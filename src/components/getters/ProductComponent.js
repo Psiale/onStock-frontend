@@ -1,32 +1,28 @@
+/* eslint-disable no-console */
+/* eslint-disable no-return-assign */
 import axios from 'axios';
-import React, { useState } from 'react';
+import React from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
-import fetchGetProducts from '../redux/actions/data';
-import { createInput } from '../helpers';
+import fetchGetProducts from '../../redux/actions/data';
+// import { createInput } from '../../helpers';
 
-const PostComponent = ({ inputs, authToken, fetchGetProducts }) => {
+const GetProductComponent = ({ inputs, authToken, fetchGetProducts }) => {
   // working on the dynamic creation of state using the inputs array
-  const setInitialState = properties => {
-    const initialState = {}
-    properties.map(property => {
-      
-    });
-  }
-  const handleSubmit = () => {};
+  const handleOnClick = () => {
+    fetchGetProducts('business');
+  };
   axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
   return (
     <>
-    <form onSubmit={ handleSubmit }>
-      {inputs.map(input => {
-        createInput(input)
-      })}
-    </form>
+      <button onClick={handleOnClick} type="button">
+        get all products
+      </button>
     </>
   );
 };
 
-PostComponent.propTypes = {
+GetProductComponent.propTypes = {
   inputs: Proptypes.arrayOf(Proptypes.string).isRequired,
   authToken: Proptypes.string.isRequired,
   fetchGetProducts: Proptypes.func.isRequired,
@@ -40,4 +36,4 @@ const mapDispatchToProps = dispatch => ({
   fetchGetProducts: endpoint => dispatch(fetchGetProducts(endpoint)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(GetProductComponent);

@@ -1,13 +1,17 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-trailing-spaces */
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import buildLoader from '../components/Loader';
 
+useLayoutEffect(() => {
+  // build the get coffee shop component here
+}, []);
 const Home = ({
+  
   credentials, loading, isAuth, business,
 }) => ((loading === true && isAuth === false)
   ? buildLoader() : (
