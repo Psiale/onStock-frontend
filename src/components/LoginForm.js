@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Proptypes from 'prop-types';
 import { loginRequest } from '../redux/actions/auth';
+import { createInput } from '../helpers';
 
 const LoginForm = ({ loginRequest }) => {
   const [values, setValues] = useState({
@@ -33,21 +34,6 @@ const LoginForm = ({ loginRequest }) => {
     console.log(values);
   };
 
-  const createInput = (htmlFor, inputValue, changeHandle, type = 'text') => (
-    <>
-      <label htmlFor={htmlFor}>
-        {htmlFor}
-        <input
-          required
-          id={htmlFor}
-          name={htmlFor}
-          type={type}
-          value={inputValue}
-          onChange={changeHandle}
-        />
-      </label>
-    </>
-  );
   return (
     <>
       <form onSubmit={handleSubmit}>

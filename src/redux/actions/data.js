@@ -1,4 +1,3 @@
-
 import { GET_BUSINESS, SET_BUSINESS } from '../constants/data';
 import { getRequest } from '../../api/helpers';
 
