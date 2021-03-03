@@ -7,11 +7,14 @@ import { connect } from 'react-redux';
 
 import buildLoader from '../components/Loader';
 
-const Home = ({ credentials, loading, isAuth }) => ((loading === true && isAuth === false)
+const Home = ({
+  credentials, loading, isAuth, business,
+}) => ((loading === true && isAuth === false)
   ? buildLoader() : (
     <>
       <p>
         Welcome back: {credentials.name}
+        Business name: {business.name}
       </p>
     </>
   ));
@@ -22,6 +25,7 @@ const mapStateToProps = state => ({
   credentials: state.authStore.credentials,
   loading: state.authStore.loading,
   isAuth: state.authStore.is_auth,
+  business: state.dataStore.business,
 });
 
 Home.propTypes = {
@@ -33,6 +37,12 @@ Home.propTypes = {
   }),
   loading: Proptypes.bool.isRequired,
   isAuth: Proptypes.bool.isRequired,
+  business: Proptypes.shape({
+    id: Proptypes.number,
+    name: Proptypes.string.isRequired,
+    avatar: Proptypes.string.isRequired,
+    owner_id: Proptypes.number,
+  }).isRequired,
 };
 
 Home.defaultProps = {
