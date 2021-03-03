@@ -12,12 +12,11 @@ const initialState = {
   loading: false,
   credentials: '',
   login_credentials: '',
-  authToken: '',
+  auth_token: 'not setup',
   error: '',
 };
 
 const authReducer = (state = initialState, action) => {
-  console.log(`Im the auth reducer and this is the action content: ${action.payload}`);
   switch (action.type) {
     case REQUEST_PENDING:
       return {
@@ -25,7 +24,6 @@ const authReducer = (state = initialState, action) => {
         loading: true,
       };
     case ACCESS_REQUEST:
-      console.log('access request happening');
       return {
         ...state,
         loading: true,
@@ -46,7 +44,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         is_auth: false,
         loading: false,
-        authToken: '',
+        auth_token: '',
         error: action.payload,
       };
     case REQUEST_SUCCEED:
@@ -56,12 +54,11 @@ const authReducer = (state = initialState, action) => {
         loading: false,
       };
     case 'DEFAULT':
-      console.log("I'm running");
       return {
         ...state,
         is_auth: false,
         loading: false,
-        authToken: '',
+        auth_token: '',
         error: '',
       };
     default: return state;

@@ -2,6 +2,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-console */
 import { postRequest } from '../../api/helpers';
+import { saveItem } from '../../helpers';
 
 import {
   ACCESS_REQUEST,
@@ -17,8 +18,6 @@ export const fetchRequestFailed = error => ({
 });
 
 export const fetchAccessRequest = (type, authToken, info) => {
-  console.log(`this is the type ${type}`);
-
   if (type === 'login') {
     return {
       type: LOGIN_REQUEST,
@@ -45,10 +44,10 @@ export const loginRequest = data => async dispatch => {
   dispatch(fetchPending());
   postRequest('auth/login', data).then(response => {
     const authToken = response.data;
+    saveItem('token', authToken);
     dispatch(fetchRequestSuccess());
     dispatch(fetchAccessRequest('login', authToken, data));
   }).catch(error => {
-    console.log(error);
     dispatch(fetchRequestFailed(error));
   });
 };
@@ -56,12 +55,10 @@ export const loginRequest = data => async dispatch => {
 export const signupRequest = data => async dispatch => {
   dispatch(fetchPending());
   postRequest('signup', data).then(response => {
-    console.log(response.data);
     const authToken = response.data;
     dispatch(fetchRequestSuccess());
     dispatch(fetchAccessRequest('signup', authToken, data));
   }).catch(error => {
-    console.log(error);
     dispatch(fetchRequestFailed(error));
   });
 
@@ -77,5 +74,4 @@ export const signupRequest = data => async dispatch => {
   //     dispatch(nameOfTheFetchingFunction)
   //   })
   // };
-  console.log('this is happening');
 };

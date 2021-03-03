@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { GET_BUSINESS, SET_BUSINESS } from '../constants/data';
 
 const initialState = {
@@ -13,8 +14,10 @@ const initialState = {
 };
 
 const dataReducer = (state = initialState, action) => {
+  console.log('the data reducer is being trigger');
   switch (action) {
     case GET_BUSINESS:
+      console.log('get business being trigger');
       return {
         ...state,
         business: action.payload,
