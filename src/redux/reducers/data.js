@@ -14,8 +14,8 @@ const initialState = {
 };
 
 const dataReducer = (state = initialState, action) => {
-  console.log('the data reducer is being trigger');
-  switch (action) {
+  console.log(action.type);
+  switch (action.type) {
     case GET_BUSINESS:
       console.log('get business being trigger');
       return {

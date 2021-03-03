@@ -5,9 +5,11 @@
 import React, { useLayoutEffect } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import buildLoader from '../components/Loader';
 import fetchGetProducts from '../redux/actions/data';
+import { retrieveItem } from '../helpers';
 
 const Home = ({
   
@@ -18,6 +20,10 @@ const Home = ({
   }
   useLayoutEffect(() => {
     console.log('fetching products');
+    const authToken = retrieveItem('token').replace(/['"]+/g, '');
+    console.log(authToken);
+    console.log('get Request happening');
+    axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
     fetchGetProducts('business');
   }, []);
   return (

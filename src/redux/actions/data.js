@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import axios from 'axios';
 import { GET_BUSINESS } from '../constants/data';
 import { getRequest } from '../../api/helpers';
 
@@ -14,11 +13,9 @@ const fetchRequestFailed = error => ({
 });
 
 const fetchGetProducts = endpoint => async dispatch => {
-  console.log(axios.defaults.headers);
   getRequest(endpoint).then(response => {
-    const { data } = response.data;
-    console.log(data);
-    dispatch(fetchBusinessRequest(data));
+    console.log(response.data);
+    dispatch(fetchBusinessRequest(response.data));
   }).catch(error => {
     console.log(error);
     dispatch(fetchRequestFailed(error));

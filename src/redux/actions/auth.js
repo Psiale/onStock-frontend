@@ -44,7 +44,7 @@ export const loginRequest = data => async dispatch => {
   dispatch(fetchPending());
   postRequest('auth/login', data).then(response => {
     const authToken = response.data;
-    saveItem('token', authToken);
+    saveItem('token', authToken.auth_token);
     dispatch(fetchRequestSuccess());
     dispatch(fetchAccessRequest('login', authToken, data));
   }).catch(error => {
