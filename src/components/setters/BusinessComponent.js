@@ -9,19 +9,20 @@ import { connect } from 'react-redux';
 
 import { fetchPostData } from '../../redux/actions/data';
 import { createInput } from '../../helpers';
+import buildLoader from '../Loader';
 
-const BusinessComponent = ({ fetchPostData }) => {
+const BusinessComponent = ({ fetchPostData, loading }) => {
   const [values, setValues] = useState({
     name: '',
   });
   // const history = useHistory();
 
-  const handleSubmit = event => {
+  const handleSubmit = () => {
     fetchPostData('business',
       {
         name: values.name,
         avatar: 'default value',
-      }).then(event.preventDefault());
+      }).then((loading === true) ? buildLoader() : console.log('render results'));
   };
   const handleChange = evt => {
     const { value } = evt.target;
@@ -48,10 +49,12 @@ const BusinessComponent = ({ fetchPostData }) => {
 
 BusinessComponent.propTypes = {
   fetchPostData: Proptypes.func.isRequired,
+  loading: Proptypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   authToken: state.authStore.auth_token,
+  loading: state.dataStore.loading,
 });
 
 const mapDispatchToProps = dispatch => ({
