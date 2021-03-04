@@ -1,4 +1,5 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import RawMaterialsListComponent from '../components/RawMaterialsListComponent';
 import Auth from './Auth';
 import Home from './Home';
 
@@ -7,6 +8,7 @@ const Routes = () => (
     <Switch>
       <Route exact path="/" component={Auth} />
       <Route path="/dashboard" component={Home} />
+      <Route path="/business/raw_materials" component={RawMaterialsListComponent} />
     </Switch>
   </BrowserRouter>
 );

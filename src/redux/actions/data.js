@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { GET_BUSINESS, SET_BUSINESS } from '../constants/data';
+import { GET_BUSINESS, SET_BUSINESS, GET_RAW_MATERIALS } from '../constants/data';
 import { getRequest, postRequest } from '../../api/helpers';
 import { REQUEST_PENDING } from '../constants/auth';
 
@@ -15,6 +15,11 @@ const fetchRequestFailed = error => ({
 
 const fetchBusinessRequestPost = data => ({
   type: SET_BUSINESS,
+  payload: data,
+});
+
+const fetchRawMaterialsRequest = data => ({
+  type: GET_RAW_MATERIALS,
   payload: data,
 });
 
@@ -48,10 +53,9 @@ export const fetchGetRawMaterials = endpoint => async dispatch => {
   dispatch(fetchPending());
   getRequest(endpoint).then(response => {
     console.log(response.data);
-    dispatch(fetchBusinessRequest(response.data));
+    dispatch(fetchRawMaterialsRequest(response.data));
   }).catch(error => {
     console.log(error);
     dispatch(fetchRequestFailed(error));
   });
 };
-

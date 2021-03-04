@@ -5,6 +5,7 @@
 import React, { useLayoutEffect } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import buildLoader from '../components/Loader';
@@ -27,6 +28,8 @@ const Home = ({
     axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
     fetchGetData('business');
   }, []);
+
+  const history = useHistory();
   return (
     <>
       <p>
