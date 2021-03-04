@@ -10,7 +10,7 @@ const initialState = {
     owner_id: null,
   },
   products: [],
-  rawMaterials: [],
+  raw_materials: [],
   error: '',
   loading: false,
 };

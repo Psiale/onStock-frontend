@@ -43,3 +43,15 @@ export const fetchPostData = (endpoint, data) => async dispatch => {
     dispatch(fetchRequestFailed(error));
   });
 };
+
+export const fetchGetRawMaterials = endpoint => async dispatch => {
+  dispatch(fetchPending());
+  getRequest(endpoint).then(response => {
+    console.log(response.data);
+    dispatch(fetchBusinessRequest(response.data));
+  }).catch(error => {
+    console.log(error);
+    dispatch(fetchRequestFailed(error));
+  });
+};
+
