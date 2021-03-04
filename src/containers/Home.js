@@ -8,12 +8,13 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 import buildLoader from '../components/Loader';
-import fetchGetProducts from '../redux/actions/data';
+import { fetchGetData } from '../redux/actions/data';
 import { retrieveItem } from '../helpers';
+import BusinessComponent from '../components/setters/BusinessComponent';
 
 const Home = ({
   
-  credentials, loading, isAuth, business, fetchGetProducts,
+  credentials, loading, isAuth, business, fetchGetData,
 }) => {
   if (loading === true && isAuth === false) {
     return buildLoader();
@@ -24,13 +25,13 @@ const Home = ({
     console.log(authToken);
     console.log('get Request happening');
     axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
-    fetchGetProducts('business');
+    fetchGetData('business');
   }, []);
   return (
     <>
       <p>
         Welcome back: {credentials.name}
-        Business name: { (business !== null) ? business.name : 'no business yet' }
+        Business name: { (business !== null) ? business.name : <BusinessComponent /> }
       </p>
     </>
   );
@@ -45,7 +46,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchGetProducts: endpoint => dispatch(fetchGetProducts(endpoint)),
+  fetchGetData: endpoint => dispatch(fetchGetData(endpoint)),
 });
 
 Home.propTypes = {
@@ -63,7 +64,7 @@ Home.propTypes = {
     avatar: Proptypes.string.isRequired,
     owner_id: Proptypes.number,
   }).isRequired,
-  fetchGetProducts: Proptypes.func.isRequired,
+  fetchGetData: Proptypes.func.isRequired,
 };
 
 Home.defaultProps = {

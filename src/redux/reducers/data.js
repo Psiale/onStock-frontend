@@ -23,6 +23,7 @@ const dataReducer = (state = initialState, action) => {
         business: action.payload,
       };
     case SET_BUSINESS:
+      console.log('set business being trigger');
       return {
         ...state,
         business: action.payload,

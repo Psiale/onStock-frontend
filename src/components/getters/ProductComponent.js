@@ -4,13 +4,13 @@ import axios from 'axios';
 import React from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
-import fetchGetProducts from '../../redux/actions/data';
+import { fetchGetData } from '../../redux/actions/data';
 // import { createInput } from '../../helpers';
 
-const GetProductComponent = ({ inputs, authToken, fetchGetProducts }) => {
+const GetProductComponent = ({ authToken, fetchGetData }) => {
   // working on the dynamic creation of state using the inputs array
   const handleOnClick = () => {
-    fetchGetProducts('business');
+    fetchGetData('business');
   };
   axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
   return (
@@ -23,9 +23,8 @@ const GetProductComponent = ({ inputs, authToken, fetchGetProducts }) => {
 };
 
 GetProductComponent.propTypes = {
-  inputs: Proptypes.arrayOf(Proptypes.string).isRequired,
   authToken: Proptypes.string.isRequired,
-  fetchGetProducts: Proptypes.func.isRequired,
+  fetchGetData: Proptypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -33,7 +32,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchGetProducts: endpoint => dispatch(fetchGetProducts(endpoint)),
+  fetchGetData: endpoint => dispatch(fetchGetData(endpoint)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GetProductComponent);
