@@ -1,3 +1,4 @@
 export const GET_BUSINESS = 'GET_BUSINESS';
 export const SET_BUSINESS = 'SET_BUSINESS';
 export const GET_RAW_MATERIALS = 'GET_RAW_MATERIALS';
+export const SET_RAW_MATERIALS = 'SET_RAW_MATERIALS';

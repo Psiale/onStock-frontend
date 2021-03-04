@@ -30,12 +30,23 @@ const Home = ({
   }, []);
 
   const history = useHistory();
+
+  const handleOnClick = () => history.push('/business/raw_materials');
   return (
     <>
       <p>
         Welcome back: {credentials.name}
-        Business name: { (business !== null) ? business.name : <BusinessComponent /> }
       </p>
+      <div>
+        Business name: { (business !== null) ? (
+          <div>
+            <p> {business.name} </p>
+            <button onClick={handleOnClick} type="button">
+              Raw Materials
+            </button>
+          </div>
+      ) : <BusinessComponent /> }
+      </div>
     </>
   );
 };

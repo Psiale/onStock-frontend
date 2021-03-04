@@ -1,30 +1,26 @@
 /* eslint-disable no-unused-expressions */
-import React, { useEffect } from 'react-dom';
+import React, { useLayoutEffect } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { fetchGetRawMaterials } from '../redux/actions/data';
-import buildLoader from './Loader';
+import RawMaterialComponent from './setters/RawMaterialComponent';
 
 const RawMaterialsListComponent = ({
   fetchGetRawMaterials,
   rawMaterials,
   business,
-  loading,
 }) => {
-  useEffect(() => {
+  useLayoutEffect(() => {
     fetchGetRawMaterials(`business/${business.id}/raw_materials`);
-  }, [rawMaterials]);
+  }, []);
 
-  (loading === true) ? buildLoader() : (
+  return (rawMaterials !== null) ? (
     <>
-      {rawMaterials.map(element => (
-        <p key={element.id}>
-          {element.name}
-        </p>
-      ))}
+      {rawMaterials.map(items => <p key={items.id}>{items.name}</p>)}
+      <RawMaterialComponent />
     </>
-  );
+  ) : <RawMaterialComponent />;
 };
 
 RawMaterialsListComponent.propTypes = {
@@ -40,13 +36,11 @@ RawMaterialsListComponent.propTypes = {
     avatar: Proptypes.string.isRequired,
     owner_id: Proptypes.number,
   }).isRequired,
-  loading: Proptypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   rawMaterials: state.dataStore.raw_materials,
   business: state.dataStore.business,
-  loading: state.dataStore.loading,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import { REQUEST_PENDING } from '../constants/auth';
-import { GET_BUSINESS, SET_BUSINESS } from '../constants/data';
+import {
+  GET_BUSINESS, GET_RAW_MATERIALS, SET_BUSINESS, SET_RAW_MATERIALS,
+} from '../constants/data';
 
 const initialState = {
   business: {
@@ -36,6 +38,20 @@ const dataReducer = (state = initialState, action) => {
         ...state,
         business: action.payload,
         loading: false,
+      };
+
+    case GET_RAW_MATERIALS:
+      console.log('get raw materials trigger');
+      return {
+        ...state,
+        raw_materials: action.payload,
+      };
+
+    case SET_RAW_MATERIALS:
+      console.log('set raw materials trigger');
+      return {
+        ...state,
+        raw_materials: action.payload,
       };
 
     case 'REQUEST_FAILED':
