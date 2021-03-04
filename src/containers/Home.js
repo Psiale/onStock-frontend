@@ -30,7 +30,7 @@ const Home = ({
     <>
       <p>
         Welcome back: {credentials.name}
-        Business name: {business.name}
+        Business name: { (business !== null) ? business.name : 'no business yet' }
       </p>
     </>
   );

@@ -56,6 +56,7 @@ export const signupRequest = data => async dispatch => {
   dispatch(fetchPending());
   postRequest('signup', data).then(response => {
     const authToken = response.data;
+    saveItem('token', authToken.auth_token);
     dispatch(fetchRequestSuccess());
     dispatch(fetchAccessRequest('signup', authToken, data));
   }).catch(error => {
