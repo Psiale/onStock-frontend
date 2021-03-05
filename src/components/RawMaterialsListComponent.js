@@ -27,8 +27,8 @@ RawMaterialsListComponent.propTypes = {
   fetchGetRawMaterials: Proptypes.func.isRequired,
   rawMaterials: Proptypes.arrayOf(Proptypes.shape({
     name: Proptypes.string,
-    total_amount: Proptypes.string,
-    remaining_amount: Proptypes.string,
+    total_amount: Proptypes.number,
+    remaining_amount: Proptypes.number,
   })).isRequired,
   business: Proptypes.shape({
     id: Proptypes.number,

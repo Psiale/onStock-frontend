@@ -25,8 +25,8 @@ const RawMaterialComponent = ({ fetchPostRawMaterials, business }) => {
     fetchPostRawMaterials(`business/${business.id}/raw_materials`,
       {
         name: values.name,
-        totalAmount: values.totalAmount,
-        remainingAmount: values.totalAmount,
+        total_amount: values.totalAmount,
+        remaining_amount: values.totalAmount,
       }).then(
       event.preventDefault(),
       console.log(
