@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Multiselect } from 'multiselect-react-dropdown';
@@ -15,13 +16,19 @@ const RawMaterialsListComponent = ({
   useLayoutEffect(() => {
     fetchGetRawMaterials(`business/${business.id}/raw_materials`);
   }, []);
-
+  const selectedMaterials = useRef();
+  const handleSelect = () => {
+    selectedMaterials.current.getSelectedItems();
+    console.log(selectedMaterials.current.getSelectedItems());
+  };
   return (rawMaterials !== null) ? (
     <>
       {rawMaterials.map(items => <p key={items.id}>{items.name}</p>)}
       <Multiselect
         options={rawMaterials}
         displayValue="name"
+        ref={selectedMaterials}
+        onSelect={handleSelect}
       />
       <p> Testing </p>
       <RawMaterialComponent />
