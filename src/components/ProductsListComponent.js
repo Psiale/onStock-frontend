@@ -3,32 +3,31 @@ import React, { useLayoutEffect } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { fetchGetRawMaterials } from '../redux/actions/data';
-import RawMaterialComponent from './setters/RawMaterialComponent';
+import { fetchGetProducts } from '../redux/actions/data';
+import ProductComponent from './setters/ProductComponent';
 
 const ProductsListComponent = ({
-  fetchGetRawMaterials,
-  rawMaterials,
+  fetchGetProducts,
+  products,
   business,
 }) => {
   useLayoutEffect(() => {
-    fetchGetRawMaterials(`business/${business.id}/raw_materials`);
+    fetchGetProducts(`business/${business.id}/products`);
   }, []);
 
-  return (rawMaterials !== null) ? (
+  return (products !== null) ? (
     <>
-      {rawMaterials.map(items => <p key={items.id}>{items.name}</p>)}
-      <RawMaterialComponent />
+      {products.map(items => <p key={items.id}>{items.name}</p>)}
+      <ProductComponent />
     </>
-  ) : <RawMaterialComponent />;
+  ) : <ProductComponent />;
 };
 
 ProductsListComponent.propTypes = {
-  fetchGetRawMaterials: Proptypes.func.isRequired,
-  rawMaterials: Proptypes.arrayOf(Proptypes.shape({
+  fetchGetProducts: Proptypes.func.isRequired,
+  products: Proptypes.arrayOf(Proptypes.shape({
     name: Proptypes.string,
-    total_amount: Proptypes.number,
-    remaining_amount: Proptypes.number,
+    cost: Proptypes.number,
   })).isRequired,
   business: Proptypes.shape({
     id: Proptypes.number,
@@ -39,12 +38,12 @@ ProductsListComponent.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  rawMaterials: state.dataStore.raw_materials,
+  products: state.dataStore.products,
   business: state.dataStore.business,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchGetRawMaterials: endpoint => dispatch(fetchGetRawMaterials(endpoint)),
+  fetchGetProducts: endpoint => dispatch(fetchGetProducts(endpoint)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsListComponent);

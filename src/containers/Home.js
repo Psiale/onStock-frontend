@@ -31,7 +31,7 @@ const Home = ({
 
   const history = useHistory();
 
-  const handleOnClick = () => history.push('/business/raw_materials');
+  const handleOnClick = endpoint => history.push(endpoint);
   return (
     <>
       <p>
@@ -41,8 +41,11 @@ const Home = ({
         Business name: { (business !== null) ? (
           <div>
             <p> {business.name} </p>
-            <button onClick={handleOnClick} type="button">
+            <button onClick={() => { handleOnClick('/business/raw_materials'); }} type="button">
               Raw Materials
+            </button>
+            <button onClick={() => { handleOnClick('/business/products'); }} type="button">
+              Products
             </button>
           </div>
       ) : <BusinessComponent /> }
