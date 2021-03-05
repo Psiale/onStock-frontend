@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-console */
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Proptypes from 'prop-types';
 import { loginRequest } from '../redux/actions/auth';
+import { createInput } from '../helpers';
 
 const LoginForm = ({ loginRequest }) => {
   const [values, setValues] = useState({
@@ -32,22 +34,11 @@ const LoginForm = ({ loginRequest }) => {
     console.log(values);
   };
 
-  const createInput = (htmlFor, inputValue, changeHandle) => {
-    console.log(inputValue);
-    return (
-      <>
-        <label htmlFor={htmlFor}>
-          {htmlFor}
-          <input id={htmlFor} name={htmlFor} type="text" value={inputValue} onChange={changeHandle} />
-        </label>
-      </>
-    );
-  };
   return (
     <>
       <form onSubmit={handleSubmit}>
-        {createInput('email', values.email, handleChange)}
-        {createInput('password', values.password, handleChange)}
+        {createInput('email', values.email, handleChange, 'email')}
+        {createInput('password', values.password, handleChange, 'password')}
         <input type="submit" value="Login" />
       </form>
     </>

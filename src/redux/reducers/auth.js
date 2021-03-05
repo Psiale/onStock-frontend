@@ -1,5 +1,7 @@
+/* eslint-disable no-console */
 import {
   ACCESS_REQUEST,
+  LOGIN_REQUEST,
   REQUEST_FAILED,
   REQUEST_PENDING,
   REQUEST_SUCCEED,
@@ -9,12 +11,13 @@ const initialState = {
   is_auth: false,
   loading: false,
   credentials: '',
-  authToken: '',
+  login_credentials: '',
+  auth_token: 'not setup',
   error: '',
 };
 
 const authReducer = (state = initialState, action) => {
-  switch (action) {
+  switch (action.type) {
     case REQUEST_PENDING:
       return {
         ...state,
@@ -23,9 +26,16 @@ const authReducer = (state = initialState, action) => {
     case ACCESS_REQUEST:
       return {
         ...state,
-        is_auth: false,
         loading: true,
         credentials: action.credentials,
+        auth_token: action.payload,
+        error: '',
+      };
+    case LOGIN_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        login_credentials: action.login_credentials,
         auth_token: action.payload,
         error: '',
       };
@@ -34,7 +44,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         is_auth: false,
         loading: false,
-        authToken: '',
+        auth_token: '',
         error: action.payload,
       };
     case REQUEST_SUCCEED:
@@ -42,6 +52,14 @@ const authReducer = (state = initialState, action) => {
         ...state,
         is_auth: true,
         loading: false,
+      };
+    case 'DEFAULT':
+      return {
+        ...state,
+        is_auth: false,
+        loading: false,
+        auth_token: '',
+        error: '',
       };
     default: return state;
   }
