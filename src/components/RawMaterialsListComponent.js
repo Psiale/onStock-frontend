@@ -2,6 +2,7 @@
 import React, { useLayoutEffect } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Multiselect } from 'multiselect-react-dropdown';
 
 import { fetchGetRawMaterials } from '../redux/actions/data';
 import RawMaterialComponent from './setters/RawMaterialComponent';
@@ -18,9 +19,18 @@ const RawMaterialsListComponent = ({
   return (rawMaterials !== null) ? (
     <>
       {rawMaterials.map(items => <p key={items.id}>{items.name}</p>)}
+      <Multiselect
+        options={rawMaterials}
+        displayValue="name"
+      />
+      <p> Testing </p>
       <RawMaterialComponent />
     </>
-  ) : <RawMaterialComponent />;
+  ) : (
+    <div>
+      <RawMaterialComponent />
+    </div>
+  );
 };
 
 RawMaterialsListComponent.propTypes = {
