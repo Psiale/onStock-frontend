@@ -69,6 +69,8 @@ export const fetchGetRawMaterials = endpoint => async dispatch => {
 
 export const fetchPostRawMaterials = (endpoint, data) => async dispatch => {
   dispatch(fetchPending());
+  // I have to verify the data type
+  console.log(`this is the data ${data}`);
   postRequest(endpoint, data).then(response => {
     console.log(response.data);
     dispatch(fetchRawMaterialsRequestPost(response.data));

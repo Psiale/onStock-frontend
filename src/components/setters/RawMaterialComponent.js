@@ -11,7 +11,7 @@ import { fetchPostRawMaterials } from '../../redux/actions/data';
 import { createInput } from '../../helpers';
 // import buildLoader from '../Loader';
 
-const BusinessComponent = ({ fetchPostRawMaterials }) => {
+const RawMaterialComponent = ({ fetchPostRawMaterials, business }) => {
   const [values, setValues] = useState({
     name: '',
     totalAmount: '',
@@ -20,8 +20,9 @@ const BusinessComponent = ({ fetchPostRawMaterials }) => {
 
   const handleSubmit = event => {
     console.log(axios.defaults.headers.common);
-    // Im sending a wrong request, Im creating a new business when I should be creating a new raw material
-    fetchPostRawMaterials('business',
+    // Im sending a wrong request,
+    // Im creating a new business when I should be creating a new raw material
+    fetchPostRawMaterials(`business/${business.id}/raw_materials`,
       {
         name: values.name,
         totalAmount: values.totalAmount,
@@ -59,16 +60,23 @@ const BusinessComponent = ({ fetchPostRawMaterials }) => {
   );
 };
 
-BusinessComponent.propTypes = {
+RawMaterialComponent.propTypes = {
   fetchPostRawMaterials: Proptypes.func.isRequired,
+  business: Proptypes.shape({
+    id: Proptypes.number,
+    name: Proptypes.string.isRequired,
+    avatar: Proptypes.string.isRequired,
+    owner_id: Proptypes.number,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({
   loading: state.dataStore.loading,
+  business: state.dataStore.business,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchPostRawMaterials: (endpoint, data) => dispatch(fetchPostRawMaterials(endpoint, data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BusinessComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(RawMaterialComponent);
