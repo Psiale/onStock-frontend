@@ -1,26 +1,33 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Multiselect } from 'multiselect-react-dropdown';
 
-import { fetchGetRawMaterials } from '../redux/actions/data';
+import { fetchGetRawMaterials, fetchPostProductMaterials } from '../redux/actions/data';
 import RawMaterialComponent from './setters/RawMaterialComponent';
 
 const RawMaterialsListComponent = ({
   fetchGetRawMaterials,
   rawMaterials,
   business,
+  fetchPostProductMaterials,
 }) => {
   useLayoutEffect(() => {
     fetchGetRawMaterials(`business/${business.id}/raw_materials`);
   }, []);
   const selectedMaterials = useRef();
+  const [selectedItems, setSelectedItems] = useState([]);
   const handleSelect = () => {
-    selectedMaterials.current.getSelectedItems();
-    console.log(selectedMaterials.current.getSelectedItems());
+    setSelectedItems(selectedMaterials.current.getSelectedItems());
+    console.log(selectedItems);
   };
+
+  const handleOnClick = () => {
+    fetchPostProductMaterials(`business/${business.id}/products/1/${selectedItems}`);
+  };
+
   return (rawMaterials !== null) ? (
     <>
       {rawMaterials.map(items => <p key={items.id}>{items.name}</p>)}
@@ -30,7 +37,9 @@ const RawMaterialsListComponent = ({
         ref={selectedMaterials}
         onSelect={handleSelect}
       />
-      <p> Testing </p>
+      <button type="button" onClick={handleOnClick}>
+        save product
+      </button>
       <RawMaterialComponent />
     </>
   ) : (
@@ -53,6 +62,7 @@ RawMaterialsListComponent.propTypes = {
     avatar: Proptypes.string.isRequired,
     owner_id: Proptypes.number,
   }).isRequired,
+  fetchPostProductMaterials: Proptypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -62,6 +72,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchGetRawMaterials: endpoint => dispatch(fetchGetRawMaterials(endpoint)),
+  fetchPostProductMaterials:
+  (endpoint, data) => dispatch(fetchPostProductMaterials(endpoint, data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RawMaterialsListComponent);
