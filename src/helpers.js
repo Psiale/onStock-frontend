@@ -25,4 +25,6 @@ export const saveItem = (string, object) => {
 
 export const retrieveItem = string => localStorage.getItem(string);
 
+export const extractID = element => element.id;
+
 // export const handleInvalidInput = (message, e) => e.target.setCustomValidity(message);

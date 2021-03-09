@@ -1,26 +1,56 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Multiselect } from 'multiselect-react-dropdown';
 
-import { fetchGetRawMaterials } from '../redux/actions/data';
+import { fetchGetRawMaterials, fetchPostProductMaterials } from '../redux/actions/data';
 import RawMaterialComponent from './setters/RawMaterialComponent';
+import { extractID } from '../helpers';
 
 const RawMaterialsListComponent = ({
   fetchGetRawMaterials,
   rawMaterials,
   business,
+  fetchPostProductMaterials,
 }) => {
   useLayoutEffect(() => {
     fetchGetRawMaterials(`business/${business.id}/raw_materials`);
   }, []);
+  const selectedMaterials = useRef();
+  const [selectedItems, setSelectedItems] = useState([]);
+  const handleSelect = () => {
+    setSelectedItems(selectedMaterials.current.getSelectedItems()
+      .map(element => extractID(element)));
+    console.log(selectedItems);
+  };
 
-  return (rawMaterials !== null) ? (
+  const handleOnClick = () => {
+    fetchPostProductMaterials(`business/${business.id}/products/38/raw_materials`,
+      `product_raw_materials=[${selectedItems}]`);
+  };
+
+  return (rawMaterials !== []) ? (
     <>
       {rawMaterials.map(items => <p key={items.id}>{items.name}</p>)}
+      <Multiselect
+        options={rawMaterials}
+        displayValue="name"
+        closeOnSelect={false}
+        ref={selectedMaterials}
+        onSelect={handleSelect}
+      />
+      <button type="button" onClick={handleOnClick}>
+        save product
+      </button>
       <RawMaterialComponent />
     </>
-  ) : <RawMaterialComponent />;
+  ) : (
+    <div>
+      <RawMaterialComponent />
+    </div>
+  );
 };
 
 RawMaterialsListComponent.propTypes = {
@@ -36,6 +66,7 @@ RawMaterialsListComponent.propTypes = {
     avatar: Proptypes.string.isRequired,
     owner_id: Proptypes.number,
   }).isRequired,
+  fetchPostProductMaterials: Proptypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -45,6 +76,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchGetRawMaterials: endpoint => dispatch(fetchGetRawMaterials(endpoint)),
+  fetchPostProductMaterials:
+  (endpoint, data) => dispatch(fetchPostProductMaterials(endpoint, data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RawMaterialsListComponent);
