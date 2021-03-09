@@ -7,6 +7,7 @@ import { Multiselect } from 'multiselect-react-dropdown';
 
 import { fetchGetRawMaterials, fetchPostProductMaterials } from '../redux/actions/data';
 import RawMaterialComponent from './setters/RawMaterialComponent';
+import { extractID } from '../helpers';
 
 const RawMaterialsListComponent = ({
   fetchGetRawMaterials,
@@ -20,6 +21,7 @@ const RawMaterialsListComponent = ({
   const selectedMaterials = useRef();
   const [selectedItems, setSelectedItems] = useState([{ product_raw_materials: [] }]);
   const handleSelect = () => {
+    console.log(selectedMaterials.current.getSelectedItems().map(element => extractID(element)));
     setSelectedItems({ product_raw_materials: selectedMaterials.current.getSelectedItems() });
     console.log(selectedItems);
   };

@@ -56,7 +56,7 @@ export const fetchGetData = endpoint => async dispatch => {
     console.log(response.data);
     dispatch(fetchBusinessRequest(response.data));
   }).catch(error => {
-    console.log(error);
+    console.log(error.message);
     dispatch(fetchRequestFailed(error));
   });
 };
@@ -67,7 +67,7 @@ export const fetchPostData = (endpoint, data) => async dispatch => {
     console.log(response.data);
     dispatch(fetchBusinessRequestPost(response.data));
   }).catch(error => {
-    console.log(error);
+    console.log(error.message);
     dispatch(fetchRequestFailed(error));
   });
 };
@@ -78,7 +78,7 @@ export const fetchGetRawMaterials = endpoint => async dispatch => {
     console.log(response.data);
     dispatch(fetchRawMaterialsRequest(response.data));
   }).catch(error => {
-    console.log(error);
+    console.log(error.message);
     dispatch(fetchRequestFailed(error));
   });
 };
@@ -91,7 +91,7 @@ export const fetchPostRawMaterials = (endpoint, data) => async dispatch => {
     console.log(response.data);
     dispatch(fetchRawMaterialsRequestPost(response.data));
   }).catch(error => {
-    console.log(error);
+    console.log(error.message);
     dispatch(fetchRequestFailed(error));
   });
 };
@@ -102,7 +102,7 @@ export const fetchGetProducts = endpoint => async dispatch => {
     console.log(response.data);
     dispatch(fetchProductsRequest(response.data));
   }).catch(error => {
-    console.log(error);
+    console.log(error.message);
     dispatch(fetchRequestFailed(error));
   });
 };
@@ -115,7 +115,7 @@ export const fetchPostProducts = (endpoint, data) => async dispatch => {
     console.log(response.data);
     dispatch(fetchProductsRequestPost(response.data));
   }).catch(error => {
-    console.log(error);
+    console.log(error.message);
     dispatch(fetchRequestFailed(error));
   });
 };
@@ -128,7 +128,7 @@ export const fetchPostProductMaterials = (endpoint, data) => async dispatch => {
     console.log(response.data);
     dispatch(fetchProductRawMaterials(response.data));
   }).catch(error => {
-    console.log(error);
+    console.log(error.message);
     dispatch(fetchRequestFailed(error));
   });
 };
