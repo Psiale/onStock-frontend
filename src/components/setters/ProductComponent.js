@@ -48,7 +48,6 @@ const ProductComponent = ({ fetchPostProducts, business }) => {
 
   return (
     <>
-      <span> Add a new Product </span>
       <form onSubmit={handleSubmit}>
         {createInput('name', values.name, handleChange)}
         {createInput('cost', values.cost, handleChange)}

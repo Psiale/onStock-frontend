@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-expressions */
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { fetchGetProducts } from '../redux/actions/data';
 import ProductComponent from './setters/ProductComponent';
+import ModalComponent from './Modal';
 
 const ProductsListComponent = ({
   fetchGetProducts,
@@ -15,10 +16,15 @@ const ProductsListComponent = ({
     fetchGetProducts(`business/${business.id}/products`);
   }, []);
 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (products !== null) ? (
     <>
       {products.map(items => <p key={items.id}>{items.name}</p>)}
-      <ProductComponent />
+      <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Add a new Product" child={<ProductComponent />} />
     </>
   ) : <ProductComponent />;
 };
