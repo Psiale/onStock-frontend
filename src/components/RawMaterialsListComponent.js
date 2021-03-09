@@ -22,7 +22,10 @@ const RawMaterialsListComponent = ({
   const [selectedItems, setSelectedItems] = useState([{ product_raw_materials: [] }]);
   const handleSelect = () => {
     console.log(selectedMaterials.current.getSelectedItems().map(element => extractID(element)));
-    setSelectedItems({ product_raw_materials: selectedMaterials.current.getSelectedItems() });
+    setSelectedItems({
+      product_raw_materials: selectedMaterials.current.getSelectedItems()
+        .map(element => extractID(element)),
+    });
     console.log(selectedItems);
   };
 

@@ -125,10 +125,11 @@ export const fetchPostProductMaterials = (endpoint, data) => async dispatch => {
   // I have to verify the data type
   console.log(`this is the data ${data}`);
   postRequest(endpoint, data).then(response => {
+    dispatch(fetchProductRawMaterials(data));
     console.log(response.data);
-    dispatch(fetchProductRawMaterials(response.data));
   }).catch(error => {
     console.log(error.message);
+    dispatch(fetchProductRawMaterials(data));
     dispatch(fetchRequestFailed(error));
   });
 };
