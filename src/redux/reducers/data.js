@@ -4,6 +4,7 @@ import {
   GET_BUSINESS, GET_PRODUCTS,
   GET_RAW_MATERIALS, SET_BUSINESS, SET_PRODUCTS,
   SET_PRODUCT_RAW_MATERIALS, SET_RAW_MATERIALS,
+  GET_PRODUCT_RAW_MATERIALS,
 } from '../constants/data';
 
 const initialState = {
@@ -72,6 +73,13 @@ const dataReducer = (state = initialState, action) => {
 
     case SET_PRODUCT_RAW_MATERIALS:
       console.log('set materials trigger');
+      return {
+        ...state,
+        selectedMaterials: action.payload,
+      };
+
+    case GET_PRODUCT_RAW_MATERIALS:
+      console.log('GET materials trigger');
       return {
         ...state,
         selectedMaterials: action.payload,

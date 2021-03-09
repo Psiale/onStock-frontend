@@ -33,7 +33,7 @@ const RawMaterialsListComponent = ({
   };
 
   const handleOnClick = () => {
-    fetchPostProductMaterials(`business/${business.id}/products/38/raw_materials`,
+    fetchPostProductMaterials(`business/${business.id}/products/46/raw_materials`,
       `product_raw_materials=[${selectedItems}]`);
   };
 
@@ -50,11 +50,11 @@ const RawMaterialsListComponent = ({
       <button type="button" onClick={handleOnClick}>
         save product
       </button>
-      <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Add a new Product" child={<RawMaterialComponent />} />
+      <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Create a new Raw Material" modalTitle="Add a new Raw Material" child={<RawMaterialComponent />} />
     </>
   ) : (
     <div>
-      <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Add a new Product" child={<RawMaterialComponent />} />
+      <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Create a new Raw Material" modalTitle="Add a new Raw Material" child={<RawMaterialComponent />} />
     </div>
   );
 };

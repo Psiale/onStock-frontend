@@ -5,20 +5,22 @@ import Button from 'react-bootstrap/Button';
 import Proptypes from 'prop-types';
 
 const ModalComponent = ({
-  title, child, handleClose, handleShow, show,
+  title,
+  modalTitle, child, handleClose, handleShow, show,
 }) => (
   <>
     <Button variant="primary" onClick={handleShow}>
-      Launch static backdrop modal
+      {title}
     </Button>
 
     <Modal
       show={show}
       onHide={handleClose}
       keyboard={false}
+      centered
     >
       <Modal.Header closeButton>
-        <Modal.Title>{title}</Modal.Title>
+        <Modal.Title>{modalTitle}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {child}
@@ -34,6 +36,7 @@ const ModalComponent = ({
 
 ModalComponent.propTypes = {
   child: Proptypes.object.isRequired,
+  modalTitle: Proptypes.string.isRequired,
   title: Proptypes.string.isRequired,
   handleClose: Proptypes.func.isRequired,
   handleShow: Proptypes.func.isRequired,
