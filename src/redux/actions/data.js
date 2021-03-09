@@ -113,7 +113,7 @@ export const fetchPostProducts = (endpoint, data) => async dispatch => {
   console.log(`this is the data ${data}`);
   postRequest(endpoint, data).then(response => {
     console.log(response.data);
-    dispatch(fetchProductRawMaterials(data));
+    dispatch(fetchProductsRequestPost(response.data));
   }).catch(error => {
     console.log(error);
     dispatch(fetchRequestFailed(error));
@@ -126,7 +126,7 @@ export const fetchPostProductMaterials = (endpoint, data) => async dispatch => {
   console.log(`this is the data ${data}`);
   postRequest(endpoint, data).then(response => {
     console.log(response.data);
-    dispatch(fetchProductsRequestPost(response.data));
+    dispatch(fetchProductRawMaterials(response.data));
   }).catch(error => {
     console.log(error);
     dispatch(fetchRequestFailed(error));

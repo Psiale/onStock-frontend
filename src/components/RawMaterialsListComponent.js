@@ -18,14 +18,16 @@ const RawMaterialsListComponent = ({
     fetchGetRawMaterials(`business/${business.id}/raw_materials`);
   }, []);
   const selectedMaterials = useRef();
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([{ product_raw_materials: [] }]);
   const handleSelect = () => {
-    setSelectedItems(selectedMaterials.current.getSelectedItems());
+    setSelectedItems({ product_raw_materials: selectedMaterials.current.getSelectedItems() });
     console.log(selectedItems);
   };
 
   const handleOnClick = () => {
-    fetchPostProductMaterials(`business/${business.id}/products/1/${selectedItems}`);
+    fetchPostProductMaterials(`business/${business.id}/products/3/raw_materials`, {
+      product_raw_materials: selectedItems,
+    });
   };
 
   return (rawMaterials !== null) ? (
@@ -34,6 +36,7 @@ const RawMaterialsListComponent = ({
       <Multiselect
         options={rawMaterials}
         displayValue="name"
+        closeOnSelect="false"
         ref={selectedMaterials}
         onSelect={handleSelect}
       />
