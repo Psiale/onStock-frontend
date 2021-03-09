@@ -37,7 +37,7 @@ const RawMaterialsListComponent = ({
       <Multiselect
         options={rawMaterials}
         displayValue="name"
-        closeOnSelect="false"
+        closeOnSelect={false}
         ref={selectedMaterials}
         onSelect={handleSelect}
       />
