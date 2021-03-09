@@ -31,7 +31,7 @@ const RawMaterialsListComponent = ({
       `product_raw_materials=[${selectedItems}]`);
   };
 
-  return (rawMaterials !== null) ? (
+  return (rawMaterials !== []) ? (
     <>
       {rawMaterials.map(items => <p key={items.id}>{items.name}</p>)}
       <Multiselect
