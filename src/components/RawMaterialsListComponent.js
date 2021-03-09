@@ -8,6 +8,7 @@ import { Multiselect } from 'multiselect-react-dropdown';
 import { fetchGetRawMaterials, fetchPostProductMaterials } from '../redux/actions/data';
 import RawMaterialComponent from './setters/RawMaterialComponent';
 import { extractID } from '../helpers';
+import ModalComponent from './Modal';
 
 const RawMaterialsListComponent = ({
   fetchGetRawMaterials,
@@ -18,6 +19,11 @@ const RawMaterialsListComponent = ({
   useLayoutEffect(() => {
     fetchGetRawMaterials(`business/${business.id}/raw_materials`);
   }, []);
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const selectedMaterials = useRef();
   const [selectedItems, setSelectedItems] = useState([]);
   const handleSelect = () => {
@@ -44,11 +50,11 @@ const RawMaterialsListComponent = ({
       <button type="button" onClick={handleOnClick}>
         save product
       </button>
-      <RawMaterialComponent />
+      <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Add a new Product" child={<RawMaterialComponent />} />
     </>
   ) : (
     <div>
-      <RawMaterialComponent />
+      <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Add a new Product" child={<RawMaterialComponent />} />
     </div>
   );
 };

@@ -26,7 +26,7 @@ const ProductsListComponent = ({
       {products.map(items => <p key={items.id}>{items.name}</p>)}
       <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Add a new Product" child={<ProductComponent />} />
     </>
-  ) : <ProductComponent />;
+  ) : <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Add a new Product" child={<ProductComponent />} />;
 };
 
 ProductsListComponent.propTypes = {

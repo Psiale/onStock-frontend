@@ -27,7 +27,6 @@ const ModalComponent = ({
         <button type="button" onClick={handleClose}>
           Close
         </button>
-        <button type="button">Understood</button>
       </Modal.Footer>
     </Modal>
   </>
