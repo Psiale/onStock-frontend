@@ -6,9 +6,9 @@ import { createInput } from '../../helpers';
 import Ingredient from '../../classes/Ingredient';
 import { fetchGetProductRawMaterials } from '../../redux/actions/data';
 
-const IngredientsComponent = ({ selectedMaterials }) => {
+const IngredientsComponent = ({ selectedMaterials, business, product }) => {
   useLayoutEffect(() => {
-    fetchGetProductRawMaterials() // update This function to have the endpoint that retrieves the product raw materials 
+    fetchGetProductRawMaterials(`business/${business.id}/products/${product.id}/raw_materials`);
   }, []);
   // eslint-disable-next-line react/prop-types
   const ingredients = selectedMaterials.map(
@@ -62,11 +62,23 @@ IngredientsComponent.propTypes = {
     total_amount: Proptypes.number.isRequired,
     remaining_amount: Proptypes.number.isRequired,
   }).isRequired,
+  business: Proptypes.shape({
+    id: Proptypes.number,
+    name: Proptypes.string.isRequired,
+    avatar: Proptypes.string.isRequired,
+    owner_id: Proptypes.number,
+  }).isRequired,
+  product: Proptypes.shape({
+    id: Proptypes.number,
+    name: Proptypes.string.isRequired,
+    avatar: Proptypes.string.isRequired,
+    owner_id: Proptypes.number,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({
-  authToken: state.authStore.auth_token,
-  loading: state.dataStore.loading,
+  business: state.dataStore.business,
+  loading: state.dataStore.selectedMaterials,
 });
 
 export default connect(mapStateToProps, null)(IngredientsComponent);

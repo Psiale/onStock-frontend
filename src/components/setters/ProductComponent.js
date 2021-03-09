@@ -8,6 +8,9 @@ import { connect } from 'react-redux';
 // import { useHistory } from 'react-router-dom';
 
 import { fetchPostProducts } from '../../redux/actions/data';
+// I have to make the 3 modals function here
+import IngredientsComponent from './IngredientsComponent';
+
 import { createInput } from '../../helpers';
 // import buildLoader from '../Loader';
 

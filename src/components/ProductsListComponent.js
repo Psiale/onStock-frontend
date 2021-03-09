@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { fetchGetProducts } from '../redux/actions/data';
 import ProductComponent from './setters/ProductComponent';
 import ModalComponent from './Modal';
-import IngredientsComponent from './setters/IngredientsComponent';
 
 const ProductsListComponent = ({
   fetchGetProducts,
@@ -26,7 +25,6 @@ const ProductsListComponent = ({
     <>
       {products.map(items => <p key={items.id}>{items.name}</p>)}
       <ModalComponent title="Create a new product" show={show} handleClose={handleClose} handleShow={handleShow} modalTitle="Add a new Product" child={<ProductComponent />} />
-      <IngredientsComponent />
     </>
   ) : <ModalComponent title="Create a new product" show={show} handleClose={handleClose} handleShow={handleShow} modalTitle="Add a new Product" child={<ProductComponent />} />;
 };

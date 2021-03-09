@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import {
   GET_BUSINESS, SET_BUSINESS, GET_RAW_MATERIALS, SET_RAW_MATERIALS,
-  GET_PRODUCTS, SET_PRODUCTS, SET_PRODUCT_RAW_MATERIALS,
+  GET_PRODUCTS, SET_PRODUCTS, SET_PRODUCT, SET_PRODUCT_RAW_MATERIALS,
   GET_PRODUCT_RAW_MATERIALS,
 } from '../constants/data';
 import { getRequest, postRequest } from '../../api/helpers';
@@ -42,6 +42,11 @@ const fetchProductsRequestPost = data => ({
   payload: data,
 });
 
+const fetchSingleBusinessRequest = data => ({
+  type: SET_PRODUCT,
+  payload: data,
+});
+
 const fetchProductRawMaterials = data => ({
   type: GET_PRODUCT_RAW_MATERIALS,
   payload: data,
@@ -71,6 +76,7 @@ export const fetchPostData = (endpoint, data) => async dispatch => {
   dispatch(fetchPending());
   postRequest(endpoint, data).then(response => {
     console.log(response.data);
+    dispatch(fetchSingleBusinessRequest(data));
     dispatch(fetchBusinessRequestPost(response.data));
   }).catch(error => {
     console.log(error.message);
