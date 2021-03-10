@@ -14,29 +14,25 @@ import { retrieveItem } from '../helpers';
 import BusinessComponent from '../components/setters/BusinessComponent';
 
 const Home = ({
-  
-  credentials, loading, isAuth, business, fetchGetData,
+  loading, isAuth, business, fetchGetData,
 }) => {
   if (loading === true && isAuth === false) {
     return buildLoader();
   }
+  const history = useHistory();
   useLayoutEffect(() => {
     console.log('fetching products');
     const authToken = retrieveItem('token').replace(/['"]+/g, '');
     console.log(authToken);
+    if (authToken === '') history.goBack();
     console.log('get Request happening');
     axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
     fetchGetData('business');
   }, []);
 
-  const history = useHistory();
-
   const handleOnClick = endpoint => history.push(endpoint);
   return (
     <>
-      <p>
-        Welcome back: {credentials.name}
-      </p>
       <div>
         Business name: { (business !== null) ? (
           <div>
@@ -56,7 +52,6 @@ const Home = ({
 
 // I need to change this mapStateToProps
 const mapStateToProps = state => ({
-  credentials: state.authStore.credentials,
   loading: state.authStore.loading,
   isAuth: state.authStore.is_auth,
   business: state.dataStore.business,
@@ -67,12 +62,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Home.propTypes = {
-  credentials: Proptypes.shape({
-    name: Proptypes.string,
-    email: Proptypes.string,
-    password: Proptypes.string,
-    password_confirmation: Proptypes.string,
-  }),
   loading: Proptypes.bool.isRequired,
   isAuth: Proptypes.bool.isRequired,
   business: Proptypes.shape({
@@ -82,15 +71,6 @@ Home.propTypes = {
     owner_id: Proptypes.number,
   }).isRequired,
   fetchGetData: Proptypes.func.isRequired,
-};
-
-Home.defaultProps = {
-  credentials: {
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-  },
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

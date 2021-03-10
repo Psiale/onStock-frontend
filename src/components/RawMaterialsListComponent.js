@@ -33,7 +33,7 @@ const RawMaterialsListComponent = ({
   };
 
   const handleOnClick = () => {
-    fetchPostProductMaterials(`business/${business.id}/products/46/raw_materials`,
+    fetchPostProductMaterials(`business/${business.id}/products/47/raw_materials`,
       `product_raw_materials=[${selectedItems}]`);
   };
 

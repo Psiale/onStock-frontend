@@ -5,12 +5,14 @@ import PropTypes from 'prop-types';
 
 import LoginForm from '../components/LoginForm';
 import SignupForm from '../components/SignupForm';
+import { saveItem } from '../helpers';
 
-const Auth = ({ isAuth, initialState }) => {
+const Auth = ({ initialState }) => {
   useLayoutEffect(() => {
     console.log('im running');
     initialState();
-  }, [isAuth]);
+    saveItem('token', '');
+  }, []);
   return (
     <>
       <LoginForm />
@@ -20,7 +22,6 @@ const Auth = ({ isAuth, initialState }) => {
 };
 
 Auth.propTypes = {
-  isAuth: PropTypes.bool.isRequired,
   initialState: PropTypes.func.isRequired,
 };
 
@@ -28,7 +29,4 @@ const mapDispatchToProps = dispatch => ({
   initialState: () => dispatch({ type: 'DEFAULT' }),
 });
 
-const mapStateToProps = state => ({
-  isAuth: state.authStore.is_auth,
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Auth);
+export default connect(null, mapDispatchToProps)(Auth);
