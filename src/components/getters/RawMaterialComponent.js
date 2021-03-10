@@ -3,6 +3,8 @@
 import React, { useLayoutEffect } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
+import { VictoryPie } from 'victory';
+
 import { fetchRawMaterialRequest } from '../../redux/actions/data';
 
 const RawMaterialComponent = ({ rawMaterial }) => {
@@ -12,7 +14,15 @@ const RawMaterialComponent = ({ rawMaterial }) => {
   console.log(`raw material: ${rawMaterial.name}`);
   return (
     <>
-      { (rawMaterial !== '') ? <p> Raw material :D </p> : <p> not working </p>}
+      { (rawMaterial !== '') ? (
+        <VictoryPie
+          data={[
+            { x: ` remaining amount: ${rawMaterial.remaining_amount}`, y: 20 },
+            { x: ` total amount: ${rawMaterial.total_amount}`, y: 10 },
+          ]}
+          colorScale={['red', 'green']}
+        />
+      ) : <p> not working </p>}
     </>
   );
 };
@@ -21,7 +31,7 @@ RawMaterialComponent.propTypes = {
   rawMaterial: Proptypes.shape({
     id: Proptypes.number,
     name: Proptypes.string.isRequired,
-    avatar: Proptypes.string.isRequired,
+    avatar: Proptypes.string,
     owner_id: Proptypes.number,
   }).isRequired,
 };
