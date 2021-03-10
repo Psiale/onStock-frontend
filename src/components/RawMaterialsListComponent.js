@@ -3,6 +3,7 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Multiselect } from 'multiselect-react-dropdown';
 
 import { fetchGetRawMaterials } from '../redux/actions/data';
@@ -14,8 +15,10 @@ const RawMaterialsListComponent = ({
   fetchGetRawMaterials,
   rawMaterials,
   business,
+  isAuth,
 
 }) => {
+  const history = useHistory();
   useLayoutEffect(() => {
     fetchGetRawMaterials(`business/${business.id}/raw_materials`);
   }, []);
@@ -37,6 +40,16 @@ const RawMaterialsListComponent = ({
     console.log('You have to implement me');
   };
 
+  if (isAuth === false) {
+    return (
+      <>
+        <p> Missing Credentials</p>
+        <button onClick={history.push('/')} type="button">
+          Login / Signup
+        </button>
+      </>
+    );
+  }
   return (rawMaterials !== []) ? (
     <>
       {rawMaterials.map(items => <p key={items.id}>{items.name}</p>)}
@@ -60,6 +73,7 @@ const RawMaterialsListComponent = ({
 };
 
 RawMaterialsListComponent.propTypes = {
+  isAuth: Proptypes.bool.isRequired,
   fetchGetRawMaterials: Proptypes.func.isRequired,
   rawMaterials: Proptypes.arrayOf(Proptypes.shape({
     name: Proptypes.string,
@@ -77,6 +91,7 @@ RawMaterialsListComponent.propTypes = {
 const mapStateToProps = state => ({
   rawMaterials: state.dataStore.raw_materials,
   business: state.dataStore.business,
+  isAuth: state.authStore.is_auth,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -16,12 +16,13 @@ const BusinessComponent = ({ fetchPostData }) => {
   });
   // const history = useHistory();
 
-  const handleSubmit = () => {
+  const handleSubmit = event => {
     fetchPostData('business',
       {
         name: values.name,
         avatar: 'default value',
       });
+    event.preventDefault();
   };
   const handleChange = evt => {
     const { value } = evt.target;
