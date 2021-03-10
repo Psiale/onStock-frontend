@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
 import { REQUEST_PENDING } from '../constants/auth';
 import {
-  GET_BUSINESS, GET_PRODUCTS,
-  GET_RAW_MATERIALS, SET_BUSINESS, SET_PRODUCTS,
-  SET_PRODUCT_RAW_MATERIALS, SET_RAW_MATERIALS,
+  GET_BUSINESS, SET_BUSINESS,
+  GET_RAW_MATERIALS, SET_RAW_MATERIALS,
 } from '../constants/data';
 
 const initialState = {
@@ -14,6 +13,7 @@ const initialState = {
     owner_id: null,
   },
   products: [],
+  product: '',
   raw_materials: [],
   error: '',
   loading: false,
@@ -55,26 +55,6 @@ const dataReducer = (state = initialState, action) => {
       return {
         ...state,
         raw_materials: action.payload,
-      };
-    case GET_PRODUCTS:
-      console.log('get products trigger');
-      return {
-        ...state,
-        products: action.payload,
-      };
-
-    case SET_PRODUCTS:
-      console.log('set products trigger');
-      return {
-        ...state,
-        products: action.payload,
-      };
-
-    case SET_PRODUCT_RAW_MATERIALS:
-      console.log('set materials trigger');
-      return {
-        ...state,
-        selectedMaterials: action.payload,
       };
 
     case 'REQUEST_FAILED':
