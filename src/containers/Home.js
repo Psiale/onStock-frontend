@@ -9,12 +9,12 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import buildLoader from '../components/Loader';
-import { fetchGetData } from '../redux/actions/data';
+import { fetchBusinessGetData } from '../redux/actions/data';
 import { retrieveItem } from '../helpers';
 import BusinessComponent from '../components/setters/BusinessComponent';
 
 const Home = ({
-  loading, isAuth, business, fetchGetData,
+  loading, isAuth, business, fetchBusinessGetData,
 }) => {
   if (loading === true && isAuth === false) {
     return buildLoader();
@@ -25,7 +25,7 @@ const Home = ({
     console.log(authToken);
     if (authToken === '') history.goBack();
     axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
-    fetchGetData('business');
+    fetchBusinessGetData('business');
   }, []);
 
   const handleOnClick = endpoint => history.push(endpoint);
@@ -37,9 +37,6 @@ const Home = ({
             <p> {business.name} </p>
             <button onClick={() => { handleOnClick('/business/raw_materials'); }} type="button">
               Raw Materials
-            </button>
-            <button onClick={() => { handleOnClick('/business/products'); }} type="button">
-              Products
             </button>
           </div>
       ) : <BusinessComponent /> }
@@ -56,7 +53,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchGetData: endpoint => dispatch(fetchGetData(endpoint)),
+  fetchBusinessGetData: endpoint => dispatch(fetchBusinessGetData(endpoint)),
 });
 
 Home.propTypes = {
@@ -68,7 +65,7 @@ Home.propTypes = {
     avatar: Proptypes.string.isRequired,
     owner_id: Proptypes.number,
   }).isRequired,
-  fetchGetData: Proptypes.func.isRequired,
+  fetchBusinessGetData: Proptypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import { REQUEST_PENDING } from '../constants/auth';
 import {
-  GET_BUSINESS,
-  GET_RAW_MATERIALS, SET_BUSINESS, SET_RAW_MATERIALS,
+  GET_BUSINESS, SET_BUSINESS,
+  GET_RAW_MATERIALS, SET_RAW_MATERIALS,
 } from '../constants/data';
 
 const initialState = {
@@ -12,10 +12,12 @@ const initialState = {
     avatar: 'default avatar',
     owner_id: null,
   },
-
+  products: [],
+  product: '',
   raw_materials: [],
   error: '',
   loading: false,
+  selectedMaterials: [],
 };
 
 const dataReducer = (state = initialState, action) => {

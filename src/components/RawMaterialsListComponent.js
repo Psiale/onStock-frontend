@@ -5,7 +5,7 @@ import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Multiselect } from 'multiselect-react-dropdown';
 
-import { fetchGetRawMaterials, fetchPostProductMaterials } from '../redux/actions/data';
+import { fetchGetRawMaterials } from '../redux/actions/data';
 import RawMaterialComponent from './setters/RawMaterialComponent';
 import { extractID } from '../helpers';
 import ModalComponent from './Modal';
@@ -14,7 +14,7 @@ const RawMaterialsListComponent = ({
   fetchGetRawMaterials,
   rawMaterials,
   business,
-  fetchPostProductMaterials,
+
 }) => {
   useLayoutEffect(() => {
     fetchGetRawMaterials(`business/${business.id}/raw_materials`);
@@ -33,8 +33,8 @@ const RawMaterialsListComponent = ({
   };
 
   const handleOnClick = () => {
-    fetchPostProductMaterials(`business/${business.id}/products/47/raw_materials`,
-      `product_raw_materials=[${selectedItems}]`);
+    // implement handleOnClick for the raw material to update the amount
+    console.log('You have to implement me');
   };
 
   return (rawMaterials !== []) ? (
@@ -72,7 +72,6 @@ RawMaterialsListComponent.propTypes = {
     avatar: Proptypes.string.isRequired,
     owner_id: Proptypes.number,
   }).isRequired,
-  fetchPostProductMaterials: Proptypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -82,8 +81,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchGetRawMaterials: endpoint => dispatch(fetchGetRawMaterials(endpoint)),
-  fetchPostProductMaterials:
-  (endpoint, data) => dispatch(fetchPostProductMaterials(endpoint, data)),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RawMaterialsListComponent);
