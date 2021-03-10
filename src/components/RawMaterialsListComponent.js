@@ -3,9 +3,10 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Multiselect } from 'multiselect-react-dropdown';
 
-import { fetchGetRawMaterials } from '../redux/actions/data';
+import { fetchGetRawMaterials, fetchRawMaterialRequestPost } from '../redux/actions/data';
 import RawMaterialComponent from './setters/RawMaterialComponent';
 import { extractID } from '../helpers';
 import ModalComponent from './Modal';
@@ -14,8 +15,11 @@ const RawMaterialsListComponent = ({
   fetchGetRawMaterials,
   rawMaterials,
   business,
+  isAuth,
+  fetchRawMaterialRequestPost,
 
 }) => {
+  const history = useHistory();
   useLayoutEffect(() => {
     fetchGetRawMaterials(`business/${business.id}/raw_materials`);
   }, []);
@@ -32,14 +36,29 @@ const RawMaterialsListComponent = ({
     console.log(selectedItems);
   };
 
-  const handleOnClick = () => {
-    // implement handleOnClick for the raw material to update the amount
-    console.log('You have to implement me');
+  const handleOnClick = rawMaterial => {
+    fetchRawMaterialRequestPost(rawMaterial);
+    history.push(`/rawMaterial/${rawMaterial.id}`);
   };
 
+  if (isAuth === false) {
+    return (
+      <>
+        <p> Missing Credentials</p>
+        <button onClick={history.push('/')} type="button">
+          Login / Signup
+        </button>
+      </>
+    );
+  }
   return (rawMaterials !== []) ? (
     <>
-      {rawMaterials.map(items => <p key={items.id}>{items.name}</p>)}
+      {rawMaterials.map(item => (
+        <div key={`div${item.id}`}>
+          <p key={item.id}>{item.name}</p>
+          <button type="button" onClick={() => handleOnClick(item)} key={`button${item.id}`}> </button>
+        </div>
+      ))}
       <Multiselect
         options={rawMaterials}
         displayValue="name"
@@ -60,6 +79,7 @@ const RawMaterialsListComponent = ({
 };
 
 RawMaterialsListComponent.propTypes = {
+  isAuth: Proptypes.bool.isRequired,
   fetchGetRawMaterials: Proptypes.func.isRequired,
   rawMaterials: Proptypes.arrayOf(Proptypes.shape({
     name: Proptypes.string,
@@ -72,16 +92,18 @@ RawMaterialsListComponent.propTypes = {
     avatar: Proptypes.string.isRequired,
     owner_id: Proptypes.number,
   }).isRequired,
+  fetchRawMaterialRequestPost: Proptypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   rawMaterials: state.dataStore.raw_materials,
   business: state.dataStore.business,
+  isAuth: state.authStore.is_auth,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchGetRawMaterials: endpoint => dispatch(fetchGetRawMaterials(endpoint)),
-
+  fetchRawMaterialRequestPost: data => dispatch(fetchRawMaterialRequestPost(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RawMaterialsListComponent);

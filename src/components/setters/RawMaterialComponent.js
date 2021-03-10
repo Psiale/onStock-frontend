@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 
 import { fetchPostRawMaterials } from '../../redux/actions/data';
 import { createInput } from '../../helpers';
-// import buildLoader from '../Loader';
 
 const RawMaterialComponent = ({ fetchPostRawMaterials, business }) => {
   const [values, setValues] = useState({
@@ -20,8 +19,6 @@ const RawMaterialComponent = ({ fetchPostRawMaterials, business }) => {
 
   const handleSubmit = event => {
     console.log(axios.defaults.headers.common);
-    // Im sending a wrong request,
-    // Im creating a new business when I should be creating a new raw material
     fetchPostRawMaterials(`business/${business.id}/raw_materials`,
       {
         name: values.name,
@@ -50,6 +47,7 @@ const RawMaterialComponent = ({ fetchPostRawMaterials, business }) => {
 
   return (
     <>
+      <span> Add a new Raw Material </span>
       <form onSubmit={handleSubmit}>
         {createInput('name', values.name, handleChange)}
         {createInput('totalAmount', values.totalAmount, handleChange)}

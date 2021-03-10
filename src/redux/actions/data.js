@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import {
   GET_BUSINESS, SET_BUSINESS, GET_RAW_MATERIALS, SET_RAW_MATERIALS,
+  GET_RAW_MATERIAL, SET_RAW_MATERIAL,
 } from '../constants/data';
 import { getRequest, postRequest } from '../../api/helpers';
 import { REQUEST_PENDING } from '../constants/auth';
@@ -21,6 +22,15 @@ const fetchRawMaterialsRequest = data => ({
 
 const fetchRawMaterialsRequestPost = data => ({
   type: SET_RAW_MATERIALS,
+  payload: data,
+});
+
+export const fetchRawMaterialRequest = () => ({
+  type: GET_RAW_MATERIAL,
+});
+
+export const fetchRawMaterialRequestPost = data => ({
+  type: SET_RAW_MATERIAL,
   payload: data,
 });
 
