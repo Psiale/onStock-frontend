@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Multiselect } from 'multiselect-react-dropdown';
 
-import { fetchGetRawMaterials } from '../redux/actions/data';
+import { fetchGetRawMaterials, fetchRawMaterialRequestPost } from '../redux/actions/data';
 import RawMaterialComponent from './setters/RawMaterialComponent';
 import { extractID } from '../helpers';
 import ModalComponent from './Modal';
@@ -16,6 +16,7 @@ const RawMaterialsListComponent = ({
   rawMaterials,
   business,
   isAuth,
+  fetchRawMaterialRequestPost,
 
 }) => {
   const history = useHistory();
@@ -35,9 +36,9 @@ const RawMaterialsListComponent = ({
     console.log(selectedItems);
   };
 
-  const handleOnClick = () => {
-    // implement handleOnClick for the raw material to update the amount
-    console.log('You have to implement me');
+  const handleOnClick = rawMaterial => {
+    fetchRawMaterialRequestPost(rawMaterial);
+    history.push(`/rawMaterial/${rawMaterial.id}`);
   };
 
   if (isAuth === false) {
@@ -52,7 +53,12 @@ const RawMaterialsListComponent = ({
   }
   return (rawMaterials !== []) ? (
     <>
-      {rawMaterials.map(items => <p key={items.id}>{items.name}</p>)}
+      {rawMaterials.map(item => (
+        <div key={`div${item.id}`}>
+          <p key={item.id}>{item.name}</p>
+          <button type="button" onClick={() => handleOnClick(item)} key={`button${item.id}`}> </button>
+        </div>
+      ))}
       <Multiselect
         options={rawMaterials}
         displayValue="name"
@@ -86,6 +92,7 @@ RawMaterialsListComponent.propTypes = {
     avatar: Proptypes.string.isRequired,
     owner_id: Proptypes.number,
   }).isRequired,
+  fetchRawMaterialRequestPost: Proptypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -96,7 +103,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchGetRawMaterials: endpoint => dispatch(fetchGetRawMaterials(endpoint)),
-
+  fetchRawMaterialRequestPost: data => dispatch(fetchRawMaterialRequestPost(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RawMaterialsListComponent);

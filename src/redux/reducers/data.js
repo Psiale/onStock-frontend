@@ -3,6 +3,7 @@ import { REQUEST_PENDING } from '../constants/auth';
 import {
   GET_BUSINESS, SET_BUSINESS,
   GET_RAW_MATERIALS, SET_RAW_MATERIALS,
+  GET_RAW_MATERIAL, SET_RAW_MATERIAL,
 } from '../constants/data';
 
 const initialState = {
@@ -12,9 +13,8 @@ const initialState = {
     avatar: 'default avatar',
     owner_id: null,
   },
-  products: [],
-  product: '',
   raw_materials: [],
+  raw_material: '',
   error: '',
   loading: false,
   selectedMaterials: [],
@@ -56,7 +56,18 @@ const dataReducer = (state = initialState, action) => {
         ...state,
         raw_materials: action.payload,
       };
-
+    case GET_RAW_MATERIAL:
+      console.log('get raw material trigger');
+      return {
+        ...state,
+        raw_material: action.payload,
+      };
+    case SET_RAW_MATERIAL:
+      console.log('set raw material trigger');
+      return {
+        ...state,
+        raw_material: action.payload,
+      };
     case 'REQUEST_FAILED':
       return {
         ...state,
