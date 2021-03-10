@@ -25,9 +25,8 @@ const fetchRawMaterialsRequestPost = data => ({
   payload: data,
 });
 
-export const fetchRawMaterialRequest = data => ({
+export const fetchRawMaterialRequest = () => ({
   type: GET_RAW_MATERIAL,
-  payload: data,
 });
 
 export const fetchRawMaterialRequestPost = data => ({
