@@ -50,6 +50,7 @@ const RawMaterialComponent = ({ fetchPostRawMaterials, business }) => {
 
   return (
     <>
+      <span> Add a new Raw Material </span>
       <form onSubmit={handleSubmit}>
         {createInput('name', values.name, handleChange)}
         {createInput('totalAmount', values.totalAmount, handleChange)}
