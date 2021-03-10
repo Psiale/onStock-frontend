@@ -21,11 +21,9 @@ const Home = ({
   }
   const history = useHistory();
   useLayoutEffect(() => {
-    console.log('fetching products');
     const authToken = retrieveItem('token').replace(/['"]+/g, '');
     console.log(authToken);
     if (authToken === '') history.goBack();
-    console.log('get Request happening');
     axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
     fetchGetData('business');
   }, []);
