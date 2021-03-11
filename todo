@@ -1,5 +1,5 @@
 TODO: Delete All trace of products DONE
-TODO: Implement single raw material page with a progess something that shows how much raw material is left
+TODO: Implement single raw material page with a progess something that shows how much raw material is left DONE
 TODO: Implement update component which allows the user to select a raw material and pass an amount
 TODO: Implement a function that takes the amount passed by the user and substract it from the remaining amount raw material property
 TODO: Display at the dashboard the raw material with lowest amount
