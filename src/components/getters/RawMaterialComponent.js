@@ -14,13 +14,19 @@ const RawMaterialComponent = ({ rawMaterial }) => {
     fetchRawMaterialRequest();
   }, []);
   console.log(`raw material: ${rawMaterial.name}`);
-  const percentage = (rawMaterial.remaining_amount / rawMaterial.total_amount) * 100;
+  const handleOnClick = () => {
+    console.log('updating');
+  };
+  const percentage = (1000 / rawMaterial.total_amount) * 100;
   return (
     <>
       { (rawMaterial !== '') ? (
         <>
+          <p> Raw Material on store </p>
           <CircularProgressbar
+          // I have to pass the raw remaining value here
             value={rawMaterial.remaining_amount}
+            strokeWidth={4}
             styles={(buildStyles({
               // Rotation of path and trail, in number of turns (0-1)
               rotation: 0.25,
@@ -49,6 +55,9 @@ const RawMaterialComponent = ({ rawMaterial }) => {
             minValue={0}
             maxValue={rawMaterial.total_amount}
           />
+          <button type="button" onClick={handleOnClick}>
+            update
+          </button>
         </>
       ) : <p> not working </p>}
     </>
