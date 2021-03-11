@@ -44,7 +44,7 @@ const RawMaterialComponent = ({ fetchPostRawMaterials, business }) => {
 
     console.log(values);
   };
-
+  // add the multiselect with unit measures p/e: ml, g, mg, kg, etc
   return (
     <>
       <span> Add a new Raw Material </span>
