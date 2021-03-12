@@ -27,14 +27,22 @@ const RawMaterialsListComponent = ({
 
   const [show, setShow] = useState(false);
   const [rawMaterial, setRawMaterial] = useState('');
-  const [showUpdate, setShowUpdate] = useState(false);
+  const [showIncrease, setShowIncrease] = useState(false);
+  const [showDecrease, setShowDecrease] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleCloseUpdate = () => setShowUpdate(false);
-  const handleShowUpdate = rawMaterialSelected => {
+  const handleCloseIncrease = () => setShowIncrease(false);
+  const handleShowIncrease = rawMaterialSelected => {
     setRawMaterial(rawMaterialSelected);
     console.log(`rawMaterial ${rawMaterialSelected.id}`);
-    setShowUpdate(true);
+    setShowIncrease(true);
+  };
+
+  const handleCloseDecrease = () => setShowDecrease(false);
+  const handleShowDecrease = rawMaterialSelected => {
+    setRawMaterial(rawMaterialSelected);
+    console.log(`rawMaterial ${rawMaterialSelected.id}`);
+    setShowDecrease(true);
   };
 
   const selectedMaterials = useRef();
@@ -71,7 +79,8 @@ const RawMaterialsListComponent = ({
             <p key={`totalAmount${item.id}`}>Total Amount: {item.total_amount}</p>
             <p key={`remainingAmount${item.id}`}>Remaining Amount: {item.remaining_amount}</p>
             <button type="button" onClick={() => handleOnClick(item)} key={`button${item.id}`}> more </button>
-            <ModalComponent show={showUpdate} handleClose={handleCloseUpdate} handleShow={() => handleShowUpdate(item)} title="Update Raw Material" modalTitle="Update Material" child={<RawMaterialComponent update decrease item={rawMaterial} />} />
+            <ModalComponent show={showIncrease} handleClose={handleCloseIncrease} handleShow={() => handleShowIncrease(item)} title="Increase amount" modalTitle="Increase quantity" child={<RawMaterialComponent update item={rawMaterial} />} />
+            <ModalComponent show={showDecrease} handleClose={handleCloseDecrease} handleShow={() => handleShowDecrease(item)} title="Decrease amount" modalTitle="Decrease quantity" child={<RawMaterialComponent update decrease item={rawMaterial} />} />
           </div>
         );
       })}
