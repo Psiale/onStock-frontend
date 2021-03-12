@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import {
   GET_BUSINESS, SET_BUSINESS, GET_RAW_MATERIALS, SET_RAW_MATERIALS,
-  GET_RAW_MATERIAL, SET_RAW_MATERIAL,
+  GET_RAW_MATERIAL, SET_RAW_MATERIAL, PUT_RAW_MATERIAL,
 } from '../constants/data';
-import { getRequest, postRequest } from '../../api/helpers';
+import { getRequest, postRequest, putRequest } from '../../api/helpers';
 import { REQUEST_PENDING } from '../constants/auth';
 
 const fetchBusinessRequest = data => ({
@@ -31,6 +31,11 @@ export const fetchRawMaterialRequest = () => ({
 
 export const fetchRawMaterialRequestPost = data => ({
   type: SET_RAW_MATERIAL,
+  payload: data,
+});
+
+export const fetchRawMaterialRequestPut = data => ({
+  type: PUT_RAW_MATERIAL,
   payload: data,
 });
 
@@ -82,6 +87,19 @@ export const fetchPostRawMaterials = (endpoint, data) => async dispatch => {
   postRequest(endpoint, data).then(response => {
     console.log(response.data);
     dispatch(fetchRawMaterialsRequestPost(response.data));
+  }).catch(error => {
+    console.log(error.message);
+    dispatch(fetchRequestFailed(error));
+  });
+};
+
+export const fetchPutRawMaterial = (endpoint, data) => async dispatch => {
+  dispatch(fetchPending());
+  // I have to verify the data type
+  console.log(`this is the data ${data}`);
+  putRequest(endpoint, data).then(response => {
+    console.log(response.data);
+    dispatch(fetchRawMaterialRequestPut(response.data));
   }).catch(error => {
     console.log(error.message);
     dispatch(fetchRequestFailed(error));

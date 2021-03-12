@@ -1,23 +1,35 @@
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 import React, { useLayoutEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-import { fetchRawMaterialRequest } from '../../redux/actions/data';
+import { fetchGetRawMaterials } from '../../redux/actions/data';
 import { colorProgression } from '../../helpers';
 
-const RawMaterialComponent = ({ rawMaterial }) => {
+const RawMaterialComponent = ({
+  fetchGetRawMaterials,
+  rawMaterial, business,
+  isAuth,
+}) => {
   useLayoutEffect(() => {
-    fetchRawMaterialRequest();
+    fetchGetRawMaterials(`business/${business.id}/raw_materials`);
   }, []);
-  console.log(`raw material: ${rawMaterial.name}`);
-  const handleOnClick = () => {
-    console.log('updating');
-  };
-  const percentage = (1000 / rawMaterial.total_amount) * 100;
+  const history = useHistory();
+  const percentage = (rawMaterial.remaining_amount / rawMaterial.total_amount) * 100;
+  if (isAuth === false) {
+    return (
+      <>
+        <p> Missing Credentials</p>
+        <button onClick={history.push('/')} type="button">
+          Login / Signup
+        </button>
+      </>
+    );
+  }
   return (
     <>
       { (rawMaterial !== '') ? (
@@ -55,9 +67,6 @@ const RawMaterialComponent = ({ rawMaterial }) => {
             minValue={0}
             maxValue={rawMaterial.total_amount}
           />
-          <button type="button" onClick={handleOnClick}>
-            update
-          </button>
         </>
       ) : <p> not working </p>}
     </>
@@ -65,25 +74,30 @@ const RawMaterialComponent = ({ rawMaterial }) => {
 };
 
 RawMaterialComponent.propTypes = {
+  isAuth: Proptypes.bool.isRequired,
   rawMaterial: Proptypes.shape({
     id: Proptypes.number,
     name: Proptypes.string.isRequired,
     avatar: Proptypes.string,
     owner_id: Proptypes.number,
   }).isRequired,
+  business: Proptypes.shape({
+    id: Proptypes.number,
+    name: Proptypes.string.isRequired,
+    avatar: Proptypes.string.isRequired,
+    owner_id: Proptypes.number,
+  }).isRequired,
+  fetchGetRawMaterials: Proptypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   rawMaterial: state.dataStore.raw_material,
+  business: state.dataStore.business,
+  isAuth: state.authStore.is_auth,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchRawMaterialRequest: () => dispatch(fetchRawMaterialRequest()),
+  fetchGetRawMaterials: endpoint => dispatch(fetchGetRawMaterials(endpoint)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RawMaterialComponent);
-
-// (rawMaterial.total_amount === rawMaterial.remaining_amount)
-//               ? [{ angle: rawMaterial.remaining_amount, color: 'green' }]
-//               : [{ angle: rawMaterial.remaining_amount, color: 'green' },
-//                 { angle: rawMaterial.total_amount, color: 'purple' }]

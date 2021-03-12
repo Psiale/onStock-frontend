@@ -25,8 +25,11 @@ const RawMaterialsListComponent = ({
   }, []);
 
   const [show, setShow] = useState(false);
+  const [showUpdate, setShowUpdate] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleCloseUpdate = () => setShowUpdate(false);
+  const handleShowUpdate = () => setShowUpdate(true);
 
   const selectedMaterials = useRef();
   const [selectedItems, setSelectedItems] = useState([]);
@@ -37,6 +40,7 @@ const RawMaterialsListComponent = ({
   };
 
   const handleOnClick = rawMaterial => {
+    fetchGetRawMaterials(`business/${business.id}/raw_materials`);
     fetchRawMaterialRequestPost(rawMaterial);
     history.push(`/rawMaterial/${rawMaterial.id}`);
   };
@@ -56,7 +60,8 @@ const RawMaterialsListComponent = ({
       {rawMaterials.map(item => (
         <div key={`div${item.id}`}>
           <p key={item.id}>{item.name}</p>
-          <button type="button" onClick={() => handleOnClick(item)} key={`button${item.id}`}> </button>
+          <button type="button" onClick={() => handleOnClick(item)} key={`button${item.id}`}> more </button>
+          <ModalComponent show={showUpdate} handleClose={handleCloseUpdate} handleShow={handleShowUpdate} title="Update Raw Material" modalTitle="Update Material" child={<RawMaterialComponent update item={item} />} />
         </div>
       ))}
       <Multiselect

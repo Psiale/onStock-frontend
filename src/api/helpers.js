@@ -5,6 +5,9 @@ import BASE_URL from '../redux/constants/index';
 export const postRequest = async (endpoint, data) => axios.post(`${BASE_URL}${endpoint}`,
   data);
 
+export const putRequest = async (endpoint, data) => axios.put(`${BASE_URL}${endpoint}`,
+  data);
+
 export const getRequest = async endpoint => axios.get(`${BASE_URL}${endpoint}`);
 
 export const statusRequest = response => {
