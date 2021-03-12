@@ -73,7 +73,7 @@ const dataReducer = (state = initialState, action) => {
       console.log('put request trigger');
       return {
         ...state,
-        raw_material: action.payload,
+        raw_materials: action.payload,
       };
     case 'REQUEST_FAILED':
       return {
