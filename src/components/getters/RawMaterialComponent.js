@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -15,9 +15,9 @@ const RawMaterialComponent = ({
   rawMaterial, business,
   isAuth,
 }) => {
-  useLayoutEffect(() => {
+  useEffect(() => {
     fetchGetRawMaterials(`business/${business.id}/raw_materials`);
-  }, []);
+  }, [rawMaterial]);
   const history = useHistory();
   const percentage = (rawMaterial.remaining_amount / rawMaterial.total_amount) * 100;
   if (isAuth === false) {
