@@ -71,7 +71,7 @@ const RawMaterialComponent = ({
     return (
       <>
         <form onSubmit={handleSubmit}>
-          {createInput('amount', values.amount, handleChange)}
+          {createInput('amount', values.amount, handleChange, 'number')}
           <input type="submit" value="Update" />
         </form>
       </>
@@ -82,7 +82,7 @@ const RawMaterialComponent = ({
       <span> Add a new Raw Material </span>
       <form onSubmit={handleSubmit}>
         {createInput('name', values.name, handleChange)}
-        {createInput('totalAmount', values.totalAmount, handleChange)}
+        {createInput('totalAmount', values.totalAmount, handleChange, 'number')}
         <input type="submit" value="Create Raw Material" />
       </form>
     </>
