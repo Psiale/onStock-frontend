@@ -20,8 +20,8 @@ const RawMaterialComponent = ({
 }) => {
   const [values, setValues] = useState({
     name: '',
-    totalAmount: '',
-    amount: '',
+    totalAmount: 0,
+    amount: 0,
   });
   // const history = useHistory();
 
@@ -40,16 +40,17 @@ const RawMaterialComponent = ({
           console.log(item.remaining_amount - values.amount),
         );
       } else {
-        console.log(`remaining amount type: ${typeof item.remaining_amount}`);
+        console.log(`remaining amount type: ${typeof parseFloat(values.amount)}`);
         // actualizo
         // talvez debería regresar todos desde la api para no tener que reactualizar
+        const result = item.remaining_amount + parseFloat(values.amount);
         fetchPutRawMaterial(`business/${business.id}/raw_materials/${item.id}`,
           {
-            remaining_amount: (item.remaining_amount + values.amount),
+            remaining_amount: (result),
           }).then(
           // luego jalo todos los materiales para que se actualice el elemento,
           event.preventDefault(),
-          console.log(item.remaining_amount - values.amount),
+          console.log(result),
         );
       }
       return;

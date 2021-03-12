@@ -71,7 +71,7 @@ const RawMaterialsListComponent = ({
             <p key={`totalAmount${item.id}`}>Total Amount: {item.total_amount}</p>
             <p key={`remainingAmount${item.id}`}>Remaining Amount: {item.remaining_amount}</p>
             <button type="button" onClick={() => handleOnClick(item)} key={`button${item.id}`}> more </button>
-            <ModalComponent show={showUpdate} handleClose={handleCloseUpdate} handleShow={() => handleShowUpdate(item)} title="Update Raw Material" modalTitle="Update Material" child={<RawMaterialComponent update item={rawMaterial} />} />
+            <ModalComponent show={showUpdate} handleClose={handleCloseUpdate} handleShow={() => handleShowUpdate(item)} title="Update Raw Material" modalTitle="Update Material" child={<RawMaterialComponent update decrease item={rawMaterial} />} />
           </div>
         );
       })}
