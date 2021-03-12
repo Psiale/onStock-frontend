@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
 import React, { useLayoutEffect, useRef, useState } from 'react';
@@ -67,6 +68,8 @@ const RawMaterialsListComponent = ({
         return (
           <div key={`div${item.id}`}>
             <p key={item.id}>{item.name}</p>
+            <p key={`totalAmount${item.id}`}>Total Amount: {item.total_amount}</p>
+            <p key={`remainingAmount${item.id}`}>Remaining Amount: {item.remaining_amount}</p>
             <button type="button" onClick={() => handleOnClick(item)} key={`button${item.id}`}> more </button>
             <ModalComponent show={showUpdate} handleClose={handleCloseUpdate} handleShow={() => handleShowUpdate(item)} title="Update Raw Material" modalTitle="Update Material" child={<RawMaterialComponent update item={rawMaterial} />} />
           </div>
