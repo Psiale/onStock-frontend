@@ -4,5 +4,6 @@ TODO: Implement update component which allows the user to select a raw material 
 
 TODO: Implement a function that takes the amount passed by the user and substract it from the remaining amount raw material property
 STATE: Now I have to count substracts and adds.
+INCREASE / DECREASE Amount
 
 TODO: Display at the dashboard the raw material with lowest amount

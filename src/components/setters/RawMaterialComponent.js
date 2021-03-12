@@ -16,6 +16,7 @@ const RawMaterialComponent = ({
   fetchPostRawMaterials,
   business, fetchPutRawMaterial, update,
   item,
+  decrease,
 }) => {
   const [values, setValues] = useState({
     name: '',
@@ -26,17 +27,31 @@ const RawMaterialComponent = ({
 
   const handleSubmit = event => {
     if (update) {
-      console.log(`id number: ${item.id}`);
-      // actualizo
-      // talvez debería regresar todos desde la api para no tener que reactualizar
-      fetchPutRawMaterial(`business/${business.id}/raw_materials/${item.id}`,
-        {
-          remaining_amount: (item.remaining_amount - values.amount),
-        }).then(
-        // luego jalo todos los materiales para que se actualice el elemento,
-        event.preventDefault(),
-        console.log(item.remaining_amount - values.amount),
-      );
+      if (decrease) {
+        console.log(`id number: ${item.id}`);
+        // actualizo
+        // talvez debería regresar todos desde la api para no tener que reactualizar
+        fetchPutRawMaterial(`business/${business.id}/raw_materials/${item.id}`,
+          {
+            remaining_amount: (item.remaining_amount - values.amount),
+          }).then(
+          // luego jalo todos los materiales para que se actualice el elemento,
+          event.preventDefault(),
+          console.log(item.remaining_amount - values.amount),
+        );
+      } else {
+        console.log(`remaining amount type: ${typeof item.remaining_amount}`);
+        // actualizo
+        // talvez debería regresar todos desde la api para no tener que reactualizar
+        fetchPutRawMaterial(`business/${business.id}/raw_materials/${item.id}`,
+          {
+            remaining_amount: (item.remaining_amount + values.amount),
+          }).then(
+          // luego jalo todos los materiales para que se actualice el elemento,
+          event.preventDefault(),
+          console.log(item.remaining_amount - values.amount),
+        );
+      }
       return;
     }
     console.log(axios.defaults.headers.common);
@@ -105,11 +120,13 @@ RawMaterialComponent.propTypes = {
     total_amount: Proptypes.number,
     remaining_amount: Proptypes.number,
   }),
+  decrease: Proptypes.bool,
 };
 
 RawMaterialComponent.defaultProps = {
   update: false,
   item: '',
+  decrease: false,
 };
 
 const mapStateToProps = state => ({
