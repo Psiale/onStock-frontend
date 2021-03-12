@@ -25,11 +25,16 @@ const RawMaterialsListComponent = ({
   }, []);
 
   const [show, setShow] = useState(false);
+  const [rawMaterial, setRawMaterial] = useState('');
   const [showUpdate, setShowUpdate] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleCloseUpdate = () => setShowUpdate(false);
-  const handleShowUpdate = () => setShowUpdate(true);
+  const handleShowUpdate = rawMaterialSelected => {
+    setRawMaterial(rawMaterialSelected);
+    console.log(`rawMaterial ${rawMaterialSelected.id}`);
+    setShowUpdate(true);
+  };
 
   const selectedMaterials = useRef();
   const [selectedItems, setSelectedItems] = useState([]);
@@ -57,13 +62,16 @@ const RawMaterialsListComponent = ({
   }
   return (rawMaterials !== []) ? (
     <>
-      {rawMaterials.map(item => (
-        <div key={`div${item.id}`}>
-          <p key={item.id}>{item.name}</p>
-          <button type="button" onClick={() => handleOnClick(item)} key={`button${item.id}`}> more </button>
-          <ModalComponent show={showUpdate} handleClose={handleCloseUpdate} handleShow={handleShowUpdate} title="Update Raw Material" modalTitle="Update Material" child={<RawMaterialComponent update item={item} />} />
-        </div>
-      ))}
+      {rawMaterials.map(item => {
+        console.log(`item id: ${item.id}`);
+        return (
+          <div key={`div${item.id}`}>
+            <p key={item.id}>{item.name}</p>
+            <button type="button" onClick={() => handleOnClick(item)} key={`button${item.id}`}> more </button>
+            <ModalComponent show={showUpdate} handleClose={handleCloseUpdate} handleShow={() => handleShowUpdate(item)} title="Update Raw Material" modalTitle="Update Material" child={<RawMaterialComponent update item={rawMaterial} />} />
+          </div>
+        );
+      })}
       <Multiselect
         options={rawMaterials}
         displayValue="name"

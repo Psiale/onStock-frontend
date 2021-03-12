@@ -17,7 +17,7 @@ const RawMaterialComponent = ({
 }) => {
   useEffect(() => {
     fetchGetRawMaterials(`business/${business.id}/raw_materials`);
-  }, [rawMaterial]);
+  }, []);
   const history = useHistory();
   const percentage = (rawMaterial.remaining_amount / rawMaterial.total_amount) * 100;
   if (isAuth === false) {

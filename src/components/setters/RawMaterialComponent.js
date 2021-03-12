@@ -8,8 +8,7 @@ import { connect } from 'react-redux';
 // import { useHistory } from 'react-router-dom';
 
 import {
-  fetchPostRawMaterials, fetchPutRawMaterial, fetchGetRawMaterials,
-  fetchRawMaterialRequestPost,
+  fetchPostRawMaterials, fetchPutRawMaterial,
 } from '../../redux/actions/data';
 import { createInput } from '../../helpers';
 
@@ -17,8 +16,6 @@ const RawMaterialComponent = ({
   fetchPostRawMaterials,
   business, fetchPutRawMaterial, update,
   item,
-  fetchRawMaterialRequestPost,
-  fetchGetRawMaterials,
 }) => {
   const [values, setValues] = useState({
     name: '',
@@ -29,12 +26,14 @@ const RawMaterialComponent = ({
 
   const handleSubmit = event => {
     if (update) {
-      fetchRawMaterialRequestPost(item);
+      console.log(`id number: ${item.id}`);
+      // actualizo
+      // talvez debería regresar todos desde la api para no tener que reactualizar
       fetchPutRawMaterial(`business/${business.id}/raw_materials/${item.id}`,
         {
           remaining_amount: (item.remaining_amount - values.amount),
         }).then(
-        fetchGetRawMaterials(`business/${business.id}/raw_materials`),
+        // luego jalo todos los materiales para que se actualice el elemento,
         event.preventDefault(),
         console.log(item.remaining_amount - values.amount),
       );
@@ -91,10 +90,8 @@ const RawMaterialComponent = ({
 };
 
 RawMaterialComponent.propTypes = {
-  fetchRawMaterialRequestPost: Proptypes.func.isRequired,
   fetchPostRawMaterials: Proptypes.func.isRequired,
   fetchPutRawMaterial: Proptypes.func.isRequired,
-  fetchGetRawMaterials: Proptypes.func.isRequired,
   business: Proptypes.shape({
     id: Proptypes.number,
     name: Proptypes.string.isRequired,
@@ -123,8 +120,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchPostRawMaterials: (endpoint, data) => dispatch(fetchPostRawMaterials(endpoint, data)),
   fetchPutRawMaterial: (endpoint, data) => dispatch(fetchPutRawMaterial(endpoint, data)),
-  fetchGetRawMaterials: endpoint => dispatch(fetchGetRawMaterials(endpoint)),
-  fetchRawMaterialRequestPost: data => dispatch(fetchRawMaterialRequestPost(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RawMaterialComponent);
