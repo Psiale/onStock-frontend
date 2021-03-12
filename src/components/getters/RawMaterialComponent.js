@@ -61,9 +61,7 @@ const RawMaterialComponent = ({
               trailColor: '#d6d6d6',
             }))}
             // remaining amount - total amount
-            text={(rawMaterial.total_amount !== rawMaterial.remaining_amount)
-              ? (`${rawMaterial.remaining_amount}`)
-              : `${percentage}%`}
+            text={`${percentage}%`}
             minValue={0}
             maxValue={rawMaterial.total_amount}
           />
