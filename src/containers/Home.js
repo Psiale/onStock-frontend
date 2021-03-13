@@ -36,7 +36,7 @@ const Home = ({
     console.log('is this happening?');
     fetchGetRawMaterials(`business/${business.id}/raw_materials`).then(
       setTimeout(() => hasRawMaterials(rawMaterials, business,
-        rawMaterials[lowestMaterial(rawMaterials)]), 2000),
+        rawMaterials[lowestMaterial(rawMaterials)]), 8000),
     );
   };
   const history = useHistory();
