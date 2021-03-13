@@ -5,6 +5,7 @@ import {
 } from '../constants/data';
 import { getRequest, postRequest, putRequest } from '../../api/helpers';
 import { REQUEST_PENDING } from '../constants/auth';
+import { saveItem } from '../../helpers';
 
 const fetchBusinessRequest = data => ({
   type: GET_BUSINESS,
@@ -86,6 +87,7 @@ export const fetchPostRawMaterials = (endpoint, data) => async dispatch => {
   console.log(`this is the data ${data}`);
   postRequest(endpoint, data).then(response => {
     console.log(response.data);
+    saveItem('hasMaterials', true);
     dispatch(fetchRawMaterialsRequestPost(response.data));
   }).catch(error => {
     console.log(error.message);

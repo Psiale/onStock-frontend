@@ -41,4 +41,15 @@ export const colorProgression = percentage => {
   return color;
 };
 
+const lowest = (prev, curr) => {
+  if (prev.remaining_amount < curr.remaining_amount) {
+    return prev;
+  }
+  return curr;
+};
+export const lowestMaterial = materials => {
+  console.log(materials.reduce(lowest));
+  materials.reduce(lowest);
+};
+
 // export const handleInvalidInput = (message, e) => e.target.setCustomValidity(message);

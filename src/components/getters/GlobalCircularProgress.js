@@ -49,7 +49,16 @@ GlobalCircularProgressComponent.propTypes = {
     name: Proptypes.string.isRequired,
     total_amount: Proptypes.string,
     remaining_amount: Proptypes.number,
-  }).isRequired,
+  }),
+};
+
+GlobalCircularProgressComponent.defaultProps = {
+  rawMaterial: {
+    id: 0,
+    name: 'default name',
+    total_amount: 2000,
+    remaining_amount: 2000,
+  },
 };
 
 export default GlobalCircularProgressComponent;

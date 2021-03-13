@@ -10,25 +10,44 @@ import axios from 'axios';
 
 import buildLoader from '../components/Loader';
 import { fetchBusinessGetData, fetchGetRawMaterials } from '../redux/actions/data';
-import { retrieveItem } from '../helpers';
+import { lowestMaterial, retrieveItem } from '../helpers';
 import BusinessComponent from '../components/setters/BusinessComponent';
+import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
 
 const Home = ({
-  loading, isAuth, business, fetchBusinessGetData, rawMaterials, fetchGetRawMaterials
+  loading, isAuth, business, fetchBusinessGetData, rawMaterials, fetchGetRawMaterials,
 }) => {
   if (loading === true && isAuth === false) {
     return buildLoader();
   }
+
+  const hasRawMaterials = (materials, bsnss, material) => {
+    if (materials !== [] && bsnss !== null) {
+      return (
+        <> 
+          <GlobalCircularProgressComponent rawMaterial={material} />
+        </>
+      );
+    }
+    return null;
+  };
+
+  const getLowest = () => {
+    console.log('is this happening?');
+    fetchGetRawMaterials(`business/${business.id}/raw_materials`).then(
+      setTimeout(() => hasRawMaterials(rawMaterials, business,
+        rawMaterials[lowestMaterial(rawMaterials)]), 2000),
+    );
+  };
   const history = useHistory();
+  let hasMaterials;
+  (retrieveItem('hasMaterials')) ? hasMaterials = retrieveItem('hasMaterials') : hasMaterials = false;
   useLayoutEffect(() => {
     const authToken = retrieveItem('token').replace(/['"]+/g, '');
     console.log(authToken);
     if (authToken === '') history.goBack();
     axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
     fetchBusinessGetData('business');
-    if (rawMaterials !== [] && business !== null) {
-      fetchGetRawMaterials(`business/${business.id}/raw_materials`);
-    }
   }, []);
 
   const handleOnClick = endpoint => history.push(endpoint);
@@ -37,6 +56,7 @@ const Home = ({
       <div>
         Business name: { (business !== null) ? (
           <div>
+            
             <p> {business.name} </p>
             <button onClick={() => { handleOnClick('/business/raw_materials'); }} type="button">
               Raw Materials
@@ -44,6 +64,11 @@ const Home = ({
           </div>
       ) : <BusinessComponent /> }
       </div>
+      {(hasMaterials) ? (
+        <>
+          <button type="button" onClick={getLowest}> lowest material on stock? </button>
+        </>
+      ) : null } 
     </>
   );
 };
@@ -54,6 +79,7 @@ const mapStateToProps = state => ({
   isAuth: state.authStore.is_auth,
   business: state.dataStore.business,
   rawMaterials: state.dataStore.raw_materials,
+  has_Materials: state.dataStore.has_materials,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -81,6 +107,6 @@ Home.propTypes = {
 
 Home.defaultProps = {
   rawMaterials: [],
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
