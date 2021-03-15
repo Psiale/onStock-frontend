@@ -8,12 +8,7 @@ import {
 } from '../constants/data';
 
 const initialState = {
-  business: {
-    id: null,
-    name: "the business's name",
-    avatar: 'default avatar',
-    owner_id: null,
-  },
+  business: null,
   raw_materials: [],
   raw_material: '',
   error: '',

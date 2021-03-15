@@ -52,6 +52,7 @@ export const fetchBusinessGetData = endpoint => async dispatch => {
   dispatch(fetchPending());
   getRequest(endpoint).then(response => {
     console.log(response.data);
+    saveItem('businessID', response.data.id);
     dispatch(fetchBusinessRequest(response.data));
   }).catch(error => {
     console.log(error.message);
@@ -63,6 +64,7 @@ export const fetchPostData = (endpoint, data) => async dispatch => {
   dispatch(fetchPending());
   postRequest(endpoint, data).then(response => {
     console.log(response.data);
+    saveItem('businessID', response.data.id);
     dispatch(fetchBusinessRequestPost(response.data));
   }).catch(error => {
     console.log(error.message);
@@ -72,6 +74,7 @@ export const fetchPostData = (endpoint, data) => async dispatch => {
 
 export const fetchGetRawMaterials = endpoint => async dispatch => {
   dispatch(fetchPending());
+  console.log('FETCH GET MATERIALS');
   getRequest(endpoint).then(response => {
     console.log(response.data);
     dispatch(fetchRawMaterialsRequest(response.data));

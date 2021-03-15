@@ -10,19 +10,36 @@ import axios from 'axios';
 
 import buildLoader from '../components/Loader';
 import { fetchBusinessGetData, fetchGetRawMaterials } from '../redux/actions/data';
-import { lowestMaterial, retrieveItem } from '../helpers';
+import { retrieveItem, lowestMaterial } from '../helpers';
 import BusinessComponent from '../components/setters/BusinessComponent';
 import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
 
 const Home = ({
-  loading, isAuth, business, fetchBusinessGetData, rawMaterials, fetchGetRawMaterials,
+  loading, isAuth, business, fetchBusinessGetData, rawMaterials,
+  fetchGetRawMaterials,
 }) => {
   if (loading === true && isAuth === false) {
     return buildLoader();
   }
 
-  const hasRawMaterials = (materials, bsnss, material) => {
-    if (materials !== [] && bsnss !== null) {
+  const history = useHistory();
+  let businessID;
+  (retrieveItem('businessID')) ? businessID = retrieveItem('businessID') : businessID = false;
+
+  useLayoutEffect(() => {
+    const authToken = retrieveItem('token').replace(/['"]+/g, '');
+    console.log(authToken);
+    if (authToken === '') history.goBack();
+    axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
+    fetchBusinessGetData('business');
+    console.log(businessID);
+    fetchGetRawMaterials(`business/${businessID}/raw_materials`);
+    (console.log('raw materials on home'));
+  }, []);
+
+  const handleOnClick = endpoint => history.push(endpoint);
+  const hasRawMaterials = (materials, material) => {
+    if (materials !== null) {
       return (
         <> 
           <GlobalCircularProgressComponent rawMaterial={material} />
@@ -31,26 +48,6 @@ const Home = ({
     }
     return null;
   };
-
-  const getLowest = () => {
-    console.log('is this happening?');
-    fetchGetRawMaterials(`business/${business.id}/raw_materials`).then(
-      setTimeout(() => hasRawMaterials(rawMaterials, business,
-        rawMaterials[lowestMaterial(rawMaterials)]), 8000),
-    );
-  };
-  const history = useHistory();
-  let hasMaterials;
-  (retrieveItem('hasMaterials')) ? hasMaterials = retrieveItem('hasMaterials') : hasMaterials = false;
-  useLayoutEffect(() => {
-    const authToken = retrieveItem('token').replace(/['"]+/g, '');
-    console.log(authToken);
-    if (authToken === '') history.goBack();
-    axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
-    fetchBusinessGetData('business');
-  }, []);
-
-  const handleOnClick = endpoint => history.push(endpoint);
   return (
     <>
       <div>
@@ -64,11 +61,8 @@ const Home = ({
           </div>
       ) : <BusinessComponent /> }
       </div>
-      {(hasMaterials) ? (
-        <>
-          <button type="button" onClick={getLowest}> lowest material on stock? </button>
-        </>
-      ) : null } 
+      {(rawMaterials !== [])
+        ? hasRawMaterials(rawMaterials, rawMaterials[lowestMaterial(rawMaterials)]) : null } 
     </>
   );
 };
@@ -88,6 +82,11 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Home.propTypes = {
+  rawMaterials: Proptypes.arrayOf(Proptypes.shape({
+    name: Proptypes.string,
+    total_amount: Proptypes.number,
+    remaining_amount: Proptypes.number,
+  })),
   fetchGetRawMaterials: Proptypes.func.isRequired,
   loading: Proptypes.bool.isRequired,
   isAuth: Proptypes.bool.isRequired,
@@ -96,17 +95,18 @@ Home.propTypes = {
     name: Proptypes.string.isRequired,
     avatar: Proptypes.string.isRequired,
     owner_id: Proptypes.number,
-  }).isRequired,
+  }),
   fetchBusinessGetData: Proptypes.func.isRequired,
-  rawMaterials: Proptypes.arrayOf(Proptypes.shape({
-    name: Proptypes.string,
-    total_amount: Proptypes.number,
-    remaining_amount: Proptypes.number,
-  })),
+  // rawMaterials: Proptypes.arrayOf(Proptypes.shape({
+  //   name: Proptypes.string,
+  //   total_amount: Proptypes.number,
+  //   remaining_amount: Proptypes.number,
+  // })),
 };
 
 Home.defaultProps = {
   rawMaterials: [],
+  business: {},
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
