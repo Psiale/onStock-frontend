@@ -48,8 +48,11 @@ const lowest = (prev, curr) => {
   return curr;
 };
 export const lowestMaterial = materials => {
-  console.log(materials.reduce(lowest));
-  materials.reduce(lowest);
+  if (materials !== []) {
+    console.log(materials.reduce(lowest));
+    return materials.reduce(lowest);
+  }
+  return 'null';
 };
 
 // export const handleInvalidInput = (message, e) => e.target.setCustomValidity(message);

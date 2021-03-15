@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -6,6 +7,8 @@ import { colorProgression } from '../../helpers';
 
 const GlobalCircularProgressComponent = ({ rawMaterial }) => {
   const percentage = (rawMaterial.remaining_amount / rawMaterial.total_amount) * 100;
+
+  console.log(`this is the raw material: ${rawMaterial.id}, ${rawMaterial.remaining_amount} `);
   return (
     <>
       <p> Raw Material on store </p>
@@ -47,7 +50,7 @@ GlobalCircularProgressComponent.propTypes = {
   rawMaterial: Proptypes.shape({
     id: Proptypes.number,
     name: Proptypes.string.isRequired,
-    total_amount: Proptypes.string,
+    total_amount: Proptypes.number,
     remaining_amount: Proptypes.number,
   }),
 };

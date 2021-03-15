@@ -62,6 +62,7 @@ const Home = ({
       ) : <BusinessComponent /> }
       </div>
       {(rawMaterials !== [])
+      // have to solve out this call
         ? hasRawMaterials(rawMaterials, rawMaterials[lowestMaterial(rawMaterials)]) : null } 
     </>
   );
