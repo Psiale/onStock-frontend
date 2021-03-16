@@ -31,6 +31,7 @@ const RawMaterialComponent = ({
         if (item.remaining_amount - values.amount < 0) {
           event.preventDefault();
           return;
+          // hacer algo mejor que esto
         }
         console.log(`id number: ${item.id}`);
         // actualizo

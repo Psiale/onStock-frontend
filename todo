@@ -10,7 +10,7 @@ TODO: Display at the dashboard the raw material with lowest amount
 
 FIXES
 
-BUG: When the user updates decreases I should not allow it if the result is less than the total amount
+BUG: When the user updates decreases I should not allow it if the result is less than the total amount DONE
 
 BUG: When the user updates increasing if the result is more than the total I should update the total amount instead DONE
 

@@ -13,6 +13,7 @@ import { fetchBusinessGetData, fetchGetRawMaterials } from '../redux/actions/dat
 import { lowestMaterial, retrieveItem } from '../helpers';
 import BusinessComponent from '../components/setters/BusinessComponent';
 import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
+import ErrorHandler from '../components/ErrorHandler';
 
 const Home = ({
   loading, isAuth, business, fetchBusinessGetData, rawMaterials,
@@ -26,15 +27,6 @@ const Home = ({
   let businessID;
   (retrieveItem('businessID')) ? businessID = retrieveItem('businessID') : businessID = false;
 
-  useEffect(() => {
-    let authToken;
-    (retrieveItem('token')) ? authToken = retrieveItem('token').replace(/['"]+/g, '') : history.goBack();
-    if (authToken === '') history.goBack();
-    axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
-    fetchBusinessGetData('business');
-    if (businessID !== false)fetchGetRawMaterials(`business/${businessID}/raw_materials`);
-  }, []);
-
   const handleOnClick = endpoint => history.push(endpoint);
   const hasRawMaterials = (materials, material) => {
     console.log(material);
@@ -47,6 +39,23 @@ const Home = ({
     }
     return null;
   };
+
+  if (isAuth === false) {
+    return (
+      <>
+        <ErrorHandler errorMessage="Session expired" />
+      </>
+    );
+  }
+
+  useEffect(() => {
+    let authToken;
+    (retrieveItem('token')) ? authToken = retrieveItem('token').replace(/['"]+/g, '') : history.goBack();
+    if (authToken === '') history.goBack();
+    axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
+    fetchBusinessGetData('business');
+    if (businessID !== false)fetchGetRawMaterials(`business/${businessID}/raw_materials`);
+  }, []);
   return (
     <>
       <div>
