@@ -36,11 +36,11 @@ const GlobalCircularProgressComponent = ({ rawMaterial }) => {
 
           // Colors
           pathColor: colorProgression(percentage),
-          textColor: 'black',
+          textColor: (percentage > 0) ? 'black' : 'red',
           trailColor: '#d6d6d6',
         }))}
               // remaining amount - total amount
-        text={`${percentage}%`}
+        text={(percentage > 0) ? `${percentage.toFixed(1)}%` : 'Out of Stock'}
         minValue={0}
         maxValue={rawMaterial.total_amount}
       />
