@@ -4,15 +4,11 @@ import {
   GET_BUSINESS, SET_BUSINESS,
   GET_RAW_MATERIALS, SET_RAW_MATERIALS,
   GET_RAW_MATERIAL, SET_RAW_MATERIAL,
+  PUT_RAW_MATERIAL,
 } from '../constants/data';
 
 const initialState = {
-  business: {
-    id: null,
-    name: "the business's name",
-    avatar: 'default avatar',
-    owner_id: null,
-  },
+  business: null,
   raw_materials: [],
   raw_material: '',
   error: '',
@@ -67,6 +63,12 @@ const dataReducer = (state = initialState, action) => {
       return {
         ...state,
         raw_material: action.payload,
+      };
+    case PUT_RAW_MATERIAL:
+      console.log('put request trigger');
+      return {
+        ...state,
+        raw_materials: action.payload,
       };
     case 'REQUEST_FAILED':
       return {

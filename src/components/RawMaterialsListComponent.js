@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
 import React, { useLayoutEffect, useRef, useState } from 'react';
@@ -25,8 +26,24 @@ const RawMaterialsListComponent = ({
   }, []);
 
   const [show, setShow] = useState(false);
+  const [rawMaterial, setRawMaterial] = useState('');
+  const [showIncrease, setShowIncrease] = useState(false);
+  const [showDecrease, setShowDecrease] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleCloseIncrease = () => setShowIncrease(false);
+  const handleShowIncrease = rawMaterialSelected => {
+    setRawMaterial(rawMaterialSelected);
+    console.log(`rawMaterial ${rawMaterialSelected.id}`);
+    setShowIncrease(true);
+  };
+
+  const handleCloseDecrease = () => setShowDecrease(false);
+  const handleShowDecrease = rawMaterialSelected => {
+    setRawMaterial(rawMaterialSelected);
+    console.log(`rawMaterial ${rawMaterialSelected.id}`);
+    setShowDecrease(true);
+  };
 
   const selectedMaterials = useRef();
   const [selectedItems, setSelectedItems] = useState([]);
@@ -37,6 +54,7 @@ const RawMaterialsListComponent = ({
   };
 
   const handleOnClick = rawMaterial => {
+    fetchGetRawMaterials(`business/${business.id}/raw_materials`);
     fetchRawMaterialRequestPost(rawMaterial);
     history.push(`/rawMaterial/${rawMaterial.id}`);
   };
@@ -53,12 +71,19 @@ const RawMaterialsListComponent = ({
   }
   return (rawMaterials !== []) ? (
     <>
-      {rawMaterials.map(item => (
-        <div key={`div${item.id}`}>
-          <p key={item.id}>{item.name}</p>
-          <button type="button" onClick={() => handleOnClick(item)} key={`button${item.id}`}> </button>
-        </div>
-      ))}
+      {rawMaterials.map(item => {
+        console.log(`item id: ${item.id}`);
+        return (
+          <div key={`div${item.id}`}>
+            <p key={item.id}>{item.name}</p>
+            <p key={`totalAmount${item.id}`}>Total Amount: {item.total_amount}</p>
+            <p key={`remainingAmount${item.id}`}>Remaining Amount: {item.remaining_amount}</p>
+            <button type="button" onClick={() => handleOnClick(item)} key={`button${item.id}`}> more </button>
+            <ModalComponent show={showIncrease} handleClose={handleCloseIncrease} handleShow={() => handleShowIncrease(item)} title="Increase amount" modalTitle="Increase quantity" child={<RawMaterialComponent update item={rawMaterial} />} />
+            <ModalComponent show={showDecrease} handleClose={handleCloseDecrease} handleShow={() => handleShowDecrease(item)} title="Decrease amount" modalTitle="Decrease quantity" child={<RawMaterialComponent update decrease item={rawMaterial} />} />
+          </div>
+        );
+      })}
       <Multiselect
         options={rawMaterials}
         displayValue="name"
