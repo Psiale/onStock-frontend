@@ -52,13 +52,14 @@ const RawMaterialComponent = ({
         if (values.amount > item.total_amount) {
           fetchPutRawMaterial(`business/${business.id}/raw_materials/${item.id}`,
             {
-              total_amount: (values.amount),
-              remaining_amount: (values.amount),
+              total_amount: (parseFloat(values.amount)),
+              remaining_amount: (parseFloat(values.amount)),
             }).then(
           // luego jalo todos los materiales para que se actualice el elemento,
             event.preventDefault(),
             console.log(result),
           );
+          return;
         }
         fetchPutRawMaterial(`business/${business.id}/raw_materials/${item.id}`,
           {

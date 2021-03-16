@@ -10,6 +10,7 @@ import { fetchGetRawMaterials, fetchRawMaterialRequestPost } from '../redux/acti
 import RawMaterialComponent from './setters/RawMaterialComponent';
 import ModalComponent from './Modal';
 import ErrorHandler from './ErrorHandler';
+import GlobalCircularProgressComponent from './getters/GlobalCircularProgress';
 
 const RawMaterialsListComponent = ({
   fetchGetRawMaterials,
@@ -63,10 +64,10 @@ const RawMaterialsListComponent = ({
         console.log(`item id: ${item.id}`);
         return (
           <div key={`div${item.id}`}>
+            <GlobalCircularProgressComponent rawMaterial={item} />
             <p key={item.id}>{item.name}</p>
             <p key={`totalAmount${item.id}`}>Total Amount: {item.total_amount}</p>
             <p key={`remainingAmount${item.id}`}>Remaining Amount: {item.remaining_amount}</p>
-            <button type="button" onClick={() => handleOnClick(item)} key={`button${item.id}`}> more </button>
             <ModalComponent show={showIncrease} handleClose={handleCloseIncrease} handleShow={() => handleShowIncrease(item)} title="Increase amount" modalTitle="Increase quantity" child={<RawMaterialComponent update item={rawMaterial} />} />
             <ModalComponent show={showDecrease} handleClose={handleCloseDecrease} handleShow={() => handleShowDecrease(item)} title="Decrease amount" modalTitle="Decrease quantity" child={<RawMaterialComponent update decrease item={rawMaterial} />} />
           </div>

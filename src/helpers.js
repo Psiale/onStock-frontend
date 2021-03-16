@@ -50,7 +50,7 @@ const lowest = (prev, curr) => {
   return prev;
 };
 
-export const notFull = materials => materials.filter(
+const notFull = materials => materials.filter(
   material => material.remaining_amount !== material.total_amount,
 );
 export const lowestMaterial = materials => {
