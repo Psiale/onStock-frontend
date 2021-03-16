@@ -48,7 +48,7 @@ export const loginRequest = data => async dispatch => {
     dispatch(fetchRequestSuccess());
     dispatch(fetchAccessRequest('login', authToken, data));
   }).catch(error => {
-    dispatch(fetchRequestFailed(error));
+    dispatch(fetchRequestFailed(error.message));
   });
 };
 
@@ -60,19 +60,6 @@ export const signupRequest = data => async dispatch => {
     dispatch(fetchRequestSuccess());
     dispatch(fetchAccessRequest('signup', authToken, data));
   }).catch(error => {
-    dispatch(fetchRequestFailed(error));
+    dispatch(fetchRequestFailed(error.message));
   });
-
-  // esto debe ir en la store que se ocupe de la información del negocio del usuario
-  // export const getElementsRequest = authToken  => async dispatch => {
-  //   dispatch(fetchPending());
-  //   //ese auth_token lo voy a tomar del estado, obviamente
-  // axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
-
-  //   getRequest('coffee_shops').then(response => {
-  //     console.log(response);
-  //     const result = response.data;
-  //     dispatch(nameOfTheFetchingFunction)
-  //   })
-  // };
 };

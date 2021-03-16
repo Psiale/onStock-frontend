@@ -10,14 +10,14 @@ import axios from 'axios';
 
 import buildLoader from '../components/Loader';
 import { fetchBusinessGetData, fetchGetRawMaterials } from '../redux/actions/data';
-import { lowestMaterial, retrieveItem } from '../helpers';
+import { lowestMaterial, retrieveItem, notFull } from '../helpers';
 import BusinessComponent from '../components/setters/BusinessComponent';
 import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
 import ErrorHandler from '../components/ErrorHandler';
 
 const Home = ({
   loading, isAuth, business, fetchBusinessGetData, rawMaterials,
-  fetchGetRawMaterials,
+  fetchGetRawMaterials, error,
 }) => {
   if (loading === true && isAuth === false) {
     return buildLoader();
@@ -39,6 +39,14 @@ const Home = ({
     }
     return null;
   };
+
+  if (isAuth === false && error) {
+    return (
+      <>
+        <ErrorHandler errorMessage="Missing or Wrong Credentials" />
+      </>
+    );
+  }
 
   if (isAuth === false) {
     return (
@@ -78,6 +86,7 @@ const Home = ({
 
 // I need to change this mapStateToProps
 const mapStateToProps = state => ({
+  error: state.authStore.error,
   loading: state.authStore.loading,
   isAuth: state.authStore.is_auth,
   business: state.dataStore.business,
@@ -91,6 +100,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Home.propTypes = {
+  error: Proptypes.string.isRequired,
   rawMaterials: Proptypes.arrayOf(Proptypes.shape({
     name: Proptypes.string,
     total_amount: Proptypes.number,
