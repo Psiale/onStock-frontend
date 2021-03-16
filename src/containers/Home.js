@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-trailing-spaces */
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -26,15 +26,13 @@ const Home = ({
   let businessID;
   (retrieveItem('businessID')) ? businessID = retrieveItem('businessID') : businessID = false;
 
-  useLayoutEffect(() => {
-    const authToken = retrieveItem('token').replace(/['"]+/g, '');
-    console.log(authToken);
+  useEffect(() => {
+    let authToken;
+    (retrieveItem('token')) ? authToken = retrieveItem('token').replace(/['"]+/g, '') : history.goBack();
     if (authToken === '') history.goBack();
     axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
     fetchBusinessGetData('business');
-    console.log(businessID);
-    fetchGetRawMaterials(`business/${businessID}/raw_materials`);
-    (console.log('raw materials on home'));
+    if (businessID !== false)fetchGetRawMaterials(`business/${businessID}/raw_materials`);
   }, []);
 
   const handleOnClick = endpoint => history.push(endpoint);
