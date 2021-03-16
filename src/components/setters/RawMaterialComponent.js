@@ -28,6 +28,11 @@ const RawMaterialComponent = ({
   const handleSubmit = event => {
     if (update) {
       if (decrease) {
+        if (item.remaining_amount - values.amount < 0) {
+          event.preventDefault();
+          return;
+          // hacer algo mejor que esto
+        }
         console.log(`id number: ${item.id}`);
         // actualizo
         // talvez debería regresar todos desde la api para no tener que reactualizar
@@ -44,6 +49,18 @@ const RawMaterialComponent = ({
         // actualizo
         // talvez debería regresar todos desde la api para no tener que reactualizar
         const result = item.remaining_amount + parseFloat(values.amount);
+        if (values.amount > item.total_amount) {
+          fetchPutRawMaterial(`business/${business.id}/raw_materials/${item.id}`,
+            {
+              total_amount: (parseFloat(values.amount)),
+              remaining_amount: (parseFloat(values.amount)),
+            }).then(
+          // luego jalo todos los materiales para que se actualice el elemento,
+            event.preventDefault(),
+            console.log(result),
+          );
+          return;
+        }
         fetchPutRawMaterial(`business/${business.id}/raw_materials/${item.id}`,
           {
             remaining_amount: (result),

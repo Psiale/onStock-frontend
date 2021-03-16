@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-trailing-spaces */
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -13,10 +13,11 @@ import { fetchBusinessGetData, fetchGetRawMaterials } from '../redux/actions/dat
 import { lowestMaterial, retrieveItem } from '../helpers';
 import BusinessComponent from '../components/setters/BusinessComponent';
 import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
+import ErrorHandler from '../components/ErrorHandler';
 
 const Home = ({
   loading, isAuth, business, fetchBusinessGetData, rawMaterials,
-  fetchGetRawMaterials,
+  fetchGetRawMaterials, error,
 }) => {
   if (loading === true && isAuth === false) {
     return buildLoader();
@@ -25,17 +26,6 @@ const Home = ({
   const history = useHistory();
   let businessID;
   (retrieveItem('businessID')) ? businessID = retrieveItem('businessID') : businessID = false;
-
-  useLayoutEffect(() => {
-    const authToken = retrieveItem('token').replace(/['"]+/g, '');
-    console.log(authToken);
-    if (authToken === '') history.goBack();
-    axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
-    fetchBusinessGetData('business');
-    console.log(businessID);
-    fetchGetRawMaterials(`business/${businessID}/raw_materials`);
-    (console.log('raw materials on home'));
-  }, []);
 
   const handleOnClick = endpoint => history.push(endpoint);
   const hasRawMaterials = (materials, material) => {
@@ -49,6 +39,31 @@ const Home = ({
     }
     return null;
   };
+
+  if (isAuth === false && error) {
+    return (
+      <>
+        <ErrorHandler errorMessage="Missing or Wrong Credentials" />
+      </>
+    );
+  }
+
+  if (isAuth === false) {
+    return (
+      <>
+        <ErrorHandler errorMessage="Session expired" />
+      </>
+    );
+  }
+
+  useEffect(() => {
+    let authToken;
+    (retrieveItem('token')) ? authToken = retrieveItem('token').replace(/['"]+/g, '') : history.goBack();
+    if (authToken === '') history.goBack();
+    axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
+    fetchBusinessGetData('business');
+    if (businessID !== false)fetchGetRawMaterials(`business/${businessID}/raw_materials`);
+  }, []);
   return (
     <>
       <div>
@@ -71,6 +86,7 @@ const Home = ({
 
 // I need to change this mapStateToProps
 const mapStateToProps = state => ({
+  error: state.authStore.error,
   loading: state.authStore.loading,
   isAuth: state.authStore.is_auth,
   business: state.dataStore.business,
@@ -84,6 +100,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Home.propTypes = {
+  error: Proptypes.string.isRequired,
   rawMaterials: Proptypes.arrayOf(Proptypes.shape({
     name: Proptypes.string,
     total_amount: Proptypes.number,

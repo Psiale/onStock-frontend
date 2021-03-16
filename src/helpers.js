@@ -42,15 +42,20 @@ export const colorProgression = percentage => {
 };
 
 const lowest = (prev, curr) => {
-  if (prev.remaining_amount < curr.remaining_amount && prev.remaining_amount !== 0) {
-    return prev;
+  console.log(`this is prev ${prev.remaining_amount} and this is curr: ${curr.remaining_amount}`);
+  if (curr.remaining_amount > 0
+    && curr.remaining_amount < prev.remaining_amount) {
+    return curr;
   }
-  return curr;
+  return prev;
 };
+
+const notFull = materials => materials.filter(
+  material => material.remaining_amount !== material.total_amount,
+);
 export const lowestMaterial = materials => {
   if (materials !== [] && materials.length > 0) {
-    console.log(materials.reduce(lowest));
-    return materials.reduce(lowest);
+    return notFull(materials).reduce(lowest);
   }
   return 'null';
 };

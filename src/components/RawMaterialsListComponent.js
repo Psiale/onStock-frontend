@@ -1,16 +1,16 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Multiselect } from 'multiselect-react-dropdown';
 
 import { fetchGetRawMaterials, fetchRawMaterialRequestPost } from '../redux/actions/data';
 import RawMaterialComponent from './setters/RawMaterialComponent';
-import { extractID } from '../helpers';
 import ModalComponent from './Modal';
+import ErrorHandler from './ErrorHandler';
+import GlobalCircularProgressComponent from './getters/GlobalCircularProgress';
 
 const RawMaterialsListComponent = ({
   fetchGetRawMaterials,
@@ -21,9 +21,6 @@ const RawMaterialsListComponent = ({
 
 }) => {
   const history = useHistory();
-  useLayoutEffect(() => {
-    fetchGetRawMaterials(`business/${business.id}/raw_materials`);
-  }, []);
 
   const [show, setShow] = useState(false);
   const [rawMaterial, setRawMaterial] = useState('');
@@ -45,14 +42,6 @@ const RawMaterialsListComponent = ({
     setShowDecrease(true);
   };
 
-  const selectedMaterials = useRef();
-  const [selectedItems, setSelectedItems] = useState([]);
-  const handleSelect = () => {
-    setSelectedItems(selectedMaterials.current.getSelectedItems()
-      .map(element => extractID(element)));
-    console.log(selectedItems);
-  };
-
   const handleOnClick = rawMaterial => {
     fetchGetRawMaterials(`business/${business.id}/raw_materials`);
     fetchRawMaterialRequestPost(rawMaterial);
@@ -62,35 +51,28 @@ const RawMaterialsListComponent = ({
   if (isAuth === false) {
     return (
       <>
-        <p> Missing Credentials</p>
-        <button onClick={history.push('/')} type="button">
-          Login / Signup
-        </button>
+        <ErrorHandler errorMessage="Session expired" />
       </>
     );
   }
+  useLayoutEffect(() => {
+    if (isAuth) fetchGetRawMaterials(`business/${business.id}/raw_materials`);
+  }, []);
   return (rawMaterials !== []) ? (
     <>
       {rawMaterials.map(item => {
         console.log(`item id: ${item.id}`);
         return (
           <div key={`div${item.id}`}>
+            <GlobalCircularProgressComponent rawMaterial={item} />
             <p key={item.id}>{item.name}</p>
             <p key={`totalAmount${item.id}`}>Total Amount: {item.total_amount}</p>
             <p key={`remainingAmount${item.id}`}>Remaining Amount: {item.remaining_amount}</p>
-            <button type="button" onClick={() => handleOnClick(item)} key={`button${item.id}`}> more </button>
             <ModalComponent show={showIncrease} handleClose={handleCloseIncrease} handleShow={() => handleShowIncrease(item)} title="Increase amount" modalTitle="Increase quantity" child={<RawMaterialComponent update item={rawMaterial} />} />
             <ModalComponent show={showDecrease} handleClose={handleCloseDecrease} handleShow={() => handleShowDecrease(item)} title="Decrease amount" modalTitle="Decrease quantity" child={<RawMaterialComponent update decrease item={rawMaterial} />} />
           </div>
         );
       })}
-      <Multiselect
-        options={rawMaterials}
-        displayValue="name"
-        closeOnSelect={false}
-        ref={selectedMaterials}
-        onSelect={handleSelect}
-      />
       <button type="button" onClick={handleOnClick}>
         save product
       </button>

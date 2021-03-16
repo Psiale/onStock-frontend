@@ -7,11 +7,11 @@ const buildLoader = () => (
   <div className={styles.mainContainer}>
     <Loader
       className={styles.loader}
-      type="Puff"
+      type="ThreeDots"
       color="rgb(18, 211, 236)"
       height={300}
       width={300}
-      timeout={100000}
+      timeout={20000}
     />
   </div>
 );
