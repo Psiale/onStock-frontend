@@ -42,13 +42,13 @@ export const colorProgression = percentage => {
 };
 
 const lowest = (prev, curr) => {
-  if (prev.remaining_amount < curr.remaining_amount) {
+  if (prev.remaining_amount < curr.remaining_amount && prev.remaining_amount !== 0) {
     return prev;
   }
   return curr;
 };
 export const lowestMaterial = materials => {
-  if (materials !== []) {
+  if (materials !== [] && materials.length > 0) {
     console.log(materials.reduce(lowest));
     return materials.reduce(lowest);
   }

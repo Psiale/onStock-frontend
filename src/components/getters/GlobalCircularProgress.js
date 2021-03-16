@@ -11,7 +11,9 @@ const GlobalCircularProgressComponent = ({ rawMaterial }) => {
   console.log(`this is the raw material: ${rawMaterial.id}, ${rawMaterial.remaining_amount} `);
   return (
     <>
-      <p> Raw Material on store </p>
+      <p>
+        {rawMaterial.name}
+      </p>
       <CircularProgressbar
             // I have to pass the raw remaining value here
         value={rawMaterial.remaining_amount}

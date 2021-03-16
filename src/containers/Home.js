@@ -10,7 +10,7 @@ import axios from 'axios';
 
 import buildLoader from '../components/Loader';
 import { fetchBusinessGetData, fetchGetRawMaterials } from '../redux/actions/data';
-import { retrieveItem, lowestMaterial } from '../helpers';
+import { lowestMaterial, retrieveItem } from '../helpers';
 import BusinessComponent from '../components/setters/BusinessComponent';
 import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
 
@@ -39,6 +39,7 @@ const Home = ({
 
   const handleOnClick = endpoint => history.push(endpoint);
   const hasRawMaterials = (materials, material) => {
+    console.log(material);
     if (materials !== null) {
       return (
         <> 
@@ -51,19 +52,19 @@ const Home = ({
   return (
     <>
       <div>
-        Business name: { (business !== null) ? (
+        { (business !== null) ? (
+          
           <div>
-            
             <p> {business.name} </p>
+            {(rawMaterials && rawMaterials.length > 0)
+            // have to solve out this call
+              ? hasRawMaterials(rawMaterials, lowestMaterial(rawMaterials)) : null } 
             <button onClick={() => { handleOnClick('/business/raw_materials'); }} type="button">
               Raw Materials
             </button>
           </div>
-      ) : <BusinessComponent /> }
+        ) : <BusinessComponent /> }
       </div>
-      {(rawMaterials !== [])
-      // have to solve out this call
-        ? hasRawMaterials(rawMaterials, rawMaterials[lowestMaterial(rawMaterials)]) : null } 
     </>
   );
 };
