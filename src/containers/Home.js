@@ -10,7 +10,7 @@ import axios from 'axios';
 
 import buildLoader from '../components/Loader';
 import { fetchBusinessGetData, fetchGetRawMaterials } from '../redux/actions/data';
-import { lowestMaterial, retrieveItem, notFull } from '../helpers';
+import { lowestMaterial, retrieveItem } from '../helpers';
 import BusinessComponent from '../components/setters/BusinessComponent';
 import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
 import ErrorHandler from '../components/ErrorHandler';
