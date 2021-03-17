@@ -26,16 +26,18 @@ const Auth = ({ initialState }) => {
   return (
     <>
       <div className={styles.mainContainer}>
-        <div />
-        <button type="button">
-          Login
-        </button>
-        <button type="button">
-          SignUp
-        </button>
+        <div>
+          {(authOption.option === 'signup') ? <SignupForm /> : <LoginForm /> }
+        </div>
+        <div className={styles.authOptionsContainer}>
+          <button onClick={() => handleAuthOption('login')} type="button">
+            Login
+          </button>
+          <button onClick={() => handleAuthOption('signup')} type="button">
+            SignUp
+          </button>
+        </div>
       </div>
-      <LoginForm />
-      <SignupForm />
     </>
   );
 };
