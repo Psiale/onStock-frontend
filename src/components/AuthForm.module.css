@@ -3,6 +3,62 @@
 .mainContainer {
   display: flex;
   flex-flow: column;
+  text-align: center;
   padding: 10px;
-  background-color: var(--blue);
+  height: 100%;
+  width: 80%;
+}
+
+.inputContainer {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.inputContainer > input {
+  width: 80%;
+}
+
+.inputContainer > label > input {
+  text-align: center;
+  background-color: rgb(220, 250, 255);
+  color: var(--grey);
+  padding: 8px;
+  border: 1px solid var(--blue);
+  border-radius: 8px;
+}
+
+input[type=submit] {
+  text-align: center;
+  background-color: var(--green);
+  color: black;
+  padding: 8px;
+  border: 1px solid var(--green);
+  border-radius: 8px;
+}
+
+::placeholder {
+  color: var(--grey);
+}
+
+@media (min-width: 768px) {
+  .mainContainer {
+    height: 80%;
+  }
+
+  .mainContainer > h1 {
+    height: 60px;
+    background-color: purple;
+  }
+
+  .inputContainer {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    width: 100%;
+    justify-content: space-around;
+    height: 100%;
+  }
 }

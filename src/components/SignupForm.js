@@ -45,11 +45,14 @@ const SignupForm = ({ signupRequest }) => {
   return (
     <>
       <form className={styles.mainContainer} onSubmit={handleSubmit}>
-        {createInput('name', values.name, handleChange)}
-        {createInput('email', values.email, handleChange, 'email')}
-        {createInput('password', values.password, handleChange, 'password')}
-        {createInput('confirmation', values.confirmation, handleChange, 'password')}
-        <input type="submit" value="Signup" />
+        <h2> Create Account </h2>
+        <div className={styles.inputContainer}>
+          {createInput('name', values.name, handleChange)}
+          {createInput('email', values.email, handleChange, 'email')}
+          {createInput('password', values.password, handleChange, 'password')}
+          {createInput('confirmation', values.confirmation, handleChange, 'password')}
+          <input type="submit" value="Signup" />
+        </div>
       </form>
     </>
   );

@@ -7,10 +7,10 @@ export const validatePassword = (password, passwordConfirmation) => {
 export const createInput = (htmlFor, inputValue, changeHandle, type = 'text') => (
   <>
     <label htmlFor={htmlFor}>
-      {htmlFor}
       <input
         required
         id={htmlFor}
+        placeholder={htmlFor}
         name={htmlFor}
         type={type}
         value={inputValue}
