@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Proptypes from 'prop-types';
 import { loginRequest } from '../redux/actions/auth';
+// import styles from './AuthForm.module.css';
+
 import { createInput } from '../helpers';
 
 const LoginForm = ({ loginRequest }) => {

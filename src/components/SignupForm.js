@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 
 import { validatePassword, createInput } from '../helpers';
 import { signupRequest } from '../redux/actions/auth';
+// import styles from './AuthForm.module.css';
 
 const SignupForm = ({ signupRequest }) => {
   const [values, setValues] = useState({
