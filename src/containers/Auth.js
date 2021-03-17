@@ -33,11 +33,11 @@ const Auth = ({ initialState }) => {
           <div className={styles.backgroundContainer} />
         </div>
         <div className={styles.authOptionsContainer}>
-          <button onClick={() => handleAuthOption('login')} type="button">
+          <button className={(authOption.option === 'login') ? styles.clickedButton : styles.disabledButton} onClick={() => handleAuthOption('login')} type="button">
             Login
           </button>
-          <button onClick={() => handleAuthOption('signup')} type="button">
-            SignUp
+          <button className={(authOption.option === 'signup') ? styles.clickedButton : styles.disabledButton} onClick={() => handleAuthOption('signup')} type="button">
+            Sign Up
           </button>
         </div>
       </div>

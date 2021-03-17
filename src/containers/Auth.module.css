@@ -27,10 +27,27 @@
 .authOptionsContainer {
   width: 100%;
   display: flex;
+  justify-content: space-evenly;
 }
 
 .authOptionsContainer > button {
-  width: 50%;
+  width: 40%;
+}
+
+.clickedButton {
+  background-color: var(--grey);
+  padding: 8px;
+  border: 1px solid var(--grey);
+  border-radius: 8px;
+  color: white;
+}
+
+.disabledButton {
+  background-color: white;
+  color: var(--grey);
+  padding: 8px;
+  border: 1px solid var(--grey);
+  border-radius: 8px;
 }
 
 @media (min-width: 768px) {
@@ -41,6 +58,9 @@
     display: flex;
     justify-content: space-between;
     flex-flow: column;
+    -webkit-box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.75);
+    box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.75);
   }
 
   .formContainer {
@@ -64,5 +84,13 @@
   .inputsContainer,
   .backgroundContainer {
     width: 50%;
+  }
+
+  @media (min-width: 768px) {
+    .authOptionsContainer {
+      width: 50%;
+      display: flex;
+      padding-bottom: 10px;
+    }
   }
 }

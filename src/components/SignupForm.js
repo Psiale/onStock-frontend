@@ -51,7 +51,7 @@ const SignupForm = ({ signupRequest }) => {
           {createInput('email', values.email, handleChange, 'email')}
           {createInput('password', values.password, handleChange, 'password')}
           {createInput('confirmation', values.confirmation, handleChange, 'password')}
-          <input type="submit" value="Signup" />
+          <input type="submit" value="Sign Up" />
         </div>
       </form>
     </>
