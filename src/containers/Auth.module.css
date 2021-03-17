@@ -1,4 +1,8 @@
 .mainContainer {
+  width: 90%;
+  height: 80%;
+  background-color: green;
   display: flex;
+  justify-content: center;
   flex-flow: column;
 }
