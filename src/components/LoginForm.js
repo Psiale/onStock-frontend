@@ -39,9 +39,12 @@ const LoginForm = ({ loginRequest }) => {
   return (
     <>
       <form className={styles.mainContainer} onSubmit={handleSubmit}>
-        {createInput('email', values.email, handleChange, 'email')}
-        {createInput('password', values.password, handleChange, 'password')}
-        <input type="submit" value="Login" />
+        <h2> Access in </h2>
+        <div className={`${styles.inputContainer} ${styles.inputContainerLogin}`}>
+          {createInput('email', values.email, handleChange, 'email')}
+          {createInput('password', values.password, handleChange, 'password')}
+          <input type="submit" value="Login" />
+        </div>
       </form>
     </>
   );

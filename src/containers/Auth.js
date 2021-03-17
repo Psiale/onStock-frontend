@@ -30,7 +30,14 @@ const Auth = ({ initialState }) => {
           <div className={styles.inputsContainer}>
             {(authOption.option === 'signup') ? <SignupForm /> : <LoginForm /> }
           </div>
-          <div className={styles.backgroundContainer} />
+          <div className={styles.backgroundContainer}>
+            <h3>
+              {(authOption.option === 'login')
+                ? 'Welcome Back, we missed you'
+                : "Create a new account to start tracking your business's raw materials"}
+
+            </h3>
+          </div>
         </div>
         <div className={styles.authOptionsContainer}>
           <button className={(authOption.option === 'login') ? styles.clickedButton : styles.disabledButton} onClick={() => handleAuthOption('login')} type="button">

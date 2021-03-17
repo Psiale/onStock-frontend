@@ -32,8 +32,8 @@
 
 input[type=submit] {
   text-align: center;
-  background-color: var(--green);
-  color: black;
+  background-color: var(--blue);
+  color: rgb(220, 250, 255);
   padding: 8px;
   border: 1px solid var(--green);
   border-radius: 8px;
@@ -54,7 +54,6 @@ h2 {
 
   .mainContainer > h1 {
     height: 60px;
-    background-color: purple;
   }
 
   .inputContainer {
@@ -63,6 +62,15 @@ h2 {
     align-items: center;
     width: 100%;
     justify-content: space-around;
+    height: 100%;
+  }
+
+  .inputContainerlogin {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
     height: 100%;
   }
 }
