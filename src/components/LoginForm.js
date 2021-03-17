@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Proptypes from 'prop-types';
 import { loginRequest } from '../redux/actions/auth';
-// import styles from './AuthForm.module.css';
+import styles from './AuthForm.module.css';
 
 import { createInput } from '../helpers';
 
@@ -38,7 +38,7 @@ const LoginForm = ({ loginRequest }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form className={styles.mainContainer} onSubmit={handleSubmit}>
         {createInput('email', values.email, handleChange, 'email')}
         {createInput('password', values.password, handleChange, 'password')}
         <input type="submit" value="Login" />

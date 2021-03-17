@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 
 import { validatePassword, createInput } from '../helpers';
 import { signupRequest } from '../redux/actions/auth';
-// import styles from './AuthForm.module.css';
+import styles from './AuthForm.module.css';
 
 const SignupForm = ({ signupRequest }) => {
   const [values, setValues] = useState({
@@ -44,12 +44,12 @@ const SignupForm = ({ signupRequest }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form className={styles.mainContainer} onSubmit={handleSubmit}>
         {createInput('name', values.name, handleChange)}
         {createInput('email', values.email, handleChange, 'email')}
         {createInput('password', values.password, handleChange, 'password')}
         {createInput('confirmation', values.confirmation, handleChange, 'password')}
-        <input type="submit" value="Login" />
+        <input type="submit" value="Signup" />
       </form>
     </>
   );

@@ -1,9 +1,11 @@
+@import '../colors.css';
+
 .mainContainer {
   width: 90%;
   height: 80%;
-  background-color: green;
+  background-color: white;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-flow: column;
 }
 
@@ -15,5 +17,3 @@
 .authOptionsContainer > button {
   width: 50%;
 }
-
-
