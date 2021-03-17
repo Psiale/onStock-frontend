@@ -55,6 +55,8 @@ const notFull = materials => materials.filter(
 );
 export const lowestMaterial = materials => {
   if (materials !== [] && materials.length > 0) {
+    const sanitazed = notFull(materials);
+    if (sanitazed.length === 0) return materials[0];
     return notFull(materials).reduce(lowest);
   }
   return 'null';

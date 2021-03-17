@@ -7,10 +7,12 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { fetchGetRawMaterials, fetchRawMaterialRequestPost } from '../redux/actions/data';
-import RawMaterialComponent from './setters/RawMaterialComponent';
-import ModalComponent from './Modal';
-import ErrorHandler from './ErrorHandler';
-import GlobalCircularProgressComponent from './getters/GlobalCircularProgress';
+// import styles from './RawMaterialsListComponent.module.css';
+import RawMaterialComponent from '../components/setters/RawMaterialComponent';
+import ModalComponent from '../components/Modal';
+import ErrorHandler from '../components/ErrorHandler';
+import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
+import NavBar from '../components/NavBar';
 
 const RawMaterialsListComponent = ({
   fetchGetRawMaterials,
@@ -60,6 +62,7 @@ const RawMaterialsListComponent = ({
   }, []);
   return (rawMaterials !== []) ? (
     <>
+      <NavBar />
       {rawMaterials.map(item => {
         console.log(`item id: ${item.id}`);
         return (
@@ -80,6 +83,7 @@ const RawMaterialsListComponent = ({
     </>
   ) : (
     <div>
+      <NavBar />
       <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Create a new Raw Material" modalTitle="Add a new Raw Material" child={<RawMaterialComponent />} />
     </div>
   );

@@ -1,6 +1,5 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import RawMaterialsListComponent from '../components/RawMaterialsListComponent';
-import RawMaterialComponent from '../components/getters/RawMaterialComponent';
+import RawMaterialsListComponent from './RawMaterialsListComponent';
 import Auth from './Auth';
 import Home from './Home';
 
@@ -10,7 +9,6 @@ const Routes = () => (
       <Route exact path="/" component={Auth} />
       <Route path="/dashboard" component={Home} />
       <Route path="/business/raw_materials" component={RawMaterialsListComponent} />
-      <Route path="/rawMaterial/:id" component={RawMaterialComponent} />
     </Switch>
   </BrowserRouter>
 );

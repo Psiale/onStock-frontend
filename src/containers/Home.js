@@ -9,11 +9,13 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import buildLoader from '../components/Loader';
+// import styles from './Home.module.css';
 import { fetchBusinessGetData, fetchGetRawMaterials } from '../redux/actions/data';
 import { lowestMaterial, retrieveItem } from '../helpers';
 import BusinessComponent from '../components/setters/BusinessComponent';
 import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
 import ErrorHandler from '../components/ErrorHandler';
+import NavBar from '../components/NavBar';
 
 const Home = ({
   loading, isAuth, business, fetchBusinessGetData, rawMaterials,
@@ -61,7 +63,7 @@ const Home = ({
     (retrieveItem('token')) ? authToken = retrieveItem('token').replace(/['"]+/g, '') : history.goBack();
     if (authToken === '') history.goBack();
     axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
-    fetchBusinessGetData('business');
+    if (businessID !== false)fetchBusinessGetData('business');
     if (businessID !== false)fetchGetRawMaterials(`business/${businessID}/raw_materials`);
   }, []);
   return (
@@ -70,6 +72,7 @@ const Home = ({
         { (business !== null) ? (
           
           <div>
+            <NavBar />
             <p> {business.name} </p>
             {(rawMaterials && rawMaterials.length > 0)
             // have to solve out this call
@@ -78,7 +81,13 @@ const Home = ({
               Raw Materials
             </button>
           </div>
-        ) : <BusinessComponent /> }
+        ) 
+          : (
+            <div>
+              <NavBar />
+              <BusinessComponent />
+            </div>
+          ) }
       </div>
     </>
   );
