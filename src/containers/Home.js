@@ -63,7 +63,7 @@ const Home = ({
     (retrieveItem('token')) ? authToken = retrieveItem('token').replace(/['"]+/g, '') : history.goBack();
     if (authToken === '') history.goBack();
     axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
-    fetchBusinessGetData('business');
+    if (businessID !== false)fetchBusinessGetData('business');
     if (businessID !== false)fetchGetRawMaterials(`business/${businessID}/raw_materials`);
   }, []);
   return (
