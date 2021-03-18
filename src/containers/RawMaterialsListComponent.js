@@ -4,7 +4,8 @@
 import React, { useLayoutEffect, useState } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+
+// Have to figure it out whats defaulting my access
 
 import { fetchGetRawMaterials, fetchRawMaterialRequestPost } from '../redux/actions/data';
 // import styles from './RawMaterialsListComponent.module.css';
@@ -13,16 +14,15 @@ import ModalComponent from '../components/Modal';
 import ErrorHandler from '../components/ErrorHandler';
 import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
 import NavBar from '../components/NavBar';
+import { retrieveItem } from '../helpers';
 
 const RawMaterialsListComponent = ({
   fetchGetRawMaterials,
   rawMaterials,
-  business,
   isAuth,
-  fetchRawMaterialRequestPost,
 
 }) => {
-  const history = useHistory();
+  let businessID;
 
   const [show, setShow] = useState(false);
   const [rawMaterial, setRawMaterial] = useState('');
@@ -44,12 +44,6 @@ const RawMaterialsListComponent = ({
     setShowDecrease(true);
   };
 
-  const handleOnClick = rawMaterial => {
-    fetchGetRawMaterials(`business/${business.id}/raw_materials`);
-    fetchRawMaterialRequestPost(rawMaterial);
-    history.push(`/rawMaterial/${rawMaterial.id}`);
-  };
-
   if (isAuth === false) {
     return (
       <>
@@ -58,7 +52,8 @@ const RawMaterialsListComponent = ({
     );
   }
   useLayoutEffect(() => {
-    if (isAuth) fetchGetRawMaterials(`business/${business.id}/raw_materials`);
+    (retrieveItem('businessID')) ? businessID = retrieveItem('businessID') : businessID = false;
+    if (isAuth) fetchGetRawMaterials(`business/${businessID}/raw_materials`);
   }, []);
   return (rawMaterials !== []) ? (
     <>
@@ -76,9 +71,6 @@ const RawMaterialsListComponent = ({
           </div>
         );
       })}
-      <button type="button" onClick={handleOnClick}>
-        save product
-      </button>
       <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Create a new Raw Material" modalTitle="Add a new Raw Material" child={<RawMaterialComponent />} />
     </>
   ) : (
@@ -97,18 +89,10 @@ RawMaterialsListComponent.propTypes = {
     total_amount: Proptypes.number,
     remaining_amount: Proptypes.number,
   })).isRequired,
-  business: Proptypes.shape({
-    id: Proptypes.number,
-    name: Proptypes.string.isRequired,
-    avatar: Proptypes.string.isRequired,
-    owner_id: Proptypes.number,
-  }).isRequired,
-  fetchRawMaterialRequestPost: Proptypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   rawMaterials: state.dataStore.raw_materials,
-  business: state.dataStore.business,
   isAuth: state.authStore.is_auth,
 });
 
