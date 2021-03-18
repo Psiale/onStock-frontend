@@ -7,9 +7,10 @@ import PropTypes from 'prop-types';
 import LoginForm from '../components/LoginForm';
 import SignupForm from '../components/SignupForm';
 import styles from './Auth.module.css';
-import { saveItem } from '../helpers';
+import { getBusinessID } from '../redux/actions/auth';
+import { retrieveItem, saveItem } from '../helpers';
 
-const Auth = ({ initialState }) => {
+const Auth = ({ initialState, getBusinessID }) => {
   const [authOption, setAuthOption] = useState({
     option: 'signup',
   });
@@ -22,6 +23,8 @@ const Auth = ({ initialState }) => {
     console.log('im running');
     initialState();
     saveItem('token', '');
+    console.log(`this is the business ID: ${retrieveItem('businessID')}`);
+    if (retrieveItem('businessID') !== null) getBusinessID();
   }, []);
   return (
     <>
@@ -54,10 +57,12 @@ const Auth = ({ initialState }) => {
 
 Auth.propTypes = {
   initialState: PropTypes.func.isRequired,
+  getBusinessID: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
   initialState: () => dispatch({ type: 'DEFAULT' }),
+  getBusinessID: () => dispatch(getBusinessID()),
 });
 
 export default connect(null, mapDispatchToProps)(Auth);

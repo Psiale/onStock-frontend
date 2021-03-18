@@ -2,7 +2,21 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  height: 40px;
   position: absolute;
+  background-color: purple;
   bottom: 0;
+  left: 0;
+}
+
+.navChild {
+  border: green 1px solid;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.navChild > button {
+  border: none;
+  background-color: purple;
 }

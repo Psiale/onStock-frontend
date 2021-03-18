@@ -10,6 +10,7 @@ import {
 const initialState = {
   is_auth: false,
   loading: false,
+  has_business: false,
   credentials: '',
   login_credentials: '',
   auth_token: 'not setup',
@@ -17,6 +18,7 @@ const initialState = {
 };
 
 const authReducer = (state = initialState, action) => {
+  console.log(action.type);
   switch (action.type) {
     case REQUEST_PENDING:
       return {
@@ -46,6 +48,13 @@ const authReducer = (state = initialState, action) => {
         loading: false,
         auth_token: '',
         error: action.payload,
+      };
+
+    case 'BUSINESS_EXIST':
+      console.log('Business Exist being trigger');
+      return {
+        ...state,
+        has_business: true,
       };
     case REQUEST_SUCCEED:
       return {

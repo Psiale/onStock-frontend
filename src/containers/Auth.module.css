@@ -11,11 +11,17 @@
 
 .formContainer {
   display: flex;
+  justify-content: center;
   width: 100%;
 }
 
 .backgroundContainer {
   display: none;
+}
+
+h3 {
+  font-family: 'Lato-Bold', monospace;
+  color: white;
 }
 
 .backgroundContainer > h3 {
@@ -24,11 +30,6 @@
 
 h2 {
   font-family: 'Montserrat-Bold', sans-serif;
-}
-
-h3 {
-  font-family: 'Lato-Bold', monospace;
-  color: white;
 }
 
 .inputsContainer {

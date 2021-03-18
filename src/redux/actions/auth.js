@@ -32,6 +32,10 @@ export const fetchAccessRequest = (type, authToken, info) => {
   };
 };
 
+export const getBusinessID = () => ({
+  type: 'BUSINESS_EXIST',
+});
+
 export const fetchPending = () => ({
   type: REQUEST_PENDING,
 });

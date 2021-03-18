@@ -42,7 +42,6 @@ export const colorProgression = percentage => {
 };
 
 const lowest = (prev, curr) => {
-  console.log(`this is prev ${prev.remaining_amount} and this is curr: ${curr.remaining_amount}`);
   if (curr.remaining_amount > 0
     && curr.remaining_amount < prev.remaining_amount) {
     return curr;

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-trailing-spaces */
@@ -31,7 +30,6 @@ const Home = ({
 
   const handleOnClick = endpoint => history.push(endpoint);
   const hasRawMaterials = (materials, material) => {
-    console.log(material);
     if (materials !== null) {
       return (
         <> 
