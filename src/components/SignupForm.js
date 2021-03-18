@@ -24,7 +24,7 @@ const SignupForm = ({ signupRequest }) => {
   const handleSubmit = event => {
     // do this with the store, I think maybe a isAuth boolean to make it work
     console.log('is this being trigger');
-    console.log(validatePassword(values.password, values.password_confirmation));
+    console.log(validatePassword(values.password, values.confirmation));
     validatePassword(values.password, values.confirmation) ? signupRequest(
       {
         name: values.name,
