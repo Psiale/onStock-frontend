@@ -35,7 +35,7 @@ input[type=submit] {
   background-color: var(--blue);
   color: rgb(220, 250, 255);
   padding: 8px;
-  border: 1px solid var(--green);
+  border: 1px solid rgb(220, 250, 255);
   border-radius: 8px;
 }
 

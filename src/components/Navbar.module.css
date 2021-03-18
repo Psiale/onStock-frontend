@@ -1,0 +1,8 @@
+.mainContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  position: absolute;
+  bottom: 0;
+}

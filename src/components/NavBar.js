@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import RawMaterialComponent from './setters/RawMaterialComponent';
 import ModalComponent from './Modal';
 import { retrieveItem } from '../helpers';
+import styles from './Navbar.module.css';
 
 const NavBar = ({ initialState }) => {
   let businessID;
@@ -25,12 +26,12 @@ const NavBar = ({ initialState }) => {
     history.push(enpoint);
   };
   return (
-    <>
+    <div className={styles.mainContainer}>
       <button type="button" onClick={() => handleOnClick('/')}> Sign out</button>
       {(businessID !== false)
         ? <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Create a new Raw Material" modalTitle="Add a new Raw Material" child={<RawMaterialComponent />} /> : null}
       <button type="button" onClick={() => handleOnClick('/business/raw_materials')}> Inventory</button>
-    </>
+    </div>
   );
 };
 
