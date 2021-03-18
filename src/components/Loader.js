@@ -11,7 +11,7 @@ const buildLoader = () => (
       color="rgb(18, 211, 236)"
       height={300}
       width={300}
-      timeout={20000}
+      timeout={40000}
     />
   </div>
 );
