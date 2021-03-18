@@ -18,7 +18,16 @@
   display: none;
 }
 
+.backgroundContainer > h3 {
+  padding: 20px;
+}
+
+h2 {
+  font-family: 'Montserrat-Bold', sans-serif;
+}
+
 h3 {
+  font-family: 'Lato-Bold', monospace;
   color: white;
 }
 

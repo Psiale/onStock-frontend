@@ -65,12 +65,16 @@ h2 {
     height: 100%;
   }
 
-  .inputContainerlogin {
+  .inputContainerLogin {
     display: flex;
     flex-flow: column;
     align-items: center;
     width: 100%;
     justify-content: center;
     height: 100%;
+  }
+
+  .inputContainerLogin > input[type=submit] {
+    margin-top: 60px;
   }
 }

@@ -33,8 +33,8 @@ const Auth = ({ initialState }) => {
           <div className={styles.backgroundContainer}>
             <h3>
               {(authOption.option === 'login')
-                ? 'Welcome Back, we missed you'
-                : "Create a new account to start tracking your business's raw materials"}
+                ? 'Welcome Back, we missed you 🥰'
+                : "Create a new account to start tracking your business's raw materials 🚀"}
 
             </h3>
           </div>

@@ -20,6 +20,6 @@ BUG: Change message to out of stock when percentage is 0 DONE
 
 
 STYLYING:
-TODO: 
+TODO: pass create raw material and raw materials to the navbar
 
 AFTER PROJECT

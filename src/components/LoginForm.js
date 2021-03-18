@@ -39,7 +39,7 @@ const LoginForm = ({ loginRequest }) => {
   return (
     <>
       <form className={styles.mainContainer} onSubmit={handleSubmit}>
-        <h2> Access in </h2>
+        <h2> On Stock </h2>
         <div className={`${styles.inputContainer} ${styles.inputContainerLogin}`}>
           {createInput('email', values.email, handleChange, 'email')}
           {createInput('password', values.password, handleChange, 'password')}

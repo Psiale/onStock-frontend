@@ -45,7 +45,7 @@ const SignupForm = ({ signupRequest }) => {
   return (
     <>
       <form className={styles.mainContainer} onSubmit={handleSubmit}>
-        <h2> Create Account </h2>
+        <h2> On Stock </h2>
         <div className={styles.inputContainer}>
           {createInput('name', values.name, handleChange)}
           {createInput('email', values.email, handleChange, 'email')}
