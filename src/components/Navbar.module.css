@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   position: fixed;
-  background-color: var(--green);
+  background-color: var(--grey);
   bottom: 0;
   left: 0;
 }
@@ -25,10 +25,16 @@
 .navChild > button,
 #navChildren > button {
   border: none;
+  width: 100%;
   background-color: transparent;
 }
 
 #selectedTab {
-  background-color: #28a745;
+  background-color: var(--blue);
+  color: white;
+}
+
+#selectedTab > button {
+  background-color: var(--blue);
   color: white;
 }

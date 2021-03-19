@@ -21,12 +21,16 @@ const RawMaterialsListComponent = ({
   fetchGetRawMaterials,
   rawMaterials,
   isAuth,
+  business,
 
 }) => {
   let businessID;
 
   const [rawMaterial, setRawMaterial] = useState('');
   const [showIncrease, setShowIncrease] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const [showDecrease, setShowDecrease] = useState(false);
   const handleCloseIncrease = () => setShowIncrease(false);
   const handleShowIncrease = rawMaterialSelected => {
@@ -51,9 +55,9 @@ const RawMaterialsListComponent = ({
   }
   useLayoutEffect(() => {
     (retrieveItem('businessID')) ? businessID = retrieveItem('businessID') : businessID = false;
-    if (isAuth) fetchGetRawMaterials(`business/${businessID}/raw_materials`);
+    if (businessID !== false) fetchGetRawMaterials(`business/${business.id}/raw_materials`);
   }, []);
-  return (rawMaterials !== []) ? (
+  return (rawMaterials.length >= 1) ? (
     <div className={styles.mainContainer}>
       <NavBar />
       {rawMaterials.map(item => {
@@ -62,7 +66,7 @@ const RawMaterialsListComponent = ({
           <div className={styles.childContainer} key={`div${item.id}`}>
             <div className={styles.progressMainInfoContainer}>
               <GlobalCircularProgressComponent width="100%" rawMaterial={item} />
-              <h2 key={item.id}>{item.name}</h2>
+              <h2 className={styles.title} key={item.id}>{item.name}</h2>
             </div>
             <div className={styles.amountsContainer}>
               <div className={styles.pAmountContainer}>
@@ -85,6 +89,9 @@ const RawMaterialsListComponent = ({
   ) : (
     <div>
       <NavBar />
+      <div>
+        <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Create a new Raw Material" modalTitle="Add a new Raw Material" child={<RawMaterialComponent />} />
+      </div>
     </div>
   );
 };
@@ -97,11 +104,18 @@ RawMaterialsListComponent.propTypes = {
     total_amount: Proptypes.number,
     remaining_amount: Proptypes.number,
   })).isRequired,
+  business: Proptypes.shape({
+    id: Proptypes.number,
+    name: Proptypes.string.isRequired,
+    avatar: Proptypes.string.isRequired,
+    owner_id: Proptypes.number,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({
   rawMaterials: state.dataStore.raw_materials,
   isAuth: state.authStore.is_auth,
+  business: state.dataStore.business,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,6 +1,7 @@
-h2 {
+.title {
   color: black;
 }
+
 .mainContainer {
   width: 100%;
   height: 100%;
@@ -14,6 +15,7 @@ h2 {
   display: flex;
   flex-flow: column;
   justify-content: space-around;
+  margin-bottom: 20px;
 }
 
 .circularBar {

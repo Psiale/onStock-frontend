@@ -3,6 +3,7 @@
 /* eslint-disable no-return-assign */
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { useHistory } from 'react-router-dom';
@@ -14,15 +15,15 @@ const BusinessComponent = ({ fetchPostData }) => {
   const [values, setValues] = useState({
     name: '',
   });
-  // const history = useHistory();
+  const history = useHistory();
 
-  const handleSubmit = event => {
+  const handleSubmit = () => {
     fetchPostData('business',
       {
         name: values.name,
         avatar: 'default value',
       });
-    event.preventDefault();
+    history.push('/business/raw_materials');
   };
   const handleChange = evt => {
     const { value } = evt.target;
