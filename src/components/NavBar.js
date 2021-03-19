@@ -32,7 +32,6 @@ const NavBar = ({ initialState, hasBusiness }) => {
   useEffect(() => {
     (retrieveItem('businessID')) ? businessID = retrieveItem('businessID') : businessID = false;
     console.log(businessID);
-    handleLocation(location.pathname);
   }, []);
   const history = useHistory();
   const handleClose = () => {
@@ -44,8 +43,8 @@ const NavBar = ({ initialState, hasBusiness }) => {
   };
   const handleOnClick = endpoint => {
     if (endpoint === '/') initialState();
-    if (endpoint === '/dashboard') history.goBack();
-    history.push(endpoint);
+    handleLocation(location.pathname);
+    (location.pathname !== endpoint) ? history.push(endpoint) : null;
   };
   return (
     <div className={styles.mainContainer}>
