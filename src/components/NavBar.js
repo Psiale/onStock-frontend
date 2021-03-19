@@ -28,16 +28,17 @@ const NavBar = ({ initialState, hasBusiness }) => {
   const handleLocation = pathName => {
     console.log(location.pathname);
     (pathName === '/business/raw_materials') ? setPath({ text: 'Dashboard', path: '/dashboard' }) : setPath({ text: 'Inventory', path: '/business/raw_materials' });
+    console.log(path.path);
   };
   useEffect(() => {
     (retrieveItem('businessID')) ? businessID = retrieveItem('businessID') : businessID = false;
-    console.log(businessID);
     handleLocation(location.pathname);
   }, []);
   const history = useHistory();
   const handleClose = () => {
-    setShow(false);
-    history.push('/business/raw_materials');
+    console.log(`the path is:${path.path}`);
+    (location.pathname === '/business/raw_materials')
+      ? history.push('/dashboard') : history.push('/business/raw_materials');
     handleLocation(location.pathname);
   };
   const handleShow = () => {
@@ -58,7 +59,7 @@ const NavBar = ({ initialState, hasBusiness }) => {
         <FontAwesomeIcon icon={faSignOutAlt} />
         <button type="button" onClick={() => handleOnClick('/')}> Sign out</button>
       </div>
-      <div onClick={() => setPath({selected: 'right'})} id={(path.selected === 'right') ? styles.selectedTab : null} className={styles.outerNavChild}>
+      <div onClick={() => setPath({selected: 'right', text: 'Dashboard'})} id={(path.selected === 'right') ? styles.selectedTab : null} className={styles.outerNavChild}>
         {(hasBusiness !== false)
           ? (
             <div id={styles.navChildren}>
