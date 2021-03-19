@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable object-curly-spacing */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
 import React, { useState, useEffect } from 'react';
@@ -19,6 +22,7 @@ const NavBar = ({ initialState, hasBusiness }) => {
   const [path, setPath] = useState({
     text: 'Inventory',
     path: '/business/raw_materials',
+    selected: 'left',
   });
 
   const handleLocation = pathName => {
@@ -36,28 +40,29 @@ const NavBar = ({ initialState, hasBusiness }) => {
     history.push('/business/raw_materials');
   };
   const handleShow = () => {
-    if (businessID !== false) setShow(true);
+    if (businessID !== null) setShow(true);
   };
   const handleOnClick = endpoint => {
     if (endpoint === '/') initialState();
+    if (endpoint === '/dashboard') history.goBack();
     history.push(endpoint);
   };
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.navChild}>
+      <div id={(path.selected === 'left') ? styles.selectedTab : null} className={styles.navChild}>
         <FontAwesomeIcon icon={faListAlt} />
         <button type="button" onClick={() => handleOnClick(path.path)}>{path.text}</button>
       </div>
-      <div className={styles.navChild}>
+      <div onClick={() => setPath({selected: 'center'})} id={(path.selected === 'center') ? styles.selectedTab : null} className={styles.navChild}>
         <FontAwesomeIcon icon={faSignOutAlt} />
         <button type="button" onClick={() => handleOnClick('/')}> Sign out</button>
       </div>
-      <div>
+      <div onClick={() => setPath({selected: 'right'})} id={(path.selected === 'right') ? styles.selectedTab : null} className={styles.outerNavChild}>
         {(hasBusiness !== false)
           ? (
-            <div className={styles.navChild}>
+            <div id={styles.navChildren}>
               <FontAwesomeIcon icon={faPlus} />
-              <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Create a new Raw Material" modalTitle="Add a new   Raw   Material" child={<RawMaterialComponent />} />
+              <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Material" modalTitle="Add a new   Raw   Material" child={<RawMaterialComponent />} />
             </div>
           ) : null}
       </div>

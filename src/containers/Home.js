@@ -15,10 +15,11 @@ import BusinessComponent from '../components/setters/BusinessComponent';
 import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
 import ErrorHandler from '../components/ErrorHandler';
 import NavBar from '../components/NavBar';
+import { getBusinessID } from '../redux/actions/auth';
 
 const Home = ({
   loading, isAuth, business, fetchBusinessGetData, rawMaterials,
-  fetchGetRawMaterials, error,
+  fetchGetRawMaterials, error, getBusinessID,
 }) => {
   if (loading === true && isAuth === false) {
     return buildLoader();
@@ -27,8 +28,6 @@ const Home = ({
   const history = useHistory();
   let businessID;
   (retrieveItem('businessID')) ? businessID = retrieveItem('businessID') : businessID = false;
-
-  const handleOnClick = endpoint => history.push(endpoint);
   const hasRawMaterials = (materials, material) => {
     if (materials !== null) {
       return (
@@ -63,6 +62,7 @@ const Home = ({
     axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
     if (authToken !== '')fetchBusinessGetData('business');
     if (businessID !== false)fetchGetRawMaterials(`business/${businessID}/raw_materials`);
+    if (businessID !== false) getBusinessID();
   }, []);
   return (
     <>
@@ -75,9 +75,6 @@ const Home = ({
             {(rawMaterials && rawMaterials.length > 0)
             // have to solve out this call
               ? hasRawMaterials(rawMaterials, lowestMaterial(rawMaterials)) : null } 
-            <button onClick={() => { handleOnClick('/business/raw_materials'); }} type="button">
-              Raw Materials
-            </button>
           </div>
         ) 
           : (
@@ -104,6 +101,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchBusinessGetData: endpoint => dispatch(fetchBusinessGetData(endpoint)),
   fetchGetRawMaterials: endpoint => dispatch(fetchGetRawMaterials(endpoint)),
+  getBusinessID: () => dispatch(getBusinessID()),
 });
 
 Home.propTypes = {
@@ -114,6 +112,7 @@ Home.propTypes = {
     remaining_amount: Proptypes.number,
   })),
   fetchGetRawMaterials: Proptypes.func.isRequired,
+  getBusinessID: Proptypes.func.isRequired,
   loading: Proptypes.bool.isRequired,
   isAuth: Proptypes.bool.isRequired,
   business: Proptypes.shape({
