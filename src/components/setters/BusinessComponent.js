@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 
 import { fetchPostData } from '../../redux/actions/data';
 import { createInput } from '../../helpers';
-import styles from './BusinessComponent.module.css';
 
 const BusinessComponent = ({ fetchPostData }) => {
   const [values, setValues] = useState({
@@ -39,7 +38,7 @@ const BusinessComponent = ({ fetchPostData }) => {
   console.log(axios.defaults.headers.common);
 
   return (
-    <div className={styles.mainContainer}>
+    <div>
       <span> No Business Yet :c </span>
       <form onSubmit={handleSubmit}>
         {createInput('name', values.name, handleChange)}
