@@ -1,0 +1,80 @@
+@import '../colors.css';
+
+.mainContainer {
+  display: flex;
+  flex-flow: column;
+  text-align: center;
+  padding: 10px;
+  height: 100%;
+  width: 80%;
+}
+
+.inputContainer {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.inputContainer > input {
+  width: 80%;
+}
+
+.inputContainer > label > input {
+  text-align: center;
+  background-color: rgb(220, 250, 255);
+  color: var(--grey);
+  padding: 8px;
+  border: 1px solid var(--blue);
+  border-radius: 8px;
+}
+
+input[type=submit] {
+  text-align: center;
+  background-color: var(--blue);
+  color: rgb(220, 250, 255);
+  padding: 8px;
+  border: 1px solid rgb(220, 250, 255);
+  border-radius: 8px;
+}
+
+h2 {
+  color: var(--grey);
+}
+
+::placeholder {
+  color: var(--grey);
+}
+
+@media (min-width: 768px) {
+  .mainContainer {
+    height: 80%;
+  }
+
+  .mainContainer > h1 {
+    height: 60px;
+  }
+
+  .inputContainer {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    width: 100%;
+    justify-content: space-around;
+    height: 100%;
+  }
+
+  .inputContainerLogin {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .inputContainerLogin > input[type=submit] {
+    margin-top: 60px;
+  }
+}

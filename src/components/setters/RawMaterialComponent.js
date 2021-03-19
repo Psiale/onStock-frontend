@@ -49,7 +49,8 @@ const RawMaterialComponent = ({
         // actualizo
         // talvez debería regresar todos desde la api para no tener que reactualizar
         const result = item.remaining_amount + parseFloat(values.amount);
-        if (values.amount > item.total_amount) {
+        if (values.amount > item.total_amount
+          || parseFloat(values.amount) + item.remaining_amount > item.total_amount) {
           fetchPutRawMaterial(`business/${business.id}/raw_materials/${item.id}`,
             {
               total_amount: (parseFloat(values.amount)),

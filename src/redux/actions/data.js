@@ -52,7 +52,7 @@ export const fetchBusinessGetData = endpoint => async dispatch => {
   dispatch(fetchPending());
   getRequest(endpoint).then(response => {
     console.log(response.data);
-    saveItem('businessID', response.data.id);
+    if (response.data !== null) saveItem('businessID', response.data.id);
     dispatch(fetchBusinessRequest(response.data));
   }).catch(error => {
     console.log(error.message);

@@ -1,7 +1,6 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 import Proptypes from 'prop-types';
 
 const ModalComponent = ({
@@ -9,9 +8,9 @@ const ModalComponent = ({
   modalTitle, child, handleClose, handleShow, show,
 }) => (
   <>
-    <Button variant="primary" onClick={handleShow}>
+    <button type="button" onClick={handleShow}>
       {title}
-    </Button>
+    </button>
 
     <Modal
       show={show}

@@ -1,0 +1,110 @@
+@import '../colors.css';
+
+.mainContainer {
+  width: 90%;
+  height: 80%;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: column;
+}
+
+.formContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.backgroundContainer {
+  display: none;
+}
+
+h3 {
+  font-family: 'Lato-Bold', monospace;
+  color: white;
+}
+
+.backgroundContainer > h3 {
+  padding: 20px;
+}
+
+h2 {
+  font-family: 'Montserrat-Bold', sans-serif;
+}
+
+.inputsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.authOptionsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.authOptionsContainer > button {
+  width: 40%;
+}
+
+.clickedButton {
+  background-color: var(--grey);
+  padding: 8px;
+  border: 1px solid var(--grey);
+  border-radius: 8px;
+  color: white;
+}
+
+.disabledButton {
+  background-color: white;
+  color: var(--grey);
+  padding: 8px;
+  border: 1px solid var(--grey);
+  border-radius: 8px;
+}
+
+@media (min-width: 768px) {
+  .mainContainer {
+    width: 80vw;
+    height: 80%;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: column;
+    -webkit-box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.75);
+    box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.75);
+  }
+
+  .formContainer {
+    height: 100%;
+    display: flex;
+  }
+
+  .inputsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .backgroundContainer {
+    background-color: #62b5e5;
+    background-image: url("data:image/svg+xml,%3Csvg width='70' height='70' viewBox='0 0 70 70' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23addc91' fill-opacity='0.67' fill-rule='evenodd'%3E%3Cpath d='M0 0h35v35H0V0zm5 5h25v25H5V5zm5 5h15v15H10V10zm5 5h5v5h-5v-5zM40 5h25v25H40V5zm5 5h15v15H45V10zm5 5h5v5h-5v-5zM70 35H35v35h35V35zm-5 5H40v25h25V40zm-5 5H45v15h15V45zm-5 5h-5v5h5v-5zM30 40H5v25h25V40zm-5 5H10v15h15V45zm-5 5h-5v5h5v-5z'/%3E%3C/g%3E%3C/svg%3E");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .inputsContainer,
+  .backgroundContainer {
+    width: 50%;
+  }
+
+  .authOptionsContainer {
+    width: 50%;
+    display: flex;
+    padding-bottom: 10px;
+  }
+}

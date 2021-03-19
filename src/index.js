@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 // import { PersistGate } from 'redux-persist/es/integration/react';
 import { Provider } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
 import store from './redux/store';
 import Routes from './containers/Routes';
 import reportWebVitals from './reportWebVitals';

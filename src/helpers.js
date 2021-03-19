@@ -7,10 +7,10 @@ export const validatePassword = (password, passwordConfirmation) => {
 export const createInput = (htmlFor, inputValue, changeHandle, type = 'text') => (
   <>
     <label htmlFor={htmlFor}>
-      {htmlFor}
       <input
         required
         id={htmlFor}
+        placeholder={htmlFor}
         name={htmlFor}
         type={type}
         value={inputValue}
@@ -29,20 +29,19 @@ export const retrieveItem = string => localStorage.getItem(string);
 export const extractID = element => element.id;
 
 export const colorProgression = percentage => {
-  let color = 'green';
+  let color = '#addc91';
   console.log(percentage);
   if (percentage <= 20) {
     color = 'red';
   } else if (percentage <= 50) {
-    color = 'orange';
+    color = '#67899c';
   } else if (percentage <= 70) {
-    color = 'yellow';
+    color = '#62b5e5';
   }
   return color;
 };
 
 const lowest = (prev, curr) => {
-  console.log(`this is prev ${prev.remaining_amount} and this is curr: ${curr.remaining_amount}`);
   if (curr.remaining_amount > 0
     && curr.remaining_amount < prev.remaining_amount) {
     return curr;
@@ -55,6 +54,8 @@ const notFull = materials => materials.filter(
 );
 export const lowestMaterial = materials => {
   if (materials !== [] && materials.length > 0) {
+    const sanitazed = notFull(materials);
+    if (sanitazed.length === 0) return materials[0];
     return notFull(materials).reduce(lowest);
   }
   return 'null';

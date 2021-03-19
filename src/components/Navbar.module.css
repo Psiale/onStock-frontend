@@ -1,0 +1,40 @@
+.mainContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  background-color: var(--grey);
+  bottom: 0;
+  left: 0;
+}
+
+.navChild,
+#navChildren {
+  border: green 1px solid;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.navChild,
+.outerNavChild {
+  width: 33%;
+}
+
+.navChild > button,
+#navChildren > button {
+  border: none;
+  width: 100%;
+  background-color: transparent;
+}
+
+#selectedTab {
+  background-color: var(--blue);
+  color: white;
+}
+
+#selectedTab > button {
+  background-color: var(--blue);
+  color: white;
+}

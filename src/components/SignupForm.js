@@ -8,13 +8,14 @@ import { useHistory } from 'react-router-dom';
 
 import { validatePassword, createInput } from '../helpers';
 import { signupRequest } from '../redux/actions/auth';
+import styles from './AuthForm.module.css';
 
 const SignupForm = ({ signupRequest }) => {
   const [values, setValues] = useState({
     name: '',
     email: '',
     password: '',
-    password_confirmation: '',
+    confirmation: '',
   });
   const history = useHistory();
   // I can pass a string parameter for the reducer to handle the function
@@ -22,12 +23,14 @@ const SignupForm = ({ signupRequest }) => {
 
   const handleSubmit = event => {
     // do this with the store, I think maybe a isAuth boolean to make it work
-    validatePassword(values.password, values.password_confirmation) ? signupRequest(
+    console.log('is this being trigger');
+    console.log(validatePassword(values.password, values.confirmation));
+    validatePassword(values.password, values.confirmation) ? signupRequest(
       {
         name: values.name,
         email: values.email,
         password: values.password,
-        password_confirmation: values.password_confirmation,
+        password_confirmation: values.confirmation,
       },
     ).then(history.push('/dashboard')) : event.preventDefault();
   };
@@ -43,12 +46,15 @@ const SignupForm = ({ signupRequest }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        {createInput('name', values.name, handleChange)}
-        {createInput('email', values.email, handleChange, 'email')}
-        {createInput('password', values.password, handleChange, 'password')}
-        {createInput('password_confirmation', values.password_confirmation, handleChange, 'password')}
-        <input type="submit" value="Login" />
+      <form className={styles.mainContainer} onSubmit={handleSubmit}>
+        <h2> On Stock </h2>
+        <div className={styles.inputContainer}>
+          {createInput('name', values.name, handleChange)}
+          {createInput('email', values.email, handleChange, 'email')}
+          {createInput('password', values.password, handleChange, 'password')}
+          {createInput('confirmation', values.confirmation, handleChange, 'password')}
+          <input type="submit" value="Signup" />
+        </div>
       </form>
     </>
   );

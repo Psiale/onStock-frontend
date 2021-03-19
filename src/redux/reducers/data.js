@@ -17,7 +17,6 @@ const initialState = {
 };
 
 const dataReducer = (state = initialState, action) => {
-  console.log(action.type);
   switch (action.type) {
     case REQUEST_PENDING:
       return {
@@ -76,7 +75,6 @@ const dataReducer = (state = initialState, action) => {
         error: action.payload,
         loading: false,
       };
-
     default: return state;
   }
 };
