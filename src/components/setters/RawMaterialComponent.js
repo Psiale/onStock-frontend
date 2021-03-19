@@ -5,7 +5,6 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
 
 import {
   fetchPostRawMaterials, fetchPutRawMaterial,
@@ -22,22 +21,15 @@ const RawMaterialComponent = ({
     name: '',
     totalAmount: 0,
     amount: 0,
+    pressed: false,
   });
-  const history = useHistory();
-  const key = new KeyboardEvent('keypress', {
-    bubbles: true,
-    cancelable: true,
-    key: 'Escape',
-    shiftKey: false,
-    keyCode: 27,
-  });
-  const location = useLocation();
 
   const handleSubmit = event => {
     if (update) {
       if (decrease) {
         if (item.remaining_amount - values.amount < 0) {
           event.preventDefault();
+          setValues({ pressed: true });
           return;
           // hacer algo mejor que esto
         }
@@ -50,6 +42,7 @@ const RawMaterialComponent = ({
           }).then(
           // luego jalo todos los materiales para que se actualice el elemento,
           event.preventDefault(),
+          setValues({ pressed: true }),
           console.log(item.remaining_amount - values.amount),
         );
       } else {
@@ -66,6 +59,7 @@ const RawMaterialComponent = ({
             }).then(
           // luego jalo todos los materiales para que se actualice el elemento,
             event.preventDefault(),
+            setValues({ pressed: true }),
             console.log(result),
           );
           return;
@@ -75,9 +69,8 @@ const RawMaterialComponent = ({
             remaining_amount: (result),
           }).then(
           // luego jalo todos los materiales para que se actualice el elemento,
-          (location.pathname === '/business/raw_materials')
-            ? history.push('/dashboard') : history.push('/business/raw_materials'),
-          console.log(result),
+          event.preventDefault(),
+          setValues({ pressed: true }),
         );
       }
       return;
@@ -90,6 +83,7 @@ const RawMaterialComponent = ({
         remaining_amount: values.totalAmount,
       }).then(
       event.preventDefault(),
+      setValues({ pressed: true }),
       console.log(
         {
           name: values.name,
@@ -98,8 +92,7 @@ const RawMaterialComponent = ({
         },
       ),
     );
-    console.log(event.target.dispatchEvent(key));
-    event.target.dispatchEvent(key);
+    setValues({ pressed: true });
   };
   const handleChange = evt => {
     const { value } = evt.target;
@@ -117,7 +110,7 @@ const RawMaterialComponent = ({
       <>
         <form onSubmit={handleSubmit}>
           {createInput('amount', values.amount, handleChange, 'number')}
-          <input type="submit" value="Update" />
+          <input type="submit" value="Update" disabled={values.pressed} />
         </form>
       </>
     );
@@ -128,7 +121,7 @@ const RawMaterialComponent = ({
       <form onSubmit={handleSubmit}>
         {createInput('name', values.name, handleChange)}
         {createInput('totalAmount', values.totalAmount, handleChange, 'number')}
-        <input type="submit" value="Create Raw Material" />
+        <input type="submit" value="Create Raw Material" disabled={values.pressed} />
       </form>
     </>
   );
