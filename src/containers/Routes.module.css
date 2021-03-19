@@ -1,6 +1,8 @@
 * {
   outline: none;
   font-family: 'Lato-Regular', monospace;
+  margin: 0;
+  padding: 0;
 }
 
 .rootContainer,

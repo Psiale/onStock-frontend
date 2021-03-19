@@ -102,11 +102,9 @@ h2 {
     width: 50%;
   }
 
-  @media (min-width: 768px) {
-    .authOptionsContainer {
-      width: 50%;
-      display: flex;
-      padding-bottom: 10px;
-    }
+  .authOptionsContainer {
+    width: 50%;
+    display: flex;
+    padding-bottom: 10px;
   }
 }

@@ -15,6 +15,7 @@ import ErrorHandler from '../components/ErrorHandler';
 import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
 import NavBar from '../components/NavBar';
 import { retrieveItem } from '../helpers';
+import styles from './RawMaterialsListComponent.module.css';
 
 const RawMaterialsListComponent = ({
   fetchGetRawMaterials,
@@ -24,12 +25,9 @@ const RawMaterialsListComponent = ({
 }) => {
   let businessID;
 
-  const [show, setShow] = useState(false);
   const [rawMaterial, setRawMaterial] = useState('');
   const [showIncrease, setShowIncrease] = useState(false);
   const [showDecrease, setShowDecrease] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const handleCloseIncrease = () => setShowIncrease(false);
   const handleShowIncrease = rawMaterialSelected => {
     setRawMaterial(rawMaterialSelected);
@@ -56,27 +54,37 @@ const RawMaterialsListComponent = ({
     if (isAuth) fetchGetRawMaterials(`business/${businessID}/raw_materials`);
   }, []);
   return (rawMaterials !== []) ? (
-    <>
+    <div className={styles.mainContainer}>
       <NavBar />
       {rawMaterials.map(item => {
         console.log(`item id: ${item.id}`);
         return (
-          <div key={`div${item.id}`}>
-            <GlobalCircularProgressComponent rawMaterial={item} />
-            <p key={item.id}>{item.name}</p>
-            <p key={`totalAmount${item.id}`}>Total Amount: {item.total_amount}</p>
-            <p key={`remainingAmount${item.id}`}>Remaining Amount: {item.remaining_amount}</p>
-            <ModalComponent show={showIncrease} handleClose={handleCloseIncrease} handleShow={() => handleShowIncrease(item)} title="Increase amount" modalTitle="Increase quantity" child={<RawMaterialComponent update item={rawMaterial} />} />
-            <ModalComponent show={showDecrease} handleClose={handleCloseDecrease} handleShow={() => handleShowDecrease(item)} title="Decrease amount" modalTitle="Decrease quantity" child={<RawMaterialComponent update decrease item={rawMaterial} />} />
+          <div className={styles.childContainer} key={`div${item.id}`}>
+            <div className={styles.progressMainInfoContainer}>
+              <GlobalCircularProgressComponent width="100%" rawMaterial={item} />
+              <h2 key={item.id}>{item.name}</h2>
+            </div>
+            <div className={styles.amountsContainer}>
+              <div className={styles.pAmountContainer}>
+                <p style={{ color: 'green' }}>{item.total_amount}</p>
+                <p key={`totalAmount${item.id}`}>Total</p>
+              </div>
+              <div className={styles.pAmountContainer}>
+                <p style={{ color: 'red' }}>{item.remaining_amount}</p>
+                <p key={`remainingAmount${item.id}`}>Remaining</p>
+              </div>
+            </div>
+            <div className={styles.buttonContainer}>
+              <ModalComponent show={showIncrease} handleClose={handleCloseIncrease} handleShow={() => handleShowIncrease(item)} title="Increase" modalTitle="Increase quantity" child={<RawMaterialComponent update item={rawMaterial} />} />
+              <ModalComponent id={styles.test} show={showDecrease} handleClose={handleCloseDecrease} handleShow={() => handleShowDecrease(item)} title="Decrease" modalTitle="Decrease quantity" child={<RawMaterialComponent update decrease item={rawMaterial} />} />
+            </div>
           </div>
         );
       })}
-      <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Create a new Raw Material" modalTitle="Add a new Raw Material" child={<RawMaterialComponent />} />
-    </>
+    </div>
   ) : (
     <div>
       <NavBar />
-      <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Create a new Raw Material" modalTitle="Add a new Raw Material" child={<RawMaterialComponent />} />
     </div>
   );
 };

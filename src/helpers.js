@@ -29,14 +29,14 @@ export const retrieveItem = string => localStorage.getItem(string);
 export const extractID = element => element.id;
 
 export const colorProgression = percentage => {
-  let color = 'green';
+  let color = '#addc91';
   console.log(percentage);
   if (percentage <= 20) {
     color = 'red';
   } else if (percentage <= 50) {
-    color = 'orange';
+    color = '#67899c';
   } else if (percentage <= 70) {
-    color = 'yellow';
+    color = '#62b5e5';
   }
   return color;
 };
