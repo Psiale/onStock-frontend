@@ -27,24 +27,26 @@ const NavBar = ({ initialState, hasBusiness }) => {
 
   const handleLocation = pathName => {
     console.log(location.pathname);
-    (pathName === '/business/raw_materials') ? setPath({ text: 'dashboard', path: '/dashboard' }) : setPath({ text: 'Inventory', path: '/business/raw_materials' });
+    (pathName === '/business/raw_materials') ? setPath({ text: 'Dashboard', path: '/dashboard' }) : setPath({ text: 'Inventory', path: '/business/raw_materials' });
   };
   useEffect(() => {
     (retrieveItem('businessID')) ? businessID = retrieveItem('businessID') : businessID = false;
     console.log(businessID);
+    handleLocation(location.pathname);
   }, []);
   const history = useHistory();
   const handleClose = () => {
     setShow(false);
     history.push('/business/raw_materials');
+    handleLocation(location.pathname);
   };
   const handleShow = () => {
     if (businessID !== null) setShow(true);
   };
   const handleOnClick = endpoint => {
-    if (endpoint === '/') initialState();
     handleLocation(location.pathname);
-    (location.pathname !== endpoint) ? history.push(endpoint) : null;
+    if (endpoint === '/') initialState();
+    history.push(endpoint);
   };
   return (
     <div className={styles.mainContainer}>
