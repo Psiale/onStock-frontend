@@ -16,6 +16,7 @@ import GlobalCircularProgressComponent from '../components/getters/GlobalCircula
 import ErrorHandler from '../components/ErrorHandler';
 import NavBar from '../components/NavBar';
 import { getBusinessID } from '../redux/actions/auth';
+import styles from './Home.module.css';
 
 const Home = ({
   loading, isAuth, business, fetchBusinessGetData, rawMaterials,
@@ -31,9 +32,22 @@ const Home = ({
   const hasRawMaterials = (materials, material) => {
     if (materials !== null) {
       return (
-        <> 
-          <GlobalCircularProgressComponent rawMaterial={material} />
-        </>
+        <div className={styles.circularInfoContainer}> 
+          <div className={styles.lowestMaterialinfoContainer}>
+            <GlobalCircularProgressComponent width="80%" rawMaterial={material} />
+            <div className={styles.pMaterialContainer}>
+              <div className={styles.pChildContainer}>
+                <p style={{ color: 'red' }}>{material.remaining_amount}</p>
+                <p>Remainig</p>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.infoContainer}>
+            <h2>{material.name} </h2>
+            <p> Has the lowest amount on stock</p>
+          </div>
+        </div>
       );
     }
     return null;
@@ -66,12 +80,14 @@ const Home = ({
   }, []);
   return (
     <>
-      <div>
+      <div className={styles.businessContainer}>
         { (business !== null) ? (
           
-          <div>
+          <div className={styles.mainContainer}>
             <NavBar />
-            <p> {business.name} </p>
+            <div className={styles.mainTitle}>
+              <h1> {business.name} </h1>
+            </div>
             {(rawMaterials && rawMaterials.length > 0)
             // have to solve out this call
               ? hasRawMaterials(rawMaterials, lowestMaterial(rawMaterials)) : null } 
