@@ -5,7 +5,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import {
   fetchPostRawMaterials, fetchPutRawMaterial,
@@ -23,7 +23,15 @@ const RawMaterialComponent = ({
     totalAmount: 0,
     amount: 0,
   });
-  // const history = useHistory();
+  const history = useHistory();
+  const key = new KeyboardEvent('keypress', {
+    bubbles: true,
+    cancelable: true,
+    key: 'Escape',
+    shiftKey: false,
+    keyCode: 27,
+  });
+  const location = useLocation();
 
   const handleSubmit = event => {
     if (update) {
@@ -67,7 +75,8 @@ const RawMaterialComponent = ({
             remaining_amount: (result),
           }).then(
           // luego jalo todos los materiales para que se actualice el elemento,
-          event.preventDefault(),
+          (location.pathname === '/business/raw_materials')
+            ? history.push('/dashboard') : history.push('/business/raw_materials'),
           console.log(result),
         );
       }
@@ -89,6 +98,8 @@ const RawMaterialComponent = ({
         },
       ),
     );
+    console.log(event.target.dispatchEvent(key));
+    event.target.dispatchEvent(key);
   };
   const handleChange = evt => {
     const { value } = evt.target;
