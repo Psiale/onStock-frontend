@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# 📋✅ Raw materials Tracker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is part of a series of projects to be completed by students of [Microverse](https://www.microverse.org/).
 
-## Available Scripts
+This project focuses on creating a tracking app where the user can measure something over time.
 
-In the project directory, you can run:
+## 🧮 The Project Brief
 
-### `yarn start`
+The premise of this project is to create a website that allows the user to create a business and create, see and update the amount of a raw material, see the raw material with the lowest amount on stock and see the list of all the raw materials with a comparision between the initial (or total) and the actual (or remaining) amount on stock.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 🖼️ Preview
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+![App Preview](./src/assets/track-app.jpeg)
 
-### `yarn test`
+## 🧬 Technologies & Languages Used
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js
+- React
+- React-DOM
+- React-Create-App
+- npm
+- CSS
+- ES6
+- Redux
 
-### `yarn build`
+## 🔰 Setup & Usage
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### ⌨️ Local 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Go to the [repository](https://github.com/Psiale/coffeetory-frontend) and press on the green button that says ```code```
+2. Copy the link and open a terminal 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    windows:
 
-### `yarn eject`
+    ```windows tab + x ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+    mac: Press ```CmdSpace``` to open spotlight search and type ```terminal``` and hit ```return ```.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+3. Go to the folder where you gonna clone the repositorie and type ```git clone PASTE THE LINK``` and hit ```Enter ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+4. Go the the project root and type ``` yarn/npm run start ```
 
-## Learn More
+## 🚀 Live version
+[visit the page](https://coffeetory.netlify.app)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🛎️ Contributions, Issues & Forking
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+If you have any issues setting up the project or you come across any unintended bugs or problems, please do submit an issue to the [track-app](https://github.com/Psiale/coffeetory-frontend/issues) page.
 
-### Code Splitting
+If you want to make your own changes, modifications or improvements to our project, go ahead and Fork it!
+1. [Fork it](https://github.com/Psiale/coffeetory-frontend/fork)
+2. Create your working branch (git checkout -b [choose-a-name])
+3. Commit your changes (git commit -am 'what this commit will fix/add/improve')
+4. Push to the branch (git push origin [chosen-name])
+5. Create a new Pull Request
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🤟🏽😄 😛🤙🏾  Creator
 
-### Analyzing the Bundle Size
+Alexis Sanchez - [Github](https://github.com/Psiale)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🙌🏾 Show Your Support
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Give a ⭐️ if you like this project!

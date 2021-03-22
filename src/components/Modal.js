@@ -15,7 +15,7 @@ const ModalComponent = ({
     <Modal
       show={show}
       onHide={handleClose}
-      keyboard={false}
+      keyboard
       centered
     >
       <Modal.Header closeButton>
