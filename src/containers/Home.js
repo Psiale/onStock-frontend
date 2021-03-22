@@ -12,7 +12,7 @@ import { fetchBusinessGetData, fetchGetRawMaterials } from '../redux/actions/dat
 import { lowestMaterial, retrieveItem } from '../helpers';
 import BusinessComponent from '../components/setters/BusinessComponent';
 import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
-import ErrorHandler from '../components/ErrorHandler';
+// import ErrorHandler from '../components/ErrorHandler';
 import NavBar from '../components/NavBar';
 import { getBusinessID } from '../redux/actions/auth';
 import styles from './Home.module.css';
@@ -54,11 +54,7 @@ const Home = ({
   };
 
   if (isAuth === false && error) {
-    return (
-      <>
-        <ErrorHandler errorMessage="Missing or Wrong Credentials" />
-      </>
-    );
+    history.push('/');
   }
 
   if (isAuth === false) {
