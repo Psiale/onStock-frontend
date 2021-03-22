@@ -62,7 +62,11 @@ const Home = ({
   }
 
   if (isAuth === false) {
-    history.push('/');
+    return (
+      <>
+        <ErrorHandler errorMessage="Missing or Wrong Credentials" />
+      </>
+    );
   }
 
   useEffect(() => {
