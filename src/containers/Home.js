@@ -5,7 +5,6 @@ import React, { useEffect } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 
 import buildLoader from '../components/Loader';
 // import styles from './Home.module.css';
@@ -17,6 +16,7 @@ import ErrorHandler from '../components/ErrorHandler';
 import NavBar from '../components/NavBar';
 import { getBusinessID } from '../redux/actions/auth';
 import styles from './Home.module.css';
+import { setHeader } from '../api/helpers';
 
 const Home = ({
   loading, isAuth, business, fetchBusinessGetData, rawMaterials,
@@ -73,7 +73,7 @@ const Home = ({
     let authToken;
     (retrieveItem('token')) ? authToken = retrieveItem('token').replace(/['"]+/g, '') : history.goBack();
     if (authToken === '') history.goBack();
-    axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
+    setHeader(authToken);
     if (authToken !== '')fetchBusinessGetData('business');
     if (businessID !== false)fetchGetRawMaterials(`business/${businessID}/raw_materials`);
     if (businessID !== false) getBusinessID();
