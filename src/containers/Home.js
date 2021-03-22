@@ -62,11 +62,7 @@ const Home = ({
   }
 
   if (isAuth === false) {
-    return (
-      <>
-        <ErrorHandler errorMessage="Session expired" />
-      </>
-    );
+    history.push('/');
   }
 
   useEffect(() => {
