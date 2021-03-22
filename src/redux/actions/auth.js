@@ -46,7 +46,7 @@ export const fetchRequestSuccess = () => ({
 
 export const loginRequest = data => async dispatch => {
   dispatch(fetchPending());
-  postRequest('auth/login', data).then(response => {
+  postRequest('sessions', data).then(response => {
     const authToken = response.data;
     saveItem('token', authToken.auth_token);
     dispatch(fetchRequestSuccess());
