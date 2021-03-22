@@ -56,7 +56,7 @@ const Home = ({
   if (isAuth === false && error) {
     return (
       <>
-        <ErrorHandler errorMessage="Missing or Wrong Credentials" />
+        <ErrorHandler errorMessage="Missing or wrong Credentials." />
       </>
     );
   }
@@ -64,7 +64,7 @@ const Home = ({
   if (isAuth === false) {
     return (
       <>
-        <ErrorHandler errorMessage="Session expired" />
+        <ErrorHandler errorMessage="Session expired, login again." />
       </>
     );
   }

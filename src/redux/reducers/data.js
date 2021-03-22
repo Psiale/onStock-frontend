@@ -10,10 +10,8 @@ import {
 const initialState = {
   business: null,
   raw_materials: [],
-  raw_material: '',
   error: '',
   loading: false,
-  selectedMaterials: [],
 };
 
 const dataReducer = (state = initialState, action) => {
