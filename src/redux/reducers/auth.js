@@ -1,7 +1,5 @@
 /* eslint-disable no-console */
-import {
-  SET_CURRENT_USER,
-} from '../constants/auth';
+import SET_CURRENT_USER from '../constants/auth';
 
 const initialState = {
   authenticated: false,
@@ -9,13 +7,11 @@ const initialState = {
 };
 
 const authReducer = (state = initialState, action) => {
-  console.log(action.type);
   switch (action.type) {
     case 'DEFAULT':
       return {
         ...state,
-        auhthenticated: false,
-        auth_token: '',
+        authenticated: false,
       };
     case SET_CURRENT_USER:
       return {

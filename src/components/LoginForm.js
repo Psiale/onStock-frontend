@@ -18,7 +18,6 @@ const LoginForm = ({ logIn }) => {
   const history = useHistory();
 
   const handleSubmit = () => {
-    // do this with the store, I think maybe a isAuth boolean to make it work
     logIn(
       {
         email: values.email,
@@ -32,8 +31,6 @@ const LoginForm = ({ logIn }) => {
       ...values,
       [evt.target.name]: value,
     });
-
-    console.log(values);
   };
 
   return (

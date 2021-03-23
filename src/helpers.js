@@ -24,16 +24,10 @@ export const saveItem = (string, object) => {
   localStorage.setItem(string, object);
 };
 
-export const retrieveItem = string => {
-  console.log(localStorage.getItem(string));
-  return localStorage.getItem(string);
-};
-
-export const extractID = element => element.id;
+export const retrieveItem = string => localStorage.getItem(string);
 
 export const colorProgression = percentage => {
   let color = '#addc91';
-  console.log(percentage);
   if (percentage <= 20) {
     color = 'red';
   } else if (percentage <= 50) {
@@ -63,5 +57,3 @@ export const lowestMaterial = materials => {
   }
   return 'null';
 };
-
-// export const handleInvalidInput = (message, e) => e.target.setCustomValidity(message);

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-trailing-spaces */
@@ -7,7 +8,6 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import buildLoader from '../components/Loader';
-// import styles from './Home.module.css';
 import { getRawMaterials } from '../redux/actions/materials';
 import { getBusiness, getBusinessID } from '../redux/actions/business';
 import { lowestMaterial, retrieveItem } from '../helpers';
@@ -89,7 +89,6 @@ const Home = ({
               <h1> {business.name} </h1>
             </div>
             {(rawMaterials && rawMaterials.length > 0)
-            // have to solve out this call
               ? hasRawMaterials(rawMaterials, lowestMaterial(rawMaterials)) : null } 
           </div>
         ) 
@@ -104,14 +103,12 @@ const Home = ({
   );
 };
 
-// I need to change this mapStateToProps
 const mapStateToProps = state => ({
   error: state.errorStore.error,
-  isFetching: state.authStore.isFetching,
+  isFetching: state.fetchStore.isFetching,
   authenticated: state.authStore.authenticated,
   business: state.businessStore.business,
   rawMaterials: state.materialStore.raw_materials,
-  has_Materials: state.dataStore.has_materials,
 });
 
 const mapDispatchToProps = dispatch => ({

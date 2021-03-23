@@ -1,13 +1,10 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-console */
 /* eslint-disable no-return-assign */
-import axios from 'axios';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { useHistory } from 'react-router-dom';
-
 import { postBusiness } from '../../redux/actions/business';
 import { createInput } from '../../helpers';
 
@@ -31,11 +28,7 @@ const BusinessComponent = ({ postBusiness }) => {
       ...values,
       [evt.target.name]: value,
     });
-
-    console.log(values);
   };
-
-  console.log(axios.defaults.headers.common);
 
   return (
     <div>

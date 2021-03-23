@@ -18,13 +18,8 @@ const SignupForm = ({ signUp }) => {
     confirmation: '',
   });
   const history = useHistory();
-  // I can pass a string parameter for the reducer to handle the function
-  // login and signup
 
   const handleSubmit = event => {
-    // do this with the store, I think maybe a isAuth boolean to make it work
-    console.log('is this being trigger');
-    console.log(validatePassword(values.password, values.confirmation));
     validatePassword(values.password, values.confirmation) ? signUp(
       {
         name: values.name,
@@ -40,8 +35,6 @@ const SignupForm = ({ signUp }) => {
       ...values,
       [evt.target.name]: value,
     });
-
-    console.log(values);
   };
 
   return (
