@@ -73,7 +73,6 @@ const Home = ({
   useEffect(() => {
     let authToken;
     (retrieveItem('token')) ? authToken = retrieveItem('token') : history.goBack();
-    console.log('going back after this line?');
     if (authToken === '') history.goBack();
     setHeader(authToken);
     if (authToken !== '')getBusiness('business');
@@ -109,11 +108,10 @@ const Home = ({
 // I need to change this mapStateToProps
 const mapStateToProps = state => ({
   error: state.errorStore.error,
-  isFetching: state.authStore.isFetching,
+  isFetching: state.fetchStore.isFetching,
   authenticated: state.authStore.authenticated,
   business: state.businessStore.business,
   rawMaterials: state.materialStore.raw_materials,
-  has_Materials: state.dataStore.has_materials,
 });
 
 const mapDispatchToProps = dispatch => ({

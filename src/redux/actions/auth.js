@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable camelcase */
-/* eslint-disable no-console */
 import { postRequest } from '../../api/helpers';
 import { saveItem } from '../../helpers';
 
@@ -17,10 +16,9 @@ const setCurrentUser = currentUser => ({
 });
 
 export const signUp = signUpParams => async dispatch => {
+  dispatch(setFetching(true));
   try {
-    dispatch(setFetching(true));
     const res = await postRequest('signup', signUpParams);
-    console.log(res);
     const authToken = res.data;
     saveItem('token', authToken.auth_token);
     dispatch(setCurrentUser(signUpParams));
@@ -31,14 +29,13 @@ export const signUp = signUpParams => async dispatch => {
 };
 
 export const logIn = loginParams => async dispatch => {
+  dispatch(setFetching(true));
   try {
-    dispatch(setFetching(true));
     const res = await postRequest('sessions', loginParams);
     console.log(res);
     const authToken = res.data;
     saveItem('token', authToken.auth_token);
     dispatch(setCurrentUser(loginParams));
-    dispatch(setFetching(false));
   } catch (error) {
     dispatch(setError(error.message));
   }
