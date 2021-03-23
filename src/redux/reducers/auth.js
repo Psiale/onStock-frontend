@@ -15,7 +15,6 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         authenticated: false,
-        auth_token: '',
       };
     case SET_CURRENT_USER:
       return {

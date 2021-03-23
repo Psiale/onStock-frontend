@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-trailing-spaces */
@@ -72,6 +73,7 @@ const Home = ({
   useEffect(() => {
     let authToken;
     (retrieveItem('token')) ? authToken = retrieveItem('token') : history.goBack();
+    console.log('going back after this line?');
     if (authToken === '') history.goBack();
     setHeader(authToken);
     if (authToken !== '')getBusiness('business');
