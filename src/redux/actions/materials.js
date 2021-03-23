@@ -1,4 +1,4 @@
-import { getRequest, postRequest } from '../../api/helpers';
+import { getRequest, postRequest, putRequest } from '../../api/helpers';
 import { ADD_MATERIAL, SHOW_MATERIALS, UPDATE_MATERIAL } from '../constants/materials';
 import setError from './error';
 
@@ -30,6 +30,15 @@ export const postRawMaterials = (endpoint, postParams) => async dispatch => {
   try {
     const res = await postRequest(endpoint, postParams);
     dispatch(addMaterial(res.data));
+  } catch (error) {
+    dispatch(setError(error.message));
+  }
+};
+
+export const putRawMaterial = (endpoint, putParams) => async dispatch => {
+  try {
+    const res = await putRequest(endpoint, putParams);
+    dispatch(updateMaterial(res.data));
   } catch (error) {
     dispatch(setError(error.message));
   }
