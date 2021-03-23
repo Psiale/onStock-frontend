@@ -8,7 +8,7 @@ const errorReducer = (state = initialState, action) => {
   if (action.type === SET_ERROR) {
     return {
       ...state,
-      error: true,
+      error: action.error,
     };
   }
   return state;

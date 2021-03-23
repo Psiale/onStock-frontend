@@ -1,25 +1,8 @@
-TODO: Delete All trace of products DONE
-TODO: Implement single raw material page with a progess something that shows how much raw material is left DONE
-TODO: Implement update component which allows the user to select a raw material and pass an amount DONE
-
-TODO: Implement a function that takes the amount passed by the user and substract it from the remaining amount raw material property
-STATE: Now I have to count substracts and adds.
-INCREASE / DECREASE Amount DONE
-
-TODO: Display at the dashboard the raw material with lowest amount
-
-FIXES
-
-BUG: When the user updates decreases I should not allow it if the result is less than the total amount DONE
-
-BUG: When the user updates increasing if the result is more than the total I should update the total amount instead DONE
-
-BUG: Round percentage number to 1 decimal DONE
-
-BUG: Change message to out of stock when percentage is 0 DONE
-
-
-STYLYING:
-TODO: pass create raw material and raw materials to the navbar
 
 AFTER PROJECT
+
+TODO: Configure business and materials redux
+
+TODO: combine reducers 
+
+TODO: Adapt them on Auth, Home, Materials

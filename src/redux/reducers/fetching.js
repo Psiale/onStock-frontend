@@ -8,7 +8,7 @@ const fetchReducer = (state = initialState, action) => {
   if (action.type === SET_FETCHING) {
     return {
       ...state,
-      isFetching: true,
+      isFetching: action.isFetching,
     };
   }
   return state;
