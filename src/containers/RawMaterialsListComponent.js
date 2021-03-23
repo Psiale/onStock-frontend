@@ -20,7 +20,7 @@ import styles from './RawMaterialsListComponent.module.css';
 const RawMaterialsListComponent = ({
   fetchGetRawMaterials,
   rawMaterials,
-  isAuth,
+  authenticated,
   business,
 
 }) => {
@@ -46,7 +46,7 @@ const RawMaterialsListComponent = ({
     setShowDecrease(true);
   };
 
-  if (isAuth === false) {
+  if (authenticated === false) {
     return (
       <>
         <ErrorHandler errorMessage="Session expired" />
@@ -97,7 +97,7 @@ const RawMaterialsListComponent = ({
 };
 
 RawMaterialsListComponent.propTypes = {
-  isAuth: Proptypes.bool.isRequired,
+  authenticated: Proptypes.bool.isRequired,
   fetchGetRawMaterials: Proptypes.func.isRequired,
   rawMaterials: Proptypes.arrayOf(Proptypes.shape({
     name: Proptypes.string,
@@ -113,9 +113,9 @@ RawMaterialsListComponent.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  rawMaterials: state.dataStore.raw_materials,
-  isAuth: state.authStore.is_auth,
-  business: state.dataStore.business,
+  rawMaterials: state.materialStore.raw_materials,
+  authenticated: state.authStore.authenticated,
+  business: state.businessStore.business,
 });
 
 const mapDispatchToProps = dispatch => ({

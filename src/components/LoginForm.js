@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Proptypes from 'prop-types';
-import { loginRequest } from '../redux/actions/auth';
+import { logIn } from '../redux/actions/auth';
 import styles from './AuthForm.module.css';
 
 import { createInput } from '../helpers';
 
-const LoginForm = ({ loginRequest }) => {
+const LoginForm = ({ logIn }) => {
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -19,7 +19,7 @@ const LoginForm = ({ loginRequest }) => {
 
   const handleSubmit = () => {
     // do this with the store, I think maybe a isAuth boolean to make it work
-    loginRequest(
+    logIn(
       {
         email: values.email,
         password: values.password,
@@ -51,11 +51,11 @@ const LoginForm = ({ loginRequest }) => {
 };
 
 LoginForm.propTypes = {
-  loginRequest: Proptypes.func.isRequired,
+  logIn: Proptypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
-  loginRequest: data => dispatch(loginRequest(data)),
+  logIn: data => dispatch(logIn(data)),
 });
 
 export default connect(null, mapDispatchToProps)(LoginForm);

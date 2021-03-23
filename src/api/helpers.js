@@ -20,5 +20,6 @@ export const statusRequest = response => {
 };
 
 export const setHeader = token => {
+  console.log('settingHeaders');
   axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
 };

@@ -6,14 +6,12 @@ import React, { useState } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import {
-  fetchPostRawMaterials, fetchPutRawMaterial,
-} from '../../redux/actions/data';
+import { postRawMaterials, putRawMaterial } from '../../redux/actions/materials';
 import { createInput } from '../../helpers';
 
 const RawMaterialComponent = ({
-  fetchPostRawMaterials,
-  business, fetchPutRawMaterial, update,
+  postRawMaterials,
+  business, putRawMaterial, update,
   item,
   decrease,
 }) => {
@@ -36,7 +34,7 @@ const RawMaterialComponent = ({
         console.log(`id number: ${item.id}`);
         // actualizo
         // talvez debería regresar todos desde la api para no tener que reactualizar
-        fetchPutRawMaterial(`business/${business.id}/raw_materials/${item.id}`,
+        putRawMaterial(`business/${business.id}/raw_materials/${item.id}`,
           {
             remaining_amount: (item.remaining_amount - values.amount),
           }).then(
@@ -52,7 +50,7 @@ const RawMaterialComponent = ({
         const result = item.remaining_amount + parseFloat(values.amount);
         if (values.amount > item.total_amount
           || parseFloat(values.amount) + item.remaining_amount > item.total_amount) {
-          fetchPutRawMaterial(`business/${business.id}/raw_materials/${item.id}`,
+          putRawMaterial(`business/${business.id}/raw_materials/${item.id}`,
             {
               total_amount: (parseFloat(values.amount)),
               remaining_amount: (parseFloat(values.amount)),
@@ -64,7 +62,7 @@ const RawMaterialComponent = ({
           );
           return;
         }
-        fetchPutRawMaterial(`business/${business.id}/raw_materials/${item.id}`,
+        putRawMaterial(`business/${business.id}/raw_materials/${item.id}`,
           {
             remaining_amount: (result),
           }).then(
@@ -76,7 +74,7 @@ const RawMaterialComponent = ({
       return;
     }
     console.log(axios.defaults.headers.common);
-    fetchPostRawMaterials(`business/${business.id}/raw_materials`,
+    postRawMaterials(`business/${business.id}/raw_materials`,
       {
         name: values.name,
         total_amount: values.totalAmount,
@@ -128,8 +126,8 @@ const RawMaterialComponent = ({
 };
 
 RawMaterialComponent.propTypes = {
-  fetchPostRawMaterials: Proptypes.func.isRequired,
-  fetchPutRawMaterial: Proptypes.func.isRequired,
+  postRawMaterials: Proptypes.func.isRequired,
+  putRawMaterial: Proptypes.func.isRequired,
   business: Proptypes.shape({
     id: Proptypes.number,
     name: Proptypes.string.isRequired,
@@ -153,13 +151,12 @@ RawMaterialComponent.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  loading: state.dataStore.loading,
-  business: state.dataStore.business,
+  business: state.businessStore.business,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPostRawMaterials: (endpoint, data) => dispatch(fetchPostRawMaterials(endpoint, data)),
-  fetchPutRawMaterial: (endpoint, data) => dispatch(fetchPutRawMaterial(endpoint, data)),
+  postRawMaterials: (endpoint, data) => dispatch(postRawMaterials(endpoint, data)),
+  putRawMaterial: (endpoint, data) => dispatch(putRawMaterial(endpoint, data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RawMaterialComponent);

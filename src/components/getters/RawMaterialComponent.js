@@ -5,22 +5,22 @@ import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 import 'react-circular-progressbar/dist/styles.css';
 
-import { fetchGetRawMaterials } from '../../redux/actions/data';
+import { getRawMaterials } from '../../redux/actions/materials';
 import GlobalCircularProgressComponent from './GlobalCircularProgress';
 import ErrorHandler from '../ErrorHandler';
 
 const RawMaterialComponent = ({
-  fetchGetRawMaterials,
+  getRawMaterials,
   rawMaterial, business,
-  isAuth,
+  authenticated,
 }) => {
-  if (isAuth === false) {
+  if (authenticated === false) {
     return (
       <ErrorHandler errorMessage="Session expired" />
     );
   }
   useEffect(() => {
-    fetchGetRawMaterials(`business/${business.id}/raw_materials`);
+    getRawMaterials(`business/${business.id}/raw_materials`);
   }, []);
   return (
     <>
@@ -34,7 +34,7 @@ const RawMaterialComponent = ({
 };
 
 RawMaterialComponent.propTypes = {
-  isAuth: Proptypes.bool.isRequired,
+  authenticated: Proptypes.bool.isRequired,
   rawMaterial: Proptypes.shape({
     id: Proptypes.number,
     name: Proptypes.string.isRequired,
@@ -47,17 +47,17 @@ RawMaterialComponent.propTypes = {
     avatar: Proptypes.string.isRequired,
     owner_id: Proptypes.number,
   }).isRequired,
-  fetchGetRawMaterials: Proptypes.func.isRequired,
+  getRawMaterials: Proptypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   rawMaterial: state.dataStore.raw_material,
-  business: state.dataStore.business,
-  isAuth: state.authStore.is_auth,
+  business: state.businessStore.business,
+  authenticated: state.authStore.authenticated,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchGetRawMaterials: endpoint => dispatch(fetchGetRawMaterials(endpoint)),
+  getRawMaterials: endpoint => dispatch(getRawMaterials(endpoint)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RawMaterialComponent);

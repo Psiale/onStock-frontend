@@ -8,17 +8,17 @@ import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { useHistory } from 'react-router-dom';
 
-import { fetchPostData } from '../../redux/actions/data';
+import { postBusiness } from '../../redux/actions/business';
 import { createInput } from '../../helpers';
 
-const BusinessComponent = ({ fetchPostData }) => {
+const BusinessComponent = ({ postBusiness }) => {
   const [values, setValues] = useState({
     name: '',
   });
   const history = useHistory();
 
   const handleSubmit = () => {
-    fetchPostData('business',
+    postBusiness('business',
       {
         name: values.name,
         avatar: 'default value',
@@ -49,16 +49,11 @@ const BusinessComponent = ({ fetchPostData }) => {
 };
 
 BusinessComponent.propTypes = {
-  fetchPostData: Proptypes.func.isRequired,
+  postBusiness: Proptypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  authToken: state.authStore.auth_token,
-  loading: state.dataStore.loading,
-});
-
 const mapDispatchToProps = dispatch => ({
-  fetchPostData: (endpoint, data) => dispatch(fetchPostData(endpoint, data)),
+  postBusiness: (endpoint, data) => dispatch(postBusiness(endpoint, data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BusinessComponent);
+export default connect(null, mapDispatchToProps)(BusinessComponent);

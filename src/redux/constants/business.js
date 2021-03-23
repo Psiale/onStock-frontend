@@ -1,0 +1,3 @@
+export const ADD_BUSINESS = 'ADD_BUSINESS';
+export const SHOW_BUSINESS = 'SHOW_BUSINESS';
+export const HAS_BUSINESS = 'HAS_BUSINESS';

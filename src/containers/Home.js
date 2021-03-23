@@ -8,21 +8,21 @@ import { useHistory } from 'react-router-dom';
 
 import buildLoader from '../components/Loader';
 // import styles from './Home.module.css';
-import { fetchBusinessGetData, fetchGetRawMaterials } from '../redux/actions/data';
+import { getRawMaterials } from '../redux/actions/materials';
+import { getBusiness, getBusinessID } from '../redux/actions/business';
 import { lowestMaterial, retrieveItem } from '../helpers';
 import BusinessComponent from '../components/setters/BusinessComponent';
 import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
 import ErrorHandler from '../components/ErrorHandler';
 import NavBar from '../components/NavBar';
-import { getBusinessID } from '../redux/actions/auth';
 import styles from './Home.module.css';
 import { setHeader } from '../api/helpers';
 
 const Home = ({
-  loading, isAuth, business, fetchBusinessGetData, rawMaterials,
-  fetchGetRawMaterials, error, getBusinessID,
+  isFetching, authenticated, business, getBusiness, rawMaterials,
+  getRawMaterials, error, getBusinessID,
 }) => {
-  if (loading === true && isAuth === false) {
+  if (isFetching === true && authenticated === false) {
     return buildLoader();
   }
 
@@ -53,7 +53,7 @@ const Home = ({
     return null;
   };
 
-  if (isAuth === false && error) {
+  if (authenticated === false && error) {
     return (
       <>
         <ErrorHandler errorMessage="Missing or wrong Credentials." />
@@ -61,21 +61,21 @@ const Home = ({
     );
   }
 
-  if (isAuth === false) {
+  if (authenticated === false) {
     return (
       <>
-        <ErrorHandler errorMessage="Session expired, login again." />
+        <ErrorHandler errorMessage="Session expired." />
       </>
     );
   }
 
   useEffect(() => {
     let authToken;
-    (retrieveItem('token')) ? authToken = retrieveItem('token').replace(/['"]+/g, '') : history.goBack();
+    (retrieveItem('token')) ? authToken = retrieveItem('token') : history.goBack();
     if (authToken === '') history.goBack();
     setHeader(authToken);
-    if (authToken !== '')fetchBusinessGetData('business');
-    if (businessID !== false)fetchGetRawMaterials(`business/${businessID}/raw_materials`);
+    if (authToken !== '')getBusiness('business');
+    if (businessID !== false)getRawMaterials(`business/${businessID}/raw_materials`);
     if (businessID !== false) getBusinessID();
   }, []);
   return (
@@ -106,17 +106,17 @@ const Home = ({
 
 // I need to change this mapStateToProps
 const mapStateToProps = state => ({
-  error: state.authStore.error,
-  loading: state.authStore.loading,
-  isAuth: state.authStore.is_auth,
-  business: state.dataStore.business,
-  rawMaterials: state.dataStore.raw_materials,
+  error: state.errorStore.error,
+  isFetching: state.authStore.isFetching,
+  authenticated: state.authStore.authenticated,
+  business: state.businessStore.business,
+  rawMaterials: state.materialStore.raw_materials,
   has_Materials: state.dataStore.has_materials,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchBusinessGetData: endpoint => dispatch(fetchBusinessGetData(endpoint)),
-  fetchGetRawMaterials: endpoint => dispatch(fetchGetRawMaterials(endpoint)),
+  getBusiness: endpoint => dispatch(getBusiness(endpoint)),
+  getRawMaterials: endpoint => dispatch(getRawMaterials(endpoint)),
   getBusinessID: () => dispatch(getBusinessID()),
 });
 
@@ -127,22 +127,17 @@ Home.propTypes = {
     total_amount: Proptypes.number,
     remaining_amount: Proptypes.number,
   })),
-  fetchGetRawMaterials: Proptypes.func.isRequired,
+  getRawMaterials: Proptypes.func.isRequired,
   getBusinessID: Proptypes.func.isRequired,
-  loading: Proptypes.bool.isRequired,
-  isAuth: Proptypes.bool.isRequired,
+  isFetching: Proptypes.bool.isRequired,
+  authenticated: Proptypes.bool.isRequired,
   business: Proptypes.shape({
     id: Proptypes.number,
     name: Proptypes.string.isRequired,
     avatar: Proptypes.string.isRequired,
     owner_id: Proptypes.number,
   }),
-  fetchBusinessGetData: Proptypes.func.isRequired,
-  // rawMaterials: Proptypes.arrayOf(Proptypes.shape({
-  //   name: Proptypes.string,
-  //   total_amount: Proptypes.number,
-  //   remaining_amount: Proptypes.number,
-  // })),
+  getBusiness: Proptypes.func.isRequired,
 };
 
 Home.defaultProps = {
