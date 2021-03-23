@@ -56,7 +56,7 @@ const RawMaterialsListComponent = ({
   useLayoutEffect(() => {
     (retrieveItem('businessID')) ? businessID = retrieveItem('businessID') : businessID = false;
     if (businessID !== false) getRawMaterials(`business/${business.id}/raw_materials`);
-  }, []);
+  }, [showIncrease, showDecrease]);
   return (rawMaterials.length >= 1) ? (
     <div className={styles.mainContainer}>
       <NavBar />

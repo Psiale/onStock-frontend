@@ -52,8 +52,8 @@ const RawMaterialComponent = ({
           || parseFloat(values.amount) + item.remaining_amount > item.total_amount) {
           putRawMaterial(`business/${business.id}/raw_materials/${item.id}`,
             {
-              total_amount: (parseFloat(values.amount)),
-              remaining_amount: (parseFloat(values.amount)),
+              total_amount: (parseFloat(values.amount) + item.remaining_amount),
+              remaining_amount: (parseFloat(values.amount) + item.remaining_amount),
             }).then(
           // luego jalo todos los materiales para que se actualice el elemento,
             event.preventDefault(),
