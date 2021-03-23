@@ -51,7 +51,7 @@ RawMaterialComponent.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  rawMaterial: state.dataStore.raw_material,
+  rawMaterial: state.materialStore.raw_material,
   business: state.businessStore.business,
   authenticated: state.authStore.authenticated,
 });

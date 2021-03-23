@@ -32,7 +32,6 @@ export const logIn = loginParams => async dispatch => {
   dispatch(setFetching(true));
   try {
     const res = await postRequest('sessions', loginParams);
-    console.log(res);
     const authToken = res.data;
     saveItem('token', authToken.auth_token);
     dispatch(setCurrentUser(loginParams));

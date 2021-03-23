@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 // Have to figure it out whats defaulting my access
 
-import { fetchGetRawMaterials, fetchRawMaterialRequestPost } from '../redux/actions/data';
+import { getRawMaterials, postRawMaterials } from '../redux/actions/materials';
 // import styles from './RawMaterialsListComponent.module.css';
 import RawMaterialComponent from '../components/setters/RawMaterialComponent';
 import ModalComponent from '../components/Modal';
@@ -18,7 +18,7 @@ import { retrieveItem } from '../helpers';
 import styles from './RawMaterialsListComponent.module.css';
 
 const RawMaterialsListComponent = ({
-  fetchGetRawMaterials,
+  getRawMaterials,
   rawMaterials,
   authenticated,
   business,
@@ -55,7 +55,7 @@ const RawMaterialsListComponent = ({
   }
   useLayoutEffect(() => {
     (retrieveItem('businessID')) ? businessID = retrieveItem('businessID') : businessID = false;
-    if (businessID !== false) fetchGetRawMaterials(`business/${business.id}/raw_materials`);
+    if (businessID !== false) getRawMaterials(`business/${business.id}/raw_materials`);
   }, []);
   return (rawMaterials.length >= 1) ? (
     <div className={styles.mainContainer}>
@@ -98,7 +98,7 @@ const RawMaterialsListComponent = ({
 
 RawMaterialsListComponent.propTypes = {
   authenticated: Proptypes.bool.isRequired,
-  fetchGetRawMaterials: Proptypes.func.isRequired,
+  getRawMaterials: Proptypes.func.isRequired,
   rawMaterials: Proptypes.arrayOf(Proptypes.shape({
     name: Proptypes.string,
     total_amount: Proptypes.number,
@@ -119,8 +119,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchGetRawMaterials: endpoint => dispatch(fetchGetRawMaterials(endpoint)),
-  fetchRawMaterialRequestPost: data => dispatch(fetchRawMaterialRequestPost(data)),
+  getRawMaterials: endpoint => dispatch(getRawMaterials(endpoint)),
+  postRawMaterials: data => dispatch(postRawMaterials(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RawMaterialsListComponent);

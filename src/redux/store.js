@@ -9,7 +9,6 @@ import thunk from 'redux-thunk';
 // import storage from 'redux-persist/lib/storage';
 
 import authReducer from './reducers/auth';
-import dataReducer from './reducers/data';
 import fetchReducer from './reducers/fetching';
 import errorReducer from './reducers/error';
 import businessReducer from './reducers/business';
@@ -21,7 +20,6 @@ import materialsReducer from './reducers/materials';
 
 const root = combineReducers({
   authStore: authReducer,
-  dataStore: dataReducer,
   fetchStore: fetchReducer,
   errorStore: errorReducer,
   businessStore: businessReducer,
