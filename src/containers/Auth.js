@@ -20,10 +20,8 @@ const Auth = ({ initialState, getBusinessID }) => {
       : setAuthOption({ option: 'login' });
   };
   useLayoutEffect(() => {
-    console.log('im running');
     initialState();
     saveItem('token', '');
-    console.log(`this is the business ID: ${retrieveItem('businessID')}`);
     if (retrieveItem('businessID') !== null) getBusinessID();
   }, []);
   return (
