@@ -4,7 +4,6 @@ import {
   GET_RAW_MATERIAL, SET_RAW_MATERIAL, PUT_RAW_MATERIAL,
 } from '../constants/data';
 import { getRequest, postRequest, putRequest } from '../../api/helpers';
-import { REQUEST_PENDING } from '../constants/auth';
 import { saveItem } from '../../helpers';
 
 const fetchBusinessRequest = data => ({
@@ -44,12 +43,11 @@ const fetchRequestFailed = error => ({
   type: 'REQUEST_FAILED',
   payload: error,
 });
-const fetchPending = () => ({
-  type: REQUEST_PENDING,
+export const getBusinessID = () => ({
+  type: 'BUSINESS_EXIST',
 });
 
 export const fetchBusinessGetData = endpoint => async dispatch => {
-  dispatch(fetchPending());
   getRequest(endpoint).then(response => {
     console.log(response.data);
     if (response.data !== null) saveItem('businessID', response.data.id);
@@ -61,7 +59,6 @@ export const fetchBusinessGetData = endpoint => async dispatch => {
 };
 
 export const fetchPostData = (endpoint, data) => async dispatch => {
-  dispatch(fetchPending());
   postRequest(endpoint, data).then(response => {
     console.log(response.data);
     saveItem('businessID', response.data.id);
@@ -73,7 +70,6 @@ export const fetchPostData = (endpoint, data) => async dispatch => {
 };
 
 export const fetchGetRawMaterials = endpoint => async dispatch => {
-  dispatch(fetchPending());
   console.log('FETCH GET MATERIALS');
   getRequest(endpoint).then(response => {
     console.log(response.data);
@@ -85,7 +81,6 @@ export const fetchGetRawMaterials = endpoint => async dispatch => {
 };
 
 export const fetchPostRawMaterials = (endpoint, data) => async dispatch => {
-  dispatch(fetchPending());
   // I have to verify the data type
   console.log(`this is the data ${data}`);
   postRequest(endpoint, data).then(response => {
@@ -99,7 +94,6 @@ export const fetchPostRawMaterials = (endpoint, data) => async dispatch => {
 };
 
 export const fetchPutRawMaterial = (endpoint, data) => async dispatch => {
-  dispatch(fetchPending());
   // I have to verify the data type
   console.log(`this is the data ${data}`);
   putRequest(endpoint, data).then(response => {

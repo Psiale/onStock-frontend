@@ -64,7 +64,7 @@ const Home = ({
   if (isAuth === false) {
     return (
       <>
-        <ErrorHandler errorMessage="Session expired, login again." />
+        <ErrorHandler errorMessage="Session expired." />
       </>
     );
   }
@@ -138,11 +138,6 @@ Home.propTypes = {
     owner_id: Proptypes.number,
   }),
   fetchBusinessGetData: Proptypes.func.isRequired,
-  // rawMaterials: Proptypes.arrayOf(Proptypes.shape({
-  //   name: Proptypes.string,
-  //   total_amount: Proptypes.number,
-  //   remaining_amount: Proptypes.number,
-  // })),
 };
 
 Home.defaultProps = {
