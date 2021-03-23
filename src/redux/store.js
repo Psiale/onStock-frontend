@@ -5,7 +5,6 @@ import {
   compose,
 } from 'redux';
 import thunk from 'redux-thunk';
-
 import authReducer from './reducers/auth';
 import fetchReducer from './reducers/fetching';
 import errorReducer from './reducers/error';
