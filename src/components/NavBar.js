@@ -26,9 +26,7 @@ const NavBar = ({ initialState, hasBusiness }) => {
   });
 
   const handleLocation = pathName => {
-    console.log(location.pathname);
     (pathName === '/business/raw_materials') ? setPath({ text: 'Dashboard', path: '/dashboard' }) : setPath({ text: 'Inventory', path: '/business/raw_materials' });
-    console.log(path.path);
   };
   useEffect(() => {
     (retrieveItem('businessID')) ? businessID = retrieveItem('businessID') : businessID = false;
@@ -36,7 +34,6 @@ const NavBar = ({ initialState, hasBusiness }) => {
   }, []);
   const history = useHistory();
   const handleClose = () => {
-    console.log(`the path is:${path.path}`);
     (location.pathname === '/business/raw_materials')
       ? history.push('/dashboard') : history.push('/business/raw_materials');
     handleLocation(location.pathname);

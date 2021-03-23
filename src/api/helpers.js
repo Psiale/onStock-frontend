@@ -11,15 +11,12 @@ export const putRequest = async (endpoint, data) => axios.put(`${BASE_URL}${endp
 export const getRequest = async endpoint => axios.get(`${BASE_URL}${endpoint}`);
 
 export const statusRequest = response => {
-  console.log(`this is the status request response: ${response}`);
   if (response !== null) {
-    console.log(response);
     return true;
   }
   return false;
 };
 
 export const setHeader = token => {
-  console.log('settingHeaders');
   axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
 };

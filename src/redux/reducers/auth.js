@@ -7,7 +7,6 @@ const initialState = {
 };
 
 const authReducer = (state = initialState, action) => {
-  console.log(action.type);
   switch (action.type) {
     case 'DEFAULT':
       return {

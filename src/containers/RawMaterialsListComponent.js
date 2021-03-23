@@ -5,10 +5,7 @@ import React, { useLayoutEffect, useState } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 
-// Have to figure it out whats defaulting my access
-
 import { getRawMaterials, postRawMaterials } from '../redux/actions/materials';
-// import styles from './RawMaterialsListComponent.module.css';
 import RawMaterialComponent from '../components/setters/RawMaterialComponent';
 import ModalComponent from '../components/Modal';
 import ErrorHandler from '../components/ErrorHandler';
@@ -35,14 +32,12 @@ const RawMaterialsListComponent = ({
   const handleCloseIncrease = () => setShowIncrease(false);
   const handleShowIncrease = rawMaterialSelected => {
     setRawMaterial(rawMaterialSelected);
-    console.log(`rawMaterial ${rawMaterialSelected.id}`);
     setShowIncrease(true);
   };
 
   const handleCloseDecrease = () => setShowDecrease(false);
   const handleShowDecrease = rawMaterialSelected => {
     setRawMaterial(rawMaterialSelected);
-    console.log(`rawMaterial ${rawMaterialSelected.id}`);
     setShowDecrease(true);
   };
 
@@ -60,31 +55,28 @@ const RawMaterialsListComponent = ({
   return (rawMaterials.length >= 1) ? (
     <div className={styles.mainContainer}>
       <NavBar />
-      {rawMaterials.map(item => {
-        console.log(`item id: ${item.id}`);
-        return (
-          <div className={styles.childContainer} key={`div${item.id}`}>
-            <div className={styles.progressMainInfoContainer}>
-              <GlobalCircularProgressComponent width="100%" rawMaterial={item} />
-              <h2 className={styles.title} key={item.id}>{item.name}</h2>
+      {rawMaterials.map(item => (
+        <div className={styles.childContainer} key={`div${item.id}`}>
+          <div className={styles.progressMainInfoContainer}>
+            <GlobalCircularProgressComponent width="100%" rawMaterial={item} />
+            <h2 className={styles.title} key={item.id}>{item.name}</h2>
+          </div>
+          <div className={styles.amountsContainer}>
+            <div className={styles.pAmountContainer}>
+              <p style={{ color: 'green' }}>{item.total_amount}</p>
+              <p key={`totalAmount${item.id}`}>Total</p>
             </div>
-            <div className={styles.amountsContainer}>
-              <div className={styles.pAmountContainer}>
-                <p style={{ color: 'green' }}>{item.total_amount}</p>
-                <p key={`totalAmount${item.id}`}>Total</p>
-              </div>
-              <div className={styles.pAmountContainer}>
-                <p style={{ color: 'red' }}>{item.remaining_amount}</p>
-                <p key={`remainingAmount${item.id}`}>Remaining</p>
-              </div>
-            </div>
-            <div className={styles.buttonContainer}>
-              <ModalComponent show={showIncrease} handleClose={handleCloseIncrease} handleShow={() => handleShowIncrease(item)} title="Increase" modalTitle="Increase quantity" child={<RawMaterialComponent update item={rawMaterial} />} />
-              <ModalComponent id={styles.test} show={showDecrease} handleClose={handleCloseDecrease} handleShow={() => handleShowDecrease(item)} title="Decrease" modalTitle="Decrease quantity" child={<RawMaterialComponent update decrease item={rawMaterial} />} />
+            <div className={styles.pAmountContainer}>
+              <p style={{ color: 'red' }}>{item.remaining_amount}</p>
+              <p key={`remainingAmount${item.id}`}>Remaining</p>
             </div>
           </div>
-        );
-      })}
+          <div className={styles.buttonContainer}>
+            <ModalComponent show={showIncrease} handleClose={handleCloseIncrease} handleShow={() => handleShowIncrease(item)} title="Increase" modalTitle="Increase quantity" child={<RawMaterialComponent update item={rawMaterial} />} />
+            <ModalComponent id={styles.test} show={showDecrease} handleClose={handleCloseDecrease} handleShow={() => handleShowDecrease(item)} title="Decrease" modalTitle="Decrease quantity" child={<RawMaterialComponent update decrease item={rawMaterial} />} />
+          </div>
+        </div>
+      ))}
     </div>
   ) : (
     <div>

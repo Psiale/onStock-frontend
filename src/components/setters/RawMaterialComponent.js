@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-console */
 /* eslint-disable no-return-assign */
-import axios from 'axios';
 import React, { useState } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -29,24 +28,15 @@ const RawMaterialComponent = ({
           event.preventDefault();
           setValues({ pressed: true });
           return;
-          // hacer algo mejor que esto
         }
-        console.log(`id number: ${item.id}`);
-        // actualizo
-        // talvez debería regresar todos desde la api para no tener que reactualizar
         putRawMaterial(`business/${business.id}/raw_materials/${item.id}`,
           {
             remaining_amount: (item.remaining_amount - values.amount),
           }).then(
-          // luego jalo todos los materiales para que se actualice el elemento,
           event.preventDefault(),
           setValues({ pressed: true }),
-          console.log(item.remaining_amount - values.amount),
         );
       } else {
-        console.log(`remaining amount type: ${typeof parseFloat(values.amount)}`);
-        // actualizo
-        // talvez debería regresar todos desde la api para no tener que reactualizar
         const result = item.remaining_amount + parseFloat(values.amount);
         if (values.amount > item.total_amount
           || parseFloat(values.amount) + item.remaining_amount > item.total_amount) {
@@ -55,10 +45,8 @@ const RawMaterialComponent = ({
               total_amount: (parseFloat(values.amount) + item.remaining_amount),
               remaining_amount: (parseFloat(values.amount) + item.remaining_amount),
             }).then(
-          // luego jalo todos los materiales para que se actualice el elemento,
             event.preventDefault(),
             setValues({ pressed: true }),
-            console.log(result),
           );
           return;
         }
@@ -66,14 +54,12 @@ const RawMaterialComponent = ({
           {
             remaining_amount: (result),
           }).then(
-          // luego jalo todos los materiales para que se actualice el elemento,
           event.preventDefault(),
           setValues({ pressed: true }),
         );
       }
       return;
     }
-    console.log(axios.defaults.headers.common);
     postRawMaterials(`business/${business.id}/raw_materials`,
       {
         name: values.name,
@@ -82,13 +68,6 @@ const RawMaterialComponent = ({
       }).then(
       event.preventDefault(),
       setValues({ pressed: true }),
-      console.log(
-        {
-          name: values.name,
-          totalAmount: values.totalAmount,
-          remainingAmount: values.totalAmount,
-        },
-      ),
     );
     setValues({ pressed: true });
   };
@@ -98,10 +77,7 @@ const RawMaterialComponent = ({
       ...values,
       [evt.target.name]: value,
     });
-
-    console.log(values);
   };
-  // add the multiselect with unit measures p/e: ml, g, mg, kg, etc
 
   if (update) {
     return (
