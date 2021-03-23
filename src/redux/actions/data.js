@@ -1,20 +1,11 @@
 /* eslint-disable no-console */
 import {
-  GET_BUSINESS, SET_BUSINESS, GET_RAW_MATERIALS, SET_RAW_MATERIALS,
+  GET_RAW_MATERIALS, SET_RAW_MATERIALS,
   GET_RAW_MATERIAL, SET_RAW_MATERIAL, PUT_RAW_MATERIAL,
 } from '../constants/data';
 import { getRequest, postRequest, putRequest } from '../../api/helpers';
 import { saveItem } from '../../helpers';
 
-const fetchBusinessRequest = data => ({
-  type: GET_BUSINESS,
-  payload: data,
-});
-
-const fetchBusinessRequestPost = data => ({
-  type: SET_BUSINESS,
-  payload: data,
-});
 const fetchRawMaterialsRequest = data => ({
   type: GET_RAW_MATERIALS,
   payload: data,
@@ -46,28 +37,6 @@ const fetchRequestFailed = error => ({
 export const getBusinessID = () => ({
   type: 'BUSINESS_EXIST',
 });
-
-export const fetchBusinessGetData = endpoint => async dispatch => {
-  getRequest(endpoint).then(response => {
-    console.log(response.data);
-    if (response.data !== null) saveItem('businessID', response.data.id);
-    dispatch(fetchBusinessRequest(response.data));
-  }).catch(error => {
-    console.log(error.message);
-    dispatch(fetchRequestFailed(error));
-  });
-};
-
-export const fetchPostData = (endpoint, data) => async dispatch => {
-  postRequest(endpoint, data).then(response => {
-    console.log(response.data);
-    saveItem('businessID', response.data.id);
-    dispatch(fetchBusinessRequestPost(response.data));
-  }).catch(error => {
-    console.log(error.message);
-    dispatch(fetchRequestFailed(error));
-  });
-};
 
 export const fetchGetRawMaterials = endpoint => async dispatch => {
   console.log('FETCH GET MATERIALS');

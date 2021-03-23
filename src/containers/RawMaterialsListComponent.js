@@ -113,9 +113,9 @@ RawMaterialsListComponent.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  rawMaterials: state.dataStore.raw_materials,
+  rawMaterials: state.materialStore.raw_materials,
   authenticated: state.authStore.authenticated,
-  business: state.dataStore.business,
+  business: state.businessStore.business,
 });
 
 const mapDispatchToProps = dispatch => ({

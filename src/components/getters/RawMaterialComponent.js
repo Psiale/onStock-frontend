@@ -5,12 +5,12 @@ import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 import 'react-circular-progressbar/dist/styles.css';
 
-import { fetchGetRawMaterials } from '../../redux/actions/data';
+import { getRawMaterials } from '../../redux/actions/materials';
 import GlobalCircularProgressComponent from './GlobalCircularProgress';
 import ErrorHandler from '../ErrorHandler';
 
 const RawMaterialComponent = ({
-  fetchGetRawMaterials,
+  getRawMaterials,
   rawMaterial, business,
   authenticated,
 }) => {
@@ -20,7 +20,7 @@ const RawMaterialComponent = ({
     );
   }
   useEffect(() => {
-    fetchGetRawMaterials(`business/${business.id}/raw_materials`);
+    getRawMaterials(`business/${business.id}/raw_materials`);
   }, []);
   return (
     <>
@@ -47,7 +47,7 @@ RawMaterialComponent.propTypes = {
     avatar: Proptypes.string.isRequired,
     owner_id: Proptypes.number,
   }).isRequired,
-  fetchGetRawMaterials: Proptypes.func.isRequired,
+  getRawMaterials: Proptypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -57,7 +57,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchGetRawMaterials: endpoint => dispatch(fetchGetRawMaterials(endpoint)),
+  getRawMaterials: endpoint => dispatch(getRawMaterials(endpoint)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RawMaterialComponent);

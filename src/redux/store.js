@@ -13,6 +13,7 @@ import dataReducer from './reducers/data';
 import fetchReducer from './reducers/fetching';
 import errorReducer from './reducers/error';
 import businessReducer from './reducers/business';
+import materialsReducer from './reducers/materials';
 // const persistConfig = {
 //   key: 'root',
 //   storage,
@@ -24,6 +25,7 @@ const root = combineReducers({
   fetchStore: fetchReducer,
   errorStore: errorReducer,
   businessStore: businessReducer,
+  materialStore: materialsReducer,
 });
 
 const composeEnhancers = typeof window === 'object'

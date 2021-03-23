@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 
 import buildLoader from '../components/Loader';
 // import styles from './Home.module.css';
-import { fetchGetRawMaterials } from '../redux/actions/data';
+import { getRawMaterials } from '../redux/actions/materials';
 import { getBusiness } from '../redux/actions/business';
 import { lowestMaterial, retrieveItem } from '../helpers';
 import BusinessComponent from '../components/setters/BusinessComponent';
@@ -21,7 +21,7 @@ import { setHeader } from '../api/helpers';
 
 const Home = ({
   isFetching, authenticated, business, getBusiness, rawMaterials,
-  fetchGetRawMaterials, error, getBusinessID,
+  getRawMaterials, error, getBusinessID,
 }) => {
   if (isFetching === true && authenticated === false) {
     return buildLoader();
@@ -76,7 +76,7 @@ const Home = ({
     if (authToken === '') history.goBack();
     setHeader(authToken);
     if (authToken !== '')getBusiness('business');
-    if (businessID !== false)fetchGetRawMaterials(`business/${businessID}/raw_materials`);
+    if (businessID !== false)getRawMaterials(`business/${businessID}/raw_materials`);
     if (businessID !== false) getBusinessID();
   }, []);
   return (
@@ -111,13 +111,13 @@ const mapStateToProps = state => ({
   isFetching: state.authStore.isFetching,
   authenticated: state.authStore.authenticated,
   business: state.businessStore.business,
-  rawMaterials: state.dataStore.raw_materials,
+  rawMaterials: state.materialStore.raw_materials,
   has_Materials: state.dataStore.has_materials,
 });
 
 const mapDispatchToProps = dispatch => ({
   getBusiness: endpoint => dispatch(getBusiness(endpoint)),
-  fetchGetRawMaterials: endpoint => dispatch(fetchGetRawMaterials(endpoint)),
+  getRawMaterials: endpoint => dispatch(getRawMaterials(endpoint)),
   getBusinessID: () => dispatch(getBusinessID()),
 });
 
@@ -128,7 +128,7 @@ Home.propTypes = {
     total_amount: Proptypes.number,
     remaining_amount: Proptypes.number,
   })),
-  fetchGetRawMaterials: Proptypes.func.isRequired,
+  getRawMaterials: Proptypes.func.isRequired,
   getBusinessID: Proptypes.func.isRequired,
   isFetching: Proptypes.bool.isRequired,
   authenticated: Proptypes.bool.isRequired,

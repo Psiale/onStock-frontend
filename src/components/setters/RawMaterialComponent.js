@@ -6,13 +6,12 @@ import React, { useState } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import {
-  fetchPostRawMaterials, fetchPutRawMaterial,
-} from '../../redux/actions/data';
+import { fetchPutRawMaterial } from '../../redux/actions/data';
+import { postRawMaterials } from '../../redux/actions/materials';
 import { createInput } from '../../helpers';
 
 const RawMaterialComponent = ({
-  fetchPostRawMaterials,
+  postRawMaterials,
   business, fetchPutRawMaterial, update,
   item,
   decrease,
@@ -76,7 +75,7 @@ const RawMaterialComponent = ({
       return;
     }
     console.log(axios.defaults.headers.common);
-    fetchPostRawMaterials(`business/${business.id}/raw_materials`,
+    postRawMaterials(`business/${business.id}/raw_materials`,
       {
         name: values.name,
         total_amount: values.totalAmount,
@@ -128,7 +127,7 @@ const RawMaterialComponent = ({
 };
 
 RawMaterialComponent.propTypes = {
-  fetchPostRawMaterials: Proptypes.func.isRequired,
+  postRawMaterials: Proptypes.func.isRequired,
   fetchPutRawMaterial: Proptypes.func.isRequired,
   business: Proptypes.shape({
     id: Proptypes.number,
@@ -153,12 +152,11 @@ RawMaterialComponent.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  loading: state.dataStore.loading,
-  business: state.dataStore.business,
+  business: state.businessStore.business,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPostRawMaterials: (endpoint, data) => dispatch(fetchPostRawMaterials(endpoint, data)),
+  postRawMaterials: (endpoint, data) => dispatch(postRawMaterials(endpoint, data)),
   fetchPutRawMaterial: (endpoint, data) => dispatch(fetchPutRawMaterial(endpoint, data)),
 });
 
