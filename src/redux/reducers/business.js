@@ -14,7 +14,7 @@ const businessReducer = (state = initialState, action) => {
     case SHOW_BUSINESS:
       return {
         ...state,
-        busines: action.business,
+        business: action.business,
       };
     default: return state;
   }

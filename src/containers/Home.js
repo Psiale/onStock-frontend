@@ -107,7 +107,7 @@ const Home = ({
 
 // I need to change this mapStateToProps
 const mapStateToProps = state => ({
-  error: state.authStore.error,
+  error: state.errorStore.error,
   isFetching: state.authStore.isFetching,
   authenticated: state.authStore.authenticated,
   business: state.businessStore.business,

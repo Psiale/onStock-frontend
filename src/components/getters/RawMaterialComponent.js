@@ -12,9 +12,9 @@ import ErrorHandler from '../ErrorHandler';
 const RawMaterialComponent = ({
   fetchGetRawMaterials,
   rawMaterial, business,
-  isAuth,
+  authenticated,
 }) => {
-  if (isAuth === false) {
+  if (authenticated === false) {
     return (
       <ErrorHandler errorMessage="Session expired" />
     );
@@ -34,7 +34,7 @@ const RawMaterialComponent = ({
 };
 
 RawMaterialComponent.propTypes = {
-  isAuth: Proptypes.bool.isRequired,
+  authenticated: Proptypes.bool.isRequired,
   rawMaterial: Proptypes.shape({
     id: Proptypes.number,
     name: Proptypes.string.isRequired,
@@ -52,8 +52,8 @@ RawMaterialComponent.propTypes = {
 
 const mapStateToProps = state => ({
   rawMaterial: state.dataStore.raw_material,
-  business: state.dataStore.business,
-  isAuth: state.authStore.is_auth,
+  business: state.businessStore.business,
+  authenticated: state.authStore.authenticated,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -3,6 +3,7 @@ AFTER PROJECT
 
 TODO: Configure business and materials redux DONE
 
-TODO: combine reducers 
+I need to find out the bug for my login no passing the first time
+TODO: combine reducers ALMOST DONE
 
 TODO: Adapt them on Auth, Home, Materials
