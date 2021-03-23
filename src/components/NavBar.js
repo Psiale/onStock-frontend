@@ -78,7 +78,7 @@ NavBar.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  hasBusiness: state.authStore.has_business,
+  hasBusiness: state.businessStore.has_business,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,6 +1,6 @@
 import { getRequest, postRequest } from '../../api/helpers';
 import { saveItem } from '../../helpers';
-import { ADD_BUSINESS, SHOW_BUSINESS } from '../constants/business';
+import { ADD_BUSINESS, HAS_BUSINESS, SHOW_BUSINESS } from '../constants/business';
 import setError from './error';
 import setFetching from './fetching';
 
@@ -12,6 +12,10 @@ export const addBusiness = business => ({
 export const showBusiness = business => ({
   type: SHOW_BUSINESS,
   business,
+});
+
+export const getBusinessID = () => ({
+  type: HAS_BUSINESS,
 });
 
 export const getBusiness = endpoint => async dispatch => {

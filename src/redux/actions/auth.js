@@ -43,7 +43,3 @@ export const logIn = loginParams => async dispatch => {
     dispatch(setError(error.message));
   }
 };
-
-export const getBusinessID = () => ({
-  type: 'BUSINESS_EXIST',
-});

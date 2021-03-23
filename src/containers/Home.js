@@ -9,13 +9,12 @@ import { useHistory } from 'react-router-dom';
 import buildLoader from '../components/Loader';
 // import styles from './Home.module.css';
 import { getRawMaterials } from '../redux/actions/materials';
-import { getBusiness } from '../redux/actions/business';
+import { getBusiness, getBusinessID } from '../redux/actions/business';
 import { lowestMaterial, retrieveItem } from '../helpers';
 import BusinessComponent from '../components/setters/BusinessComponent';
 import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
 import ErrorHandler from '../components/ErrorHandler';
 import NavBar from '../components/NavBar';
-import { getBusinessID } from '../redux/actions/auth';
 import styles from './Home.module.css';
 import { setHeader } from '../api/helpers';
 
@@ -72,7 +71,7 @@ const Home = ({
 
   useEffect(() => {
     let authToken;
-    (retrieveItem('token')) ? authToken = retrieveItem('token').replace(/['"]+/g, '') : history.goBack();
+    (retrieveItem('token')) ? authToken = retrieveItem('token') : history.goBack();
     if (authToken === '') history.goBack();
     setHeader(authToken);
     if (authToken !== '')getBusiness('business');
