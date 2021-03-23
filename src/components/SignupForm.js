@@ -7,10 +7,10 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { validatePassword, createInput } from '../helpers';
-import { signupRequest } from '../redux/actions/auth';
+import { signUp } from '../redux/actions/auth';
 import styles from './AuthForm.module.css';
 
-const SignupForm = ({ signupRequest }) => {
+const SignupForm = ({ signUp }) => {
   const [values, setValues] = useState({
     name: '',
     email: '',
@@ -25,7 +25,7 @@ const SignupForm = ({ signupRequest }) => {
     // do this with the store, I think maybe a isAuth boolean to make it work
     console.log('is this being trigger');
     console.log(validatePassword(values.password, values.confirmation));
-    validatePassword(values.password, values.confirmation) ? signupRequest(
+    validatePassword(values.password, values.confirmation) ? signUp(
       {
         name: values.name,
         email: values.email,
@@ -61,11 +61,11 @@ const SignupForm = ({ signupRequest }) => {
 };
 
 SignupForm.propTypes = {
-  signupRequest: Proptypes.func.isRequired,
+  signUp: Proptypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
-  signupRequest: data => dispatch(signupRequest(data)),
+  signUp: signUpParams => dispatch(signUp(signUpParams)),
 });
 
 export default connect(null, mapDispatchToProps)(SignupForm);

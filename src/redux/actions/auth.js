@@ -10,7 +10,44 @@ import {
   REQUEST_FAILED,
   REQUEST_PENDING,
   REQUEST_SUCCEED,
+  SET_CURRENT_USER,
 } from '../constants/auth';
+
+import setError from './error';
+import setFetching from './fetching';
+
+const setCurrentUser = currentUser => ({
+  type: SET_CURRENT_USER,
+  currentUser,
+});
+
+export const signUp = signUpParams => async dispatch => {
+  try {
+    dispatch(setFetching(true));
+    const res = await postRequest('signup', signUpParams);
+    console.log(res);
+    const authToken = res.data;
+    saveItem('token', authToken.auth_token);
+    dispatch(setCurrentUser(signUpParams));
+    dispatch(setFetching(false));
+  } catch (error) {
+    dispatch(setError(error.message));
+  }
+};
+
+export const logIn = loginParams => async dispatch => {
+  try {
+    dispatch(setFetching(true));
+    const res = await postRequest('sessions', loginParams);
+    console.log(res);
+    const authToken = res.data;
+    saveItem('token', authToken.auth_token);
+    dispatch(setCurrentUser(loginParams));
+    dispatch(setFetching(false));
+  } catch (error) {
+    dispatch(setError(error.message));
+  }
+};
 
 export const fetchRequestFailed = error => ({
   type: REQUEST_FAILED,

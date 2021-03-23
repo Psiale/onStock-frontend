@@ -10,7 +10,9 @@ import thunk from 'redux-thunk';
 
 import authReducer from './reducers/auth';
 import dataReducer from './reducers/data';
-
+import fetchReducer from './reducers/fetching';
+import errorReducer from './reducers/error';
+import businessReducer from './reducers/business';
 // const persistConfig = {
 //   key: 'root',
 //   storage,
@@ -19,6 +21,9 @@ import dataReducer from './reducers/data';
 const root = combineReducers({
   authStore: authReducer,
   dataStore: dataReducer,
+  fetchStore: fetchReducer,
+  errorStore: errorReducer,
+  businessStore: businessReducer,
 });
 
 const composeEnhancers = typeof window === 'object'

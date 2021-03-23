@@ -5,6 +5,7 @@ import {
   REQUEST_FAILED,
   REQUEST_PENDING,
   REQUEST_SUCCEED,
+  SET_CURRENT_USER,
 } from '../constants/auth';
 
 const initialState = {
@@ -14,6 +15,8 @@ const initialState = {
   credentials: '',
   login_credentials: '',
   auth_token: 'not setup',
+  authenticated: false,
+  data: null,
   error: '',
 };
 
@@ -68,6 +71,13 @@ const authReducer = (state = initialState, action) => {
         is_auth: false,
         loading: false,
         auth_token: '',
+      };
+
+    case SET_CURRENT_USER:
+      return {
+        ...state,
+        authenticated: true,
+        data: action.currentUser,
       };
     default: return state;
   }

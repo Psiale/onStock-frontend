@@ -8,7 +8,8 @@ import { useHistory } from 'react-router-dom';
 
 import buildLoader from '../components/Loader';
 // import styles from './Home.module.css';
-import { fetchBusinessGetData, fetchGetRawMaterials } from '../redux/actions/data';
+import { fetchGetRawMaterials } from '../redux/actions/data';
+import { getBusiness } from '../redux/actions/business';
 import { lowestMaterial, retrieveItem } from '../helpers';
 import BusinessComponent from '../components/setters/BusinessComponent';
 import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
@@ -19,10 +20,10 @@ import styles from './Home.module.css';
 import { setHeader } from '../api/helpers';
 
 const Home = ({
-  loading, isAuth, business, fetchBusinessGetData, rawMaterials,
+  isFetching, authenticated, business, getBusiness, rawMaterials,
   fetchGetRawMaterials, error, getBusinessID,
 }) => {
-  if (loading === true && isAuth === false) {
+  if (isFetching === true && authenticated === false) {
     return buildLoader();
   }
 
@@ -53,7 +54,7 @@ const Home = ({
     return null;
   };
 
-  if (isAuth === false && error) {
+  if (authenticated === false && error) {
     return (
       <>
         <ErrorHandler errorMessage="Missing or wrong Credentials." />
@@ -61,7 +62,7 @@ const Home = ({
     );
   }
 
-  if (isAuth === false) {
+  if (authenticated === false) {
     return (
       <>
         <ErrorHandler errorMessage="Session expired." />
@@ -74,7 +75,7 @@ const Home = ({
     (retrieveItem('token')) ? authToken = retrieveItem('token').replace(/['"]+/g, '') : history.goBack();
     if (authToken === '') history.goBack();
     setHeader(authToken);
-    if (authToken !== '')fetchBusinessGetData('business');
+    if (authToken !== '')getBusiness('business');
     if (businessID !== false)fetchGetRawMaterials(`business/${businessID}/raw_materials`);
     if (businessID !== false) getBusinessID();
   }, []);
@@ -107,15 +108,15 @@ const Home = ({
 // I need to change this mapStateToProps
 const mapStateToProps = state => ({
   error: state.authStore.error,
-  loading: state.authStore.loading,
-  isAuth: state.authStore.is_auth,
-  business: state.dataStore.business,
+  isFetching: state.authStore.isFetching,
+  authenticated: state.authStore.authenticated,
+  business: state.businessStore.business,
   rawMaterials: state.dataStore.raw_materials,
   has_Materials: state.dataStore.has_materials,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchBusinessGetData: endpoint => dispatch(fetchBusinessGetData(endpoint)),
+  getBusiness: endpoint => dispatch(getBusiness(endpoint)),
   fetchGetRawMaterials: endpoint => dispatch(fetchGetRawMaterials(endpoint)),
   getBusinessID: () => dispatch(getBusinessID()),
 });
@@ -129,15 +130,15 @@ Home.propTypes = {
   })),
   fetchGetRawMaterials: Proptypes.func.isRequired,
   getBusinessID: Proptypes.func.isRequired,
-  loading: Proptypes.bool.isRequired,
-  isAuth: Proptypes.bool.isRequired,
+  isFetching: Proptypes.bool.isRequired,
+  authenticated: Proptypes.bool.isRequired,
   business: Proptypes.shape({
     id: Proptypes.number,
     name: Proptypes.string.isRequired,
     avatar: Proptypes.string.isRequired,
     owner_id: Proptypes.number,
   }),
-  fetchBusinessGetData: Proptypes.func.isRequired,
+  getBusiness: Proptypes.func.isRequired,
 };
 
 Home.defaultProps = {
