@@ -3,9 +3,7 @@
 import { postRequest } from '../../api/helpers';
 import { saveItem } from '../../helpers';
 
-import {
-  SET_CURRENT_USER,
-} from '../constants/auth';
+import SET_CURRENT_USER from '../constants/auth';
 
 import setError from './error';
 import setFetching from './fetching';

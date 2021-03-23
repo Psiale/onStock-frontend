@@ -1,7 +1,5 @@
 /* eslint-disable no-console */
-import {
-  SET_CURRENT_USER,
-} from '../constants/auth';
+import SET_CURRENT_USER from '../constants/auth';
 
 const initialState = {
   authenticated: false,
