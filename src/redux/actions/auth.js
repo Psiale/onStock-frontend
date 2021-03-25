@@ -23,6 +23,7 @@ export const signUp = signUpParams => async dispatch => {
     dispatch(setFetching(false));
   } catch (error) {
     dispatch(setError(error.message));
+    dispatch(setFetching(false));
   }
 };
 
@@ -35,5 +36,6 @@ export const logIn = loginParams => async dispatch => {
     dispatch(setCurrentUser(loginParams));
   } catch (error) {
     dispatch(setError(error.message));
+    dispatch(setFetching(false));
   }
 };
