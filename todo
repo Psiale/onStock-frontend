@@ -2,7 +2,7 @@
 AFTER PROJECT
 
 TODO: Select sort from last created, less remaining amount, more amount. MEDIUM
-TODO: Check text sizes for tablet and beyond EASY
+TODO: Check text sizes for tablet and beyond EASY modal style missing
 TODO: change the modal component MEDIUM
 TODO: Add a top bar notification for user action on materials MEDIUM
 TODO: Add push notifications HARD 
@@ -11,4 +11,4 @@ TODO: Add a options dropdown next to lowest amount component so the user can qui
 
 TODO: Add Quantity label next to material amount
 
-TODO: Make the app bilingual
+TODO: Make the app bilingual 

@@ -2,7 +2,6 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Proptypes from 'prop-types';
-import styles from './Modal.module.css';
 
 const ModalComponent = ({
   title,
