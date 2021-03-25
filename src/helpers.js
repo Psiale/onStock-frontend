@@ -57,3 +57,12 @@ export const lowestMaterial = materials => {
   }
   return 'null';
 };
+
+export const errorMessage = error => {
+  const number = error.match(/\d/g).join('');
+  switch (number) {
+    case '422':
+      return 'Email has already been taken';
+    default: return 'Wrong password or email';
+  }
+};

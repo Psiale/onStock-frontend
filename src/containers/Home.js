@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom';
 import buildLoader from '../components/Loader';
 import { getRawMaterials } from '../redux/actions/materials';
 import { getBusiness, getBusinessID } from '../redux/actions/business';
-import { lowestMaterial, retrieveItem } from '../helpers';
+import { errorMessage, lowestMaterial, retrieveItem } from '../helpers';
 import BusinessComponent from '../components/setters/BusinessComponent';
 import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
 import ErrorHandler from '../components/ErrorHandler';
@@ -56,7 +56,7 @@ const Home = ({
   if (authenticated === false && error) {
     return (
       <>
-        <ErrorHandler errorMessage="Missing or wrong Credentials." />
+        <ErrorHandler errorMessage={errorMessage(error)} />
       </>
     );
   }
