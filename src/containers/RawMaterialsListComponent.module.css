@@ -1,5 +1,6 @@
 .title {
   color: black;
+  margin-top: 8px;
 }
 
 .mainContainer {
@@ -77,4 +78,14 @@ button:first-child {
 
 .pAmountContainer > p {
   margin: 0;
+}
+
+@media (min-width: 768px) {
+  .pAmountContainer > p {
+    font-size: 1.5rem;
+  }
+
+  .buttonContainer {
+    font-size: 1.5rem;
+  }
 }

@@ -107,4 +107,8 @@ h2 {
     display: flex;
     padding-bottom: 10px;
   }
+
+  .authOptionsContainer > button {
+    font-size: 1.3rem;
+  }
 }
