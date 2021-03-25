@@ -74,6 +74,11 @@ h2 {
     height: 100%;
   }
 
+  .inputContainer > label > input,
+  input[type=submit] {
+    font-size: 1.3rem;
+  }
+
   .inputContainerLogin > input[type=submit] {
     margin-top: 60px;
   }

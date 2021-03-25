@@ -76,3 +76,22 @@ h1 {
 h2 {
   color: var(--green);
 }
+
+@media (min-width: 768px) {
+  .mainContainer {
+    align-items: center;
+  }
+
+  .mainTitle > h1 {
+    font-size: 4.5rem;
+  }
+
+  .pChildContainer > p,
+  .infoContainer > p {
+    font-size: 2rem;
+  }
+
+  .infoContainer > h2 {
+    font-size: 3.5rem;
+  }
+}
