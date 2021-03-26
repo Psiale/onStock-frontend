@@ -11,13 +11,11 @@ import { getBusinessID } from '../redux/actions/business';
 import { retrieveItem } from '../helpers';
 
 const Auth = ({ getBusinessID }) => {
-  const [authOption, setAuthOption] = useState({
-    option: 'signup',
-  });
+  const [authOption, setAuthOption] = useState('signup');
   const handleAuthOption = option => {
     (option === 'signup')
-      ? setAuthOption({ option: 'signup' })
-      : setAuthOption({ option: 'login' });
+      ? setAuthOption('signup')
+      : setAuthOption('login');
   };
   useLayoutEffect(() => {
     if (retrieveItem('businessID') !== null) getBusinessID();
@@ -27,11 +25,11 @@ const Auth = ({ getBusinessID }) => {
       <div className={styles.mainContainer}>
         <div className={styles.formContainer}>
           <div className={styles.inputsContainer}>
-            {(authOption.option === 'signup') ? <SignupForm /> : <LoginForm /> }
+            {(authOption === 'signup') ? <SignupForm /> : <LoginForm /> }
           </div>
           <div className={styles.backgroundContainer}>
             <h3>
-              {(authOption.option === 'login')
+              {(authOption === 'login')
                 ? 'Welcome Back, we missed you 🥰'
                 : "Create a new account to start tracking your business's raw materials 🚀"}
 
