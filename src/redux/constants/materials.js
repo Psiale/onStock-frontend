@@ -1,3 +1,2 @@
 export const ADD_MATERIAL = 'ADD_MATERIAL';
 export const SHOW_MATERIALS = 'SHOW_MATERIALS';
-export const UPDATE_MATERIAL = 'UPDATE_MATERIAL';

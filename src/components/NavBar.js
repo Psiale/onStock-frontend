@@ -35,7 +35,7 @@ const NavBar = ({ initialState, hasBusiness }) => {
   const history = useHistory();
   const handleClose = () => {
     (location.pathname === '/business/raw_materials')
-      ? history.push('/dashboard') : history.push('/business/raw_materials');
+      ? setShow(false) : history.push('/business/raw_materials');
     handleLocation(location.pathname);
   };
   const handleShow = () => {

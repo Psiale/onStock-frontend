@@ -1,21 +1,13 @@
 import { ADD_MATERIAL, SHOW_MATERIALS } from '../constants/materials';
 
-const initialState = {
-  raw_materials: [],
-};
+const initialState = [];
 
 const materialsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_MATERIAL:
-      return {
-        ...state,
-        raw_materials: action.materials,
-      };
+      return [...state, action.material];
     case SHOW_MATERIALS: {
-      return {
-        ...state,
-        raw_materials: action.materials,
-      };
+      return action.materials;
     }
     default: return state;
   }

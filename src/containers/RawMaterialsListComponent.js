@@ -1,14 +1,14 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { getRawMaterials, postRawMaterials } from '../redux/actions/materials';
 import RawMaterialComponent from '../components/setters/RawMaterialComponent';
 import ModalComponent from '../components/Modal';
-import ErrorHandler from '../components/ErrorHandler';
 import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
 import NavBar from '../components/NavBar';
 import { retrieveItem } from '../helpers';
@@ -18,10 +18,10 @@ const RawMaterialsListComponent = ({
   getRawMaterials,
   rawMaterials,
   authenticated,
-  business,
 
 }) => {
   let businessID;
+  const history = useHistory();
 
   const [rawMaterial, setRawMaterial] = useState('');
   const [showIncrease, setShowIncrease] = useState(false);
@@ -42,15 +42,11 @@ const RawMaterialsListComponent = ({
   };
 
   if (authenticated === false) {
-    return (
-      <>
-        <ErrorHandler errorMessage="Session expired" />
-      </>
-    );
+    history.goBack();
   }
-  useLayoutEffect(() => {
+  useEffect(() => {
     (retrieveItem('businessID')) ? businessID = retrieveItem('businessID') : businessID = false;
-    if (businessID !== false) getRawMaterials(`business/${business.id}/raw_materials`);
+    if (businessID !== false) getRawMaterials(`business/${businessID}/raw_materials`);
   }, [showIncrease, showDecrease]);
   return (rawMaterials.length >= 1) ? (
     <div className={styles.mainContainer}>
@@ -105,7 +101,7 @@ RawMaterialsListComponent.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  rawMaterials: state.materialStore.raw_materials,
+  rawMaterials: state.materialStore,
   authenticated: state.authStore.authenticated,
   business: state.businessStore.business,
 });

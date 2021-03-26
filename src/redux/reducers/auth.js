@@ -8,11 +8,6 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'DEFAULT':
-      return {
-        ...state,
-        authenticated: false,
-      };
     case SET_CURRENT_USER:
       return {
         ...state,

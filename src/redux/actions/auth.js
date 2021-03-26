@@ -20,6 +20,8 @@ export const signUp = signUpParams => async dispatch => {
     const authToken = res.data;
     saveItem('token', authToken.auth_token);
     dispatch(setCurrentUser(signUpParams));
+    const user = { email: signUpParams.email, password: signUpParams.password };
+    saveItem('user', JSON.stringify(user));
     dispatch(setFetching(false));
   } catch (error) {
     dispatch(setError(error.message));
@@ -34,6 +36,8 @@ export const logIn = loginParams => async dispatch => {
     const authToken = res.data;
     saveItem('token', authToken.auth_token);
     dispatch(setCurrentUser(loginParams));
+    const user = { email: loginParams.email, password: loginParams.password };
+    saveItem('user', JSON.stringify(user));
   } catch (error) {
     dispatch(setError(error.message));
     dispatch(setFetching(false));

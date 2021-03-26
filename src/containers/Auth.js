@@ -8,9 +8,9 @@ import LoginForm from '../components/LoginForm';
 import SignupForm from '../components/SignupForm';
 import styles from './Auth.module.css';
 import { getBusinessID } from '../redux/actions/business';
-import { retrieveItem, saveItem } from '../helpers';
+import { retrieveItem } from '../helpers';
 
-const Auth = ({ initialState, getBusinessID }) => {
+const Auth = ({ getBusinessID }) => {
   const [authOption, setAuthOption] = useState({
     option: 'signup',
   });
@@ -20,8 +20,6 @@ const Auth = ({ initialState, getBusinessID }) => {
       : setAuthOption({ option: 'login' });
   };
   useLayoutEffect(() => {
-    initialState();
-    saveItem('token', '');
     if (retrieveItem('businessID') !== null) getBusinessID();
   }, []);
   return (
@@ -54,12 +52,10 @@ const Auth = ({ initialState, getBusinessID }) => {
 };
 
 Auth.propTypes = {
-  initialState: PropTypes.func.isRequired,
   getBusinessID: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
-  initialState: () => dispatch({ type: 'DEFAULT' }),
   getBusinessID: () => dispatch(getBusinessID()),
 });
 

@@ -108,7 +108,7 @@ const mapStateToProps = state => ({
   isFetching: state.fetchStore.isFetching,
   authenticated: state.authStore.authenticated,
   business: state.businessStore.business,
-  rawMaterials: state.materialStore.raw_materials,
+  rawMaterials: state.materialStore,
 });
 
 const mapDispatchToProps = dispatch => ({
