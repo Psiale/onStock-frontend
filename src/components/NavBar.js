@@ -13,9 +13,10 @@ import PropTypes from 'prop-types';
 import RawMaterialComponent from './setters/RawMaterialComponent';
 import ModalComponent from './Modal';
 import { retrieveItem } from '../helpers';
+import { signOut } from '../redux/actions/auth';
 import styles from './Navbar.module.css';
 
-const NavBar = ({ initialState, hasBusiness }) => {
+const NavBar = ({ signOut, hasBusiness }) => {
   let businessID = false;
   const location = useLocation();
   const [show, setShow] = useState(false);
@@ -35,7 +36,8 @@ const NavBar = ({ initialState, hasBusiness }) => {
   const history = useHistory();
   const handleClose = () => {
     (location.pathname === '/business/raw_materials')
-      ? setShow(false) : history.push('/business/raw_materials');
+      ? null : history.push('/business/raw_materials');
+    setShow(false);
     handleLocation(location.pathname);
   };
   const handleShow = () => {
@@ -43,7 +45,7 @@ const NavBar = ({ initialState, hasBusiness }) => {
   };
   const handleOnClick = endpoint => {
     handleLocation(location.pathname);
-    if (endpoint === '/') initialState();
+    if (endpoint === '/') signOut();
     history.push(endpoint);
   };
   return (
@@ -70,7 +72,7 @@ const NavBar = ({ initialState, hasBusiness }) => {
 };
 
 NavBar.propTypes = {
-  initialState: PropTypes.func.isRequired,
+  signOut: PropTypes.func.isRequired,
   hasBusiness: PropTypes.bool.isRequired,
 };
 
@@ -79,7 +81,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  initialState: () => dispatch({ type: 'DEFAULT' }),
+  signOut: () => dispatch(signOut()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

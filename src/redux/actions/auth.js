@@ -3,14 +3,20 @@
 import { postRequest } from '../../api/helpers';
 import { saveItem } from '../../helpers';
 
-import SET_CURRENT_USER from '../constants/auth';
+import { SET_CURRENT_USER, INITIAL_STATE } from '../constants/auth';
+import { setBusinessInitialState } from './business';
 
 import setError from './error';
 import setFetching from './fetching';
+import { signOutMaterials } from './materials';
 
 const setCurrentUser = currentUser => ({
   type: SET_CURRENT_USER,
   currentUser,
+});
+
+const setInitialState = () => ({
+  type: INITIAL_STATE,
 });
 
 export const signUp = signUpParams => async dispatch => {
@@ -22,6 +28,7 @@ export const signUp = signUpParams => async dispatch => {
     dispatch(setCurrentUser(signUpParams));
     const user = { email: signUpParams.email, password: signUpParams.password };
     saveItem('user', JSON.stringify(user));
+    localStorage.removeItem('businessID');
     dispatch(setFetching(false));
   } catch (error) {
     dispatch(setError(error.message));
@@ -42,4 +49,14 @@ export const logIn = loginParams => async dispatch => {
     dispatch(setError(error.message));
     dispatch(setFetching(false));
   }
+};
+
+export const signOut = () => dispatch => {
+  dispatch(setInitialState());
+  dispatch(setBusinessInitialState());
+  dispatch(setFetching(false));
+  localStorage.removeItem('token');
+  localStorage.removeItem('businessID');
+  localStorage.removeItem('user');
+  signOutMaterials();
 };

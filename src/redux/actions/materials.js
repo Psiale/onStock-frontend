@@ -12,6 +12,10 @@ export const showMaterials = materials => ({
   materials,
 });
 
+export const setMaterialsInitialState = ({
+  type: 'INITIAL_STATE',
+});
+
 export const getRawMaterials = endpoint => async dispatch => {
   try {
     const res = await getRequest(endpoint);
@@ -37,4 +41,8 @@ export const putRawMaterial = (endpoint, putParams) => async dispatch => {
   } catch (error) {
     dispatch(setError(error.message));
   }
+};
+
+export const signOutMaterials = () => dispatch => {
+  dispatch(setMaterialsInitialState());
 };

@@ -22,6 +22,8 @@ const businessReducer = (state = initialState, action) => {
         ...state,
         has_business: true,
       };
+    case 'INITIAL_STATE':
+      return initialState;
     default: return state;
   }
 };

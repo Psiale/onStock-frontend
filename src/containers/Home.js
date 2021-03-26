@@ -64,7 +64,7 @@ const Home = ({
   if (authenticated === false) {
     return (
       <>
-        <ErrorHandler errorMessage="Session expired." />
+        <ErrorHandler errorMessage={errorMessage(error)} />
       </>
     );
   }
