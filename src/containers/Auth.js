@@ -8,7 +8,6 @@ import LoginForm from '../components/LoginForm';
 import SignupForm from '../components/SignupForm';
 import styles from './Auth.module.css';
 import { getBusinessID } from '../redux/actions/business';
-import { retrieveItem } from '../helpers';
 
 const Auth = ({ getBusinessID }) => {
   const [authOption, setAuthOption] = useState('signup');
@@ -18,7 +17,7 @@ const Auth = ({ getBusinessID }) => {
       : setAuthOption('login');
   };
   useLayoutEffect(() => {
-    if (retrieveItem('businessID') !== null) getBusinessID();
+    if (localStorage.businessID) getBusinessID();
   }, []);
   return (
     <>

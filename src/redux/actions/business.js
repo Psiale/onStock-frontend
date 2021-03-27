@@ -25,7 +25,6 @@ export const setBusinessInitialState = () => ({
 export const getBusiness = endpoint => async dispatch => {
   try {
     const res = await getRequest(endpoint);
-    saveItem('businessID', res.data.id);
     dispatch(addBusiness(res.data));
     setFetching(false);
   } catch (error) {

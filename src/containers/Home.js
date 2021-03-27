@@ -139,7 +139,7 @@ Home.propTypes = {
 
 Home.defaultProps = {
   rawMaterials: [],
-  business: {},
+  business: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
