@@ -16,6 +16,7 @@ import GlobalCircularProgressComponent from '../components/getters/GlobalCircula
 import ErrorHandler from '../components/ErrorHandler';
 import NavBar from '../components/NavBar';
 import styles from './Home.module.css';
+import { setHeader } from '../api/helpers';
 
 const Home = ({
   isFetching, authenticated, business, getBusiness, rawMaterials,
@@ -72,6 +73,7 @@ const Home = ({
     let authToken;
     (retrieveItem('token')) ? authToken = retrieveItem('token') : history.goBack();
     if (authToken === '') history.goBack();
+    setHeader(authToken);
     if (authToken !== '')getBusiness('business');
     if (businessID !== false)getRawMaterials(`business/${businessID}/raw_materials`);
     if (businessID !== false) getBusinessID();
