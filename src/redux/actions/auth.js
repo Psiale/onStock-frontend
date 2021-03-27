@@ -22,7 +22,7 @@ const setInitialState = () => ({
 export const signUp = signUpParams => async dispatch => {
   dispatch(setFetching(true));
   try {
-    const res = await postRequest('signup', signUpParams);
+    const res = await postRequest('users', signUpParams);
     const authToken = res.data;
     saveItem('token', authToken.auth_token);
     dispatch(setCurrentUser(signUpParams));
