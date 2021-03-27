@@ -23,7 +23,6 @@ export const signUp = signUpParams => async dispatch => {
   dispatch(setFetching(true));
   try {
     const res = await postRequest('users', signUpParams);
-    console.log(res);
     const authToken = res.data;
     saveItem('token', authToken.auth_token);
     dispatch(setCurrentUser(signUpParams));
@@ -56,7 +55,6 @@ export const signOut = () => dispatch => {
   dispatch(setInitialState());
   dispatch(setBusinessInitialState());
   dispatch(setFetching(false));
-  localStorage.removeItem('token');
   localStorage.removeItem('businessID');
   localStorage.removeItem('user');
   signOutMaterials();
