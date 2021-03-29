@@ -9,8 +9,6 @@ const materialsReducer = (state = initialState, action) => {
     case SHOW_MATERIALS: {
       return action.materials;
     }
-    case 'INITIAL_STATE':
-      return initialState;
     default: return state;
   }
 };

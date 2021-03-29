@@ -12,11 +12,10 @@ import { faListAlt, faPlus, faSignOutAlt } from '@fortawesome/free-solid-svg-ico
 import PropTypes from 'prop-types';
 import RawMaterialComponent from './setters/RawMaterialComponent';
 import ModalComponent from './Modal';
-import { retrieveItem } from '../helpers';
-import { signOut } from '../redux/actions/auth';
+import { signOut, retrieveItem } from '../helpers';
 import styles from './Navbar.module.css';
 
-const NavBar = ({ signOut, hasBusiness }) => {
+const NavBar = ({ hasBusiness }) => {
   let businessID = false;
   const location = useLocation();
   const [show, setShow] = useState(false);
@@ -45,7 +44,7 @@ const NavBar = ({ signOut, hasBusiness }) => {
   };
   const handleOnClick = endpoint => {
     handleLocation(location.pathname);
-    if (endpoint === '/') signOut();
+    if (endpoint === '/') signOut(history);
     history.push(endpoint);
   };
   return (
@@ -72,7 +71,6 @@ const NavBar = ({ signOut, hasBusiness }) => {
 };
 
 NavBar.propTypes = {
-  signOut: PropTypes.func.isRequired,
   hasBusiness: PropTypes.bool.isRequired,
 };
 
@@ -80,8 +78,4 @@ const mapStateToProps = state => ({
   hasBusiness: state.businessStore.has_business,
 });
 
-const mapDispatchToProps = dispatch => ({
-  signOut: () => dispatch(signOut()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default connect(mapStateToProps, null)(NavBar);

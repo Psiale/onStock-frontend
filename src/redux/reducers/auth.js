@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { SET_CURRENT_USER, INITIAL_STATE } from '../constants/auth';
+import SET_CURRENT_USER from '../constants/auth';
 
 const initialState = {
   authenticated: false,
@@ -7,6 +7,7 @@ const initialState = {
 };
 
 const authReducer = (state = initialState, action) => {
+  console.log(action.type);
   switch (action.type) {
     case SET_CURRENT_USER:
       return {
@@ -14,9 +15,6 @@ const authReducer = (state = initialState, action) => {
         authenticated: true,
         data: action.currentUser,
       };
-    case INITIAL_STATE:
-      return initialState;
-
     default: return state;
   }
 };

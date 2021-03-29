@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+
 export const validatePassword = (password, passwordConfirmation) => {
   if (password === passwordConfirmation) return true;
   return false;
@@ -59,10 +60,21 @@ export const lowestMaterial = materials => {
 };
 
 export const errorMessage = error => {
-  const number = error.match(/\d/g).join('');
-  switch (number) {
-    case '422':
-      return 'Email has already been taken';
-    default: return 'Wrong password or email';
+  if (typeof error !== 'boolean') {
+    const number = error.match(/\d/g).join('');
+    switch (number) {
+      case '422':
+        return 'Email has already been taken';
+      default: return 'Wrong password or email';
+    }
   }
+  return 'undefined error';
+};
+
+export const signOut = history => {
+  history.push('/');
+  localStorage.removeItem('businessID');
+  localStorage.removeItem('user');
+  localStorage.removeItem('token');
+  window.location.reload();
 };

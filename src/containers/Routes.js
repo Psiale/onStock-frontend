@@ -7,11 +7,9 @@ import Home from './Home';
 import styles from './Routes.module.css';
 import { retrieveItem } from '../helpers';
 import { logIn } from '../redux/actions/auth';
-import { setHeader } from '../api/helpers';
 
 const Routes = ({ logIn }) => {
   if (localStorage.user) {
-    setHeader(retrieveItem('token'));
     const retrieve = JSON.parse(retrieveItem('user'));
     logIn(retrieve);
   }

@@ -42,7 +42,3 @@ export const putRawMaterial = (endpoint, putParams) => async dispatch => {
     dispatch(setError(error.message));
   }
 };
-
-export const signOutMaterials = () => dispatch => {
-  dispatch(setMaterialsInitialState());
-};

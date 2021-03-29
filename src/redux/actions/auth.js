@@ -3,20 +3,14 @@
 import { postRequest } from '../../api/helpers';
 import { saveItem } from '../../helpers';
 
-import { SET_CURRENT_USER, INITIAL_STATE } from '../constants/auth';
-import { setBusinessInitialState } from './business';
+import SET_CURRENT_USER from '../constants/auth';
 
 import setError from './error';
 import setFetching from './fetching';
-import { signOutMaterials } from './materials';
 
 const setCurrentUser = currentUser => ({
   type: SET_CURRENT_USER,
   currentUser,
-});
-
-const setInitialState = () => ({
-  type: INITIAL_STATE,
 });
 
 export const signUp = signUpParams => async dispatch => {
@@ -49,13 +43,4 @@ export const logIn = loginParams => async dispatch => {
     dispatch(setError(error.message));
     dispatch(setFetching(false));
   }
-};
-
-export const signOut = () => dispatch => {
-  dispatch(setInitialState());
-  dispatch(setBusinessInitialState());
-  dispatch(setFetching(false));
-  localStorage.removeItem('businessID');
-  localStorage.removeItem('user');
-  signOutMaterials();
 };
