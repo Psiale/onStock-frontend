@@ -1,12 +1,11 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
-import Proptypes from 'prop-types';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const ModalComponent = ({
   title,
-  modalTitle, child, handleShow, isShowing,
+  modalTitle, child, handleShow, show, handleClose,
 }) => (
   <>
     <button type="button" onClick={handleShow}>
@@ -14,8 +13,8 @@ const ModalComponent = ({
     </button>
 
     <Modal
-      show={isShowing}
-      onHide={isShowing}
+      show={show}
+      onHide={handleClose}
       keyboard
       centered
     >
@@ -30,15 +29,12 @@ const ModalComponent = ({
 );
 
 ModalComponent.propTypes = {
-  child: Proptypes.object.isRequired,
-  modalTitle: Proptypes.string.isRequired,
-  title: Proptypes.string.isRequired,
-  handleShow: Proptypes.func.isRequired,
-  isShowing: Proptypes.bool.isRequired,
+  child: PropTypes.object.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  modalTitle: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  handleShow: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = state => ({
-  isShowing: state.modalStore.isShowing,
-});
-
-export default connect(mapStateToProps, null)(ModalComponent);
+export default ModalComponent;

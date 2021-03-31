@@ -7,14 +7,14 @@ import { connect } from 'react-redux';
 
 import { postRawMaterials, putRawMaterial } from '../../redux/actions/materials';
 import { createInput } from '../../helpers';
-import setShowing from '../../redux/actions/modal';
+import { setNavBarModal } from '../../redux/actions/modal';
 
 const RawMaterialComponent = ({
   postRawMaterials,
   business, putRawMaterial, update,
   item,
   decrease,
-  setShowing,
+  setNavBarModal,
 }) => {
   const [values, setValues] = useState({
     name: '',
@@ -70,7 +70,7 @@ const RawMaterialComponent = ({
       }).then(
       event.preventDefault(),
       setValues({ pressed: true }),
-      setShowing(false),
+      setNavBarModal(false),
     );
     setValues({ pressed: true });
   };
@@ -107,7 +107,7 @@ const RawMaterialComponent = ({
 RawMaterialComponent.propTypes = {
   postRawMaterials: PropTypes.func.isRequired,
   putRawMaterial: PropTypes.func.isRequired,
-  setShowing: PropTypes.func.isRequired,
+  setNavBarModal: PropTypes.func.isRequired,
   business: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string.isRequired,
@@ -137,7 +137,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   postRawMaterials: (endpoint, data) => dispatch(postRawMaterials(endpoint, data)),
   putRawMaterial: (endpoint, data) => dispatch(putRawMaterial(endpoint, data)),
-  setShowing: isShowing => dispatch(setShowing(isShowing)),
+  setNavBarModal: isShowing => dispatch(setNavBarModal(isShowing)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RawMaterialComponent);

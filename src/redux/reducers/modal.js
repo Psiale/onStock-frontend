@@ -1,14 +1,25 @@
 const initialState = {
-  isShowing: false,
+  navBarIsShowing: false,
+  increaseIsShowing: false,
+  decreaseIsShowing: false,
 };
 
 const modalReducer = (state = initialState, action) => {
-  console.log(action.type);
   switch (action.type) {
-    case 'CLOSE_MODAL':
+    case 'NAVBAR_MODAL':
       return {
         ...state,
-        isShowing: action.isShowing,
+        navBarIsShowing: action.isShowing,
+      };
+    case 'INCREASE_MODAL':
+      return {
+        ...state,
+        increaseIsShowing: action.isShowing,
+      };
+    case 'DECREASE_MODAL':
+      return {
+        ...state,
+        decreaseIsShowing: action.isShowing,
       };
     default: return state;
   }
