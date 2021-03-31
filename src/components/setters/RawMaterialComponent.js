@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import { useHistory } from 'react-router-dom';
 import { postRawMaterials, putRawMaterial } from '../../redux/actions/materials';
 import { createInput } from '../../helpers';
 import { setNavBarModal, setDecreaseModal, setIncreaseModal } from '../../redux/actions/modal';
@@ -17,6 +17,7 @@ const RawMaterialComponent = ({
   setNavBarModal,
   setDecreaseModal, setIncreaseModal,
 }) => {
+  const history = useHistory();
   const [values, setValues] = useState({
     name: '',
     totalAmount: 0,
@@ -75,6 +76,7 @@ const RawMaterialComponent = ({
       event.preventDefault(),
       setValues({ pressed: true }),
       setNavBarModal(false),
+      history.push('/business/raw_materials'),
     );
     setValues({ pressed: true });
   };

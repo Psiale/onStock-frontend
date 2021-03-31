@@ -78,15 +78,3 @@ export const signOut = history => {
   localStorage.removeItem('token');
   window.location.reload();
 };
-
-export const lastCreated = (a, b) => {
-  const aid = a.id;
-  const bid = b.id;
-  let comparison = 0;
-  if (aid > bid) {
-    comparison = -1;
-  } else if (aid < bid) {
-    comparison = 1;
-  }
-  return comparison;
-};
