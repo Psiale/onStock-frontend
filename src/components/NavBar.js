@@ -14,10 +14,12 @@ import RawMaterialComponent from './setters/RawMaterialComponent';
 import ModalComponent from './Modal';
 import { signOut, retrieveItem } from '../helpers';
 import styles from './Navbar.module.css';
+import setShowing from '../redux/actions/modal';
 
-const NavBar = ({ hasBusiness }) => {
+const NavBar = ({ hasBusiness, setShowing }) => {
   let businessID = false;
   const location = useLocation();
+  // eslint-disable-next-line no-unused-vars
   const [show, setShow] = useState(false);
   const [path, setPath] = useState({
     text: 'Inventory',
@@ -40,7 +42,8 @@ const NavBar = ({ hasBusiness }) => {
     handleLocation(location.pathname);
   };
   const handleShow = () => {
-    if (businessID !== null) setShow(true);
+    console.log('clicj');
+    if (businessID !== null) setShowing(true);
   };
   const handleOnClick = endpoint => {
     handleLocation(location.pathname);
@@ -62,7 +65,7 @@ const NavBar = ({ hasBusiness }) => {
           ? (
             <div id={styles.navChildren}>
               <FontAwesomeIcon icon={faPlus} />
-              <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Material" modalTitle="Add a new   Raw   Material" child={<RawMaterialComponent />} />
+              <ModalComponent handleClose={handleClose} handleShow={handleShow} title="Material" modalTitle="Add a new   Raw   Material" child={<RawMaterialComponent />} />
             </div>
           ) : null}
       </div>
@@ -72,10 +75,15 @@ const NavBar = ({ hasBusiness }) => {
 
 NavBar.propTypes = {
   hasBusiness: PropTypes.bool.isRequired,
+  setShowing: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   hasBusiness: state.businessStore.has_business,
 });
 
-export default connect(mapStateToProps, null)(NavBar);
+const mapDispatchToProps = dispatch => ({
+  setShowing: isShowing => dispatch(setShowing(isShowing)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

@@ -2,17 +2,19 @@
 /* eslint-disable no-console */
 /* eslint-disable no-return-assign */
 import React, { useState } from 'react';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { postRawMaterials, putRawMaterial } from '../../redux/actions/materials';
 import { createInput } from '../../helpers';
+import setShowing from '../../redux/actions/modal';
 
 const RawMaterialComponent = ({
   postRawMaterials,
   business, putRawMaterial, update,
   item,
   decrease,
+  setShowing,
 }) => {
   const [values, setValues] = useState({
     name: '',
@@ -68,6 +70,7 @@ const RawMaterialComponent = ({
       }).then(
       event.preventDefault(),
       setValues({ pressed: true }),
+      setShowing(false),
     );
     setValues({ pressed: true });
   };
@@ -102,22 +105,23 @@ const RawMaterialComponent = ({
 };
 
 RawMaterialComponent.propTypes = {
-  postRawMaterials: Proptypes.func.isRequired,
-  putRawMaterial: Proptypes.func.isRequired,
-  business: Proptypes.shape({
-    id: Proptypes.number,
-    name: Proptypes.string.isRequired,
-    avatar: Proptypes.string.isRequired,
-    owner_id: Proptypes.number,
+  postRawMaterials: PropTypes.func.isRequired,
+  putRawMaterial: PropTypes.func.isRequired,
+  setShowing: PropTypes.func.isRequired,
+  business: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
+    owner_id: PropTypes.number,
   }).isRequired,
-  update: Proptypes.bool,
-  item: Proptypes.shape({
-    id: Proptypes.number,
-    name: Proptypes.string.isRequired,
-    total_amount: Proptypes.number,
-    remaining_amount: Proptypes.number,
+  update: PropTypes.bool,
+  item: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string.isRequired,
+    total_amount: PropTypes.number,
+    remaining_amount: PropTypes.number,
   }),
-  decrease: Proptypes.bool,
+  decrease: PropTypes.bool,
 };
 
 RawMaterialComponent.defaultProps = {
@@ -133,6 +137,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   postRawMaterials: (endpoint, data) => dispatch(postRawMaterials(endpoint, data)),
   putRawMaterial: (endpoint, data) => dispatch(putRawMaterial(endpoint, data)),
+  setShowing: isShowing => dispatch(setShowing(isShowing)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RawMaterialComponent);

@@ -10,6 +10,7 @@ import fetchReducer from './reducers/fetching';
 import errorReducer from './reducers/error';
 import businessReducer from './reducers/business';
 import materialsReducer from './reducers/materials';
+import modalReducer from './reducers/modal';
 
 const root = combineReducers({
   authStore: authReducer,
@@ -17,6 +18,7 @@ const root = combineReducers({
   errorStore: errorReducer,
   businessStore: businessReducer,
   materialStore: materialsReducer,
+  modalStore: modalReducer,
 });
 
 const composeEnhancers = typeof window === 'object'

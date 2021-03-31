@@ -2,10 +2,11 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Proptypes from 'prop-types';
+import { connect } from 'react-redux';
 
 const ModalComponent = ({
   title,
-  modalTitle, child, handleClose, handleShow, show,
+  modalTitle, child, handleShow, isShowing,
 }) => (
   <>
     <button type="button" onClick={handleShow}>
@@ -13,8 +14,8 @@ const ModalComponent = ({
     </button>
 
     <Modal
-      show={show}
-      onHide={handleClose}
+      show={isShowing}
+      onHide={isShowing}
       keyboard
       centered
     >
@@ -24,11 +25,6 @@ const ModalComponent = ({
       <Modal.Body>
         {child}
       </Modal.Body>
-      <Modal.Footer>
-        <button type="button" onClick={handleClose}>
-          Close
-        </button>
-      </Modal.Footer>
     </Modal>
   </>
 );
@@ -37,9 +33,12 @@ ModalComponent.propTypes = {
   child: Proptypes.object.isRequired,
   modalTitle: Proptypes.string.isRequired,
   title: Proptypes.string.isRequired,
-  handleClose: Proptypes.func.isRequired,
   handleShow: Proptypes.func.isRequired,
-  show: Proptypes.bool.isRequired,
+  isShowing: Proptypes.bool.isRequired,
 };
 
-export default ModalComponent;
+const mapStateToProps = state => ({
+  isShowing: state.modalStore.isShowing,
+});
+
+export default connect(mapStateToProps, null)(ModalComponent);
