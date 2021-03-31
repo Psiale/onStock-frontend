@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 import { postRawMaterials, putRawMaterial } from '../../redux/actions/materials';
 import { createInput } from '../../helpers';
-import { setNavBarModal } from '../../redux/actions/modal';
+import { setNavBarModal, setDecreaseModal, setIncreaseModal } from '../../redux/actions/modal';
 
 const RawMaterialComponent = ({
   postRawMaterials,
@@ -15,6 +15,7 @@ const RawMaterialComponent = ({
   item,
   decrease,
   setNavBarModal,
+  setDecreaseModal, setIncreaseModal,
 }) => {
   const [values, setValues] = useState({
     name: '',
@@ -36,6 +37,7 @@ const RawMaterialComponent = ({
             remaining_amount: (item.remaining_amount - values.amount),
           }).then(
           event.preventDefault(),
+          setDecreaseModal(false),
           setValues({ pressed: true }),
         );
       } else {
@@ -48,6 +50,7 @@ const RawMaterialComponent = ({
               remaining_amount: (parseFloat(values.amount) + item.remaining_amount),
             }).then(
             event.preventDefault(),
+            setIncreaseModal(false),
             setValues({ pressed: true }),
           );
           return;
@@ -57,6 +60,7 @@ const RawMaterialComponent = ({
             remaining_amount: (result),
           }).then(
           event.preventDefault(),
+          setIncreaseModal(false),
           setValues({ pressed: true }),
         );
       }
@@ -122,6 +126,8 @@ RawMaterialComponent.propTypes = {
     remaining_amount: PropTypes.number,
   }),
   decrease: PropTypes.bool,
+  setDecreaseModal: PropTypes.func.isRequired,
+  setIncreaseModal: PropTypes.func.isRequired,
 };
 
 RawMaterialComponent.defaultProps = {
@@ -138,6 +144,8 @@ const mapDispatchToProps = dispatch => ({
   postRawMaterials: (endpoint, data) => dispatch(postRawMaterials(endpoint, data)),
   putRawMaterial: (endpoint, data) => dispatch(putRawMaterial(endpoint, data)),
   setNavBarModal: isShowing => dispatch(setNavBarModal(isShowing)),
+  setDecreaseModal: isShowing => dispatch(setDecreaseModal(isShowing)),
+  setIncreaseModal: isShowing => dispatch(setIncreaseModal(isShowing)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RawMaterialComponent);

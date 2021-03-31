@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
@@ -34,18 +35,18 @@ const RawMaterialsListComponent = ({
   const handleShow = () => setNavBarModal(true);
   const [showDecrease, setShowDecrease] = useState(false);
   const handleCloseIncrease = () => {
-    setShowIncrease(false);
     setIncreaseModal(false);
+    setShowIncrease(false);
   };
   const handleShowIncrease = rawMaterialSelected => {
     setRawMaterial(rawMaterialSelected);
-    setShowIncrease(true);
     setIncreaseModal(true);
+    setShowIncrease(true);
   };
 
   const handleCloseDecrease = () => {
-    setShowDecrease(false);
     setDecreaseModal(false);
+    setShowDecrease(false);
   };
   const handleShowDecrease = rawMaterialSelected => {
     setRawMaterial(rawMaterialSelected);
@@ -59,7 +60,7 @@ const RawMaterialsListComponent = ({
   useEffect(() => {
     (retrieveItem('businessID')) ? businessID = retrieveItem('businessID') : businessID = false;
     if (businessID !== false) getRawMaterials(`business/${businessID}/raw_materials`);
-  }, [showIncrease, showDecrease]);
+  }, [rawMaterials]);
   return (rawMaterials.length >= 1) ? (
     <div className={styles.mainContainer}>
       <NavBar />
