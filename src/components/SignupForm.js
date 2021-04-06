@@ -11,41 +11,51 @@ import { signUp } from '../redux/actions/auth';
 import styles from './AuthForm.module.css';
 
 const SignupForm = ({ signUp }) => {
-  const [values, setValues] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmation: '',
-  });
+  // const [values, setValues] = useState({
+  //   name: '',
+  //   email: '',
+  //   password: '',
+  //   confirmation: '',
+  // });
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const handleEmailChange = e => setEmail(e.target.value);
+  const handlePasswordChange = e => setPassword(e.target.value);
+  const handleNameChange = e => setName(e.target.value);
+  const handlePasswordConfirmationChange = e => setPasswordConfirmation(e.target.value);
+
   const history = useHistory();
 
   const handleSubmit = event => {
-    validatePassword(values.password, values.confirmation) ? signUp(
+    validatePassword(password, passwordConfirmation) ? signUp(
       {
-        name: values.name,
-        email: values.email,
-        password: values.password,
-        password_confirmation: values.confirmation,
+        name,
+        email,
+        password,
+        password_confirmation: passwordConfirmation,
       },
     ).then(history.push('/dashboard')) : event.preventDefault();
   };
-  const handleChange = evt => {
-    const { value } = evt.target;
-    setValues({
-      ...values,
-      [evt.target.name]: value,
-    });
-  };
+  // const handleChange = evt => {
+  //   const { value } = evt.target;
+  //   setValues({
+  //     ...values,
+  //     [evt.target.name]: value,
+  //   });
+  // };
 
   return (
     <>
       <form className={styles.mainContainer} onSubmit={handleSubmit}>
         <h2> On Stock </h2>
         <div className={styles.inputContainer}>
-          {createInput('name', values.name, handleChange)}
-          {createInput('email', values.email, handleChange, 'email')}
-          {createInput('password', values.password, handleChange, 'password')}
-          {createInput('confirmation', values.confirmation, handleChange, 'password')}
+          {createInput('name', name, handleNameChange)}
+          {createInput('email', email, handleEmailChange, 'email')}
+          {createInput('password', password, handlePasswordChange, 'password')}
+          {createInput('confirmation', passwordConfirmation, handlePasswordConfirmationChange, 'password')}
           <input type="submit" value="Signup" />
         </div>
       </form>

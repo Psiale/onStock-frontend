@@ -18,6 +18,10 @@ export const getBusinessID = () => ({
   type: HAS_BUSINESS,
 });
 
+export const setBusinessInitialState = () => ({
+  type: 'INITIAL_STATE',
+});
+
 export const getBusiness = endpoint => async dispatch => {
   try {
     const res = await getRequest(endpoint);

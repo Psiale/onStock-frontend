@@ -2,18 +2,22 @@
 /* eslint-disable no-console */
 /* eslint-disable no-return-assign */
 import React, { useState } from 'react';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import { useHistory } from 'react-router-dom';
 import { postRawMaterials, putRawMaterial } from '../../redux/actions/materials';
 import { createInput } from '../../helpers';
+import { setNavBarModal, setDecreaseModal, setIncreaseModal } from '../../redux/actions/modal';
 
 const RawMaterialComponent = ({
   postRawMaterials,
   business, putRawMaterial, update,
   item,
   decrease,
+  setNavBarModal,
+  setDecreaseModal, setIncreaseModal,
 }) => {
+  const history = useHistory();
   const [values, setValues] = useState({
     name: '',
     totalAmount: 0,
@@ -34,6 +38,7 @@ const RawMaterialComponent = ({
             remaining_amount: (item.remaining_amount - values.amount),
           }).then(
           event.preventDefault(),
+          setDecreaseModal(false),
           setValues({ pressed: true }),
         );
       } else {
@@ -46,6 +51,7 @@ const RawMaterialComponent = ({
               remaining_amount: (parseFloat(values.amount) + item.remaining_amount),
             }).then(
             event.preventDefault(),
+            setIncreaseModal(false),
             setValues({ pressed: true }),
           );
           return;
@@ -55,6 +61,7 @@ const RawMaterialComponent = ({
             remaining_amount: (result),
           }).then(
           event.preventDefault(),
+          setIncreaseModal(false),
           setValues({ pressed: true }),
         );
       }
@@ -68,6 +75,8 @@ const RawMaterialComponent = ({
       }).then(
       event.preventDefault(),
       setValues({ pressed: true }),
+      setNavBarModal(false),
+      history.push('/business/raw_materials'),
     );
     setValues({ pressed: true });
   };
@@ -102,22 +111,25 @@ const RawMaterialComponent = ({
 };
 
 RawMaterialComponent.propTypes = {
-  postRawMaterials: Proptypes.func.isRequired,
-  putRawMaterial: Proptypes.func.isRequired,
-  business: Proptypes.shape({
-    id: Proptypes.number,
-    name: Proptypes.string.isRequired,
-    avatar: Proptypes.string.isRequired,
-    owner_id: Proptypes.number,
+  postRawMaterials: PropTypes.func.isRequired,
+  putRawMaterial: PropTypes.func.isRequired,
+  setNavBarModal: PropTypes.func.isRequired,
+  business: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
+    owner_id: PropTypes.number,
   }).isRequired,
-  update: Proptypes.bool,
-  item: Proptypes.shape({
-    id: Proptypes.number,
-    name: Proptypes.string.isRequired,
-    total_amount: Proptypes.number,
-    remaining_amount: Proptypes.number,
+  update: PropTypes.bool,
+  item: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string.isRequired,
+    total_amount: PropTypes.number,
+    remaining_amount: PropTypes.number,
   }),
-  decrease: Proptypes.bool,
+  decrease: PropTypes.bool,
+  setDecreaseModal: PropTypes.func.isRequired,
+  setIncreaseModal: PropTypes.func.isRequired,
 };
 
 RawMaterialComponent.defaultProps = {
@@ -133,6 +145,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   postRawMaterials: (endpoint, data) => dispatch(postRawMaterials(endpoint, data)),
   putRawMaterial: (endpoint, data) => dispatch(putRawMaterial(endpoint, data)),
+  setNavBarModal: isShowing => dispatch(setNavBarModal(isShowing)),
+  setDecreaseModal: isShowing => dispatch(setDecreaseModal(isShowing)),
+  setIncreaseModal: isShowing => dispatch(setIncreaseModal(isShowing)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RawMaterialComponent);
