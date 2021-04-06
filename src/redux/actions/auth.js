@@ -16,12 +16,13 @@ const setCurrentUser = currentUser => ({
 export const signUp = signUpParams => async dispatch => {
   dispatch(setFetching(true));
   try {
-    const res = await postRequest('signup', signUpParams);
+    const res = await postRequest('users', signUpParams);
     const authToken = res.data;
     saveItem('token', authToken.auth_token);
     dispatch(setCurrentUser(signUpParams));
     const user = { email: signUpParams.email, password: signUpParams.password };
     saveItem('user', JSON.stringify(user));
+    localStorage.removeItem('businessID');
     dispatch(setFetching(false));
   } catch (error) {
     dispatch(setError(error.message));

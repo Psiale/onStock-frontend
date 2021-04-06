@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-trailing-spaces */
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -64,12 +64,12 @@ const Home = ({
   if (authenticated === false) {
     return (
       <>
-        <ErrorHandler errorMessage="Session expired." />
+        <ErrorHandler errorMessage={errorMessage(error)} />
       </>
     );
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let authToken;
     (retrieveItem('token')) ? authToken = retrieveItem('token') : history.goBack();
     if (authToken === '') history.goBack();
@@ -139,7 +139,7 @@ Home.propTypes = {
 
 Home.defaultProps = {
   rawMaterials: [],
-  business: {},
+  business: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

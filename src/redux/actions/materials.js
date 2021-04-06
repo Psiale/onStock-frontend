@@ -12,6 +12,10 @@ export const showMaterials = materials => ({
   materials,
 });
 
+export const setMaterialsInitialState = ({
+  type: 'INITIAL_STATE',
+});
+
 export const getRawMaterials = endpoint => async dispatch => {
   try {
     const res = await getRequest(endpoint);

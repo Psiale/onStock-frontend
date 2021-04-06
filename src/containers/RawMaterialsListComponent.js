@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
@@ -11,6 +12,7 @@ import RawMaterialComponent from '../components/setters/RawMaterialComponent';
 import ModalComponent from '../components/Modal';
 import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
 import NavBar from '../components/NavBar';
+import { setNavBarModal, setDecreaseModal, setIncreaseModal } from '../redux/actions/modal';
 import { retrieveItem } from '../helpers';
 import styles from './RawMaterialsListComponent.module.css';
 
@@ -18,27 +20,38 @@ const RawMaterialsListComponent = ({
   getRawMaterials,
   rawMaterials,
   authenticated,
-
+  setNavBarModal,
+  setDecreaseModal, setIncreaseModal,
+  navBarIsShowing,
+  increaseIsShowing,
+  decreaseIsShowing,
 }) => {
   let businessID;
   const history = useHistory();
 
   const [rawMaterial, setRawMaterial] = useState('');
   const [showIncrease, setShowIncrease] = useState(false);
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setNavBarModal(false);
+  const handleShow = () => setNavBarModal(true);
   const [showDecrease, setShowDecrease] = useState(false);
-  const handleCloseIncrease = () => setShowIncrease(false);
+  const handleCloseIncrease = () => {
+    setIncreaseModal(false);
+    setShowIncrease(false);
+  };
   const handleShowIncrease = rawMaterialSelected => {
     setRawMaterial(rawMaterialSelected);
+    setIncreaseModal(true);
     setShowIncrease(true);
   };
 
-  const handleCloseDecrease = () => setShowDecrease(false);
+  const handleCloseDecrease = () => {
+    setDecreaseModal(false);
+    setShowDecrease(false);
+  };
   const handleShowDecrease = rawMaterialSelected => {
     setRawMaterial(rawMaterialSelected);
     setShowDecrease(true);
+    setDecreaseModal(true);
   };
 
   if (authenticated === false) {
@@ -47,7 +60,7 @@ const RawMaterialsListComponent = ({
   useEffect(() => {
     (retrieveItem('businessID')) ? businessID = retrieveItem('businessID') : businessID = false;
     if (businessID !== false) getRawMaterials(`business/${businessID}/raw_materials`);
-  }, [showIncrease, showDecrease]);
+  }, [rawMaterials]);
   return (rawMaterials.length >= 1) ? (
     <div className={styles.mainContainer}>
       <NavBar />
@@ -68,8 +81,8 @@ const RawMaterialsListComponent = ({
             </div>
           </div>
           <div className={styles.buttonContainer}>
-            <ModalComponent show={showIncrease} handleClose={handleCloseIncrease} handleShow={() => handleShowIncrease(item)} title="Increase" modalTitle="Increase quantity" child={<RawMaterialComponent update item={rawMaterial} />} />
-            <ModalComponent id={styles.test} show={showDecrease} handleClose={handleCloseDecrease} handleShow={() => handleShowDecrease(item)} title="Decrease" modalTitle="Decrease quantity" child={<RawMaterialComponent update decrease item={rawMaterial} />} />
+            <ModalComponent show={increaseIsShowing} handleClose={handleCloseIncrease} handleShow={() => handleShowIncrease(item)} title="Increase" modalTitle="Increase quantity" child={<RawMaterialComponent update item={rawMaterial} />} />
+            <ModalComponent id={styles.test} show={decreaseIsShowing} handleClose={handleCloseDecrease} handleShow={() => handleShowDecrease(item)} title="Decrease" modalTitle="Decrease quantity" child={<RawMaterialComponent update decrease item={rawMaterial} />} />
           </div>
         </div>
       ))}
@@ -78,14 +91,20 @@ const RawMaterialsListComponent = ({
     <div>
       <NavBar />
       <div>
-        <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Create a new Raw Material" modalTitle="Add a new Raw Material" child={<RawMaterialComponent />} />
+        <ModalComponent show={navBarIsShowing} handleClose={handleClose} handleShow={handleShow} title="Create a new Raw Material" modalTitle="Add a new Raw Material" child={<RawMaterialComponent />} />
       </div>
     </div>
   );
 };
 
 RawMaterialsListComponent.propTypes = {
+  decreaseIsShowing: Proptypes.bool.isRequired,
+  increaseIsShowing: Proptypes.bool.isRequired,
+  navBarIsShowing: Proptypes.bool.isRequired,
   authenticated: Proptypes.bool.isRequired,
+  setNavBarModal: Proptypes.func.isRequired,
+  setDecreaseModal: Proptypes.func.isRequired,
+  setIncreaseModal: Proptypes.func.isRequired,
   getRawMaterials: Proptypes.func.isRequired,
   rawMaterials: Proptypes.arrayOf(Proptypes.shape({
     name: Proptypes.string,
@@ -104,11 +123,17 @@ const mapStateToProps = state => ({
   rawMaterials: state.materialStore,
   authenticated: state.authStore.authenticated,
   business: state.businessStore.business,
+  navBarIsShowing: state.modalStore.navBarIsShowing,
+  decreaseIsShowing: state.modalStore.decreaseIsShowing,
+  increaseIsShowing: state.modalStore.increaseIsShowing,
 });
 
 const mapDispatchToProps = dispatch => ({
   getRawMaterials: endpoint => dispatch(getRawMaterials(endpoint)),
   postRawMaterials: data => dispatch(postRawMaterials(data)),
+  setNavBarModal: isShowing => dispatch(setNavBarModal(isShowing)),
+  setDecreaseModal: isShowing => dispatch(setDecreaseModal(isShowing)),
+  setIncreaseModal: isShowing => dispatch(setIncreaseModal(isShowing)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RawMaterialsListComponent);

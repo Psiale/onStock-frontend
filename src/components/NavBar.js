@@ -12,13 +12,13 @@ import { faListAlt, faPlus, faSignOutAlt } from '@fortawesome/free-solid-svg-ico
 import PropTypes from 'prop-types';
 import RawMaterialComponent from './setters/RawMaterialComponent';
 import ModalComponent from './Modal';
-import { retrieveItem } from '../helpers';
+import { signOut, retrieveItem } from '../helpers';
 import styles from './Navbar.module.css';
+import { setNavBarModal } from '../redux/actions/modal';
 
-const NavBar = ({ initialState, hasBusiness }) => {
+const NavBar = ({ hasBusiness, setNavBarModal, navBarIsShowing }) => {
   let businessID = false;
   const location = useLocation();
-  const [show, setShow] = useState(false);
   const [path, setPath] = useState({
     text: 'Inventory',
     path: '/business/raw_materials',
@@ -35,15 +35,16 @@ const NavBar = ({ initialState, hasBusiness }) => {
   const history = useHistory();
   const handleClose = () => {
     (location.pathname === '/business/raw_materials')
-      ? setShow(false) : history.push('/business/raw_materials');
+      ? null : history.push('/business/raw_materials');
+    setNavBarModal(false);
     handleLocation(location.pathname);
   };
   const handleShow = () => {
-    if (businessID !== null) setShow(true);
+    if (businessID !== null) setNavBarModal(true);
   };
   const handleOnClick = endpoint => {
     handleLocation(location.pathname);
-    if (endpoint === '/') initialState();
+    if (endpoint === '/') signOut(history);
     history.push(endpoint);
   };
   return (
@@ -61,7 +62,7 @@ const NavBar = ({ initialState, hasBusiness }) => {
           ? (
             <div id={styles.navChildren}>
               <FontAwesomeIcon icon={faPlus} />
-              <ModalComponent show={show} handleClose={handleClose} handleShow={handleShow} title="Material" modalTitle="Add a new   Raw   Material" child={<RawMaterialComponent />} />
+              <ModalComponent show={navBarIsShowing} handleClose={handleClose} handleShow={handleShow} title="Material" modalTitle="Add a new Raw Material" child={<RawMaterialComponent />} />
             </div>
           ) : null}
       </div>
@@ -70,16 +71,18 @@ const NavBar = ({ initialState, hasBusiness }) => {
 };
 
 NavBar.propTypes = {
-  initialState: PropTypes.func.isRequired,
   hasBusiness: PropTypes.bool.isRequired,
+  navBarIsShowing: PropTypes.bool.isRequired,
+  setNavBarModal: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   hasBusiness: state.businessStore.has_business,
+  navBarIsShowing: state.modalStore.navBarIsShowing,
 });
 
 const mapDispatchToProps = dispatch => ({
-  initialState: () => dispatch({ type: 'DEFAULT' }),
+  setNavBarModal: isShowing => dispatch(setNavBarModal(isShowing)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

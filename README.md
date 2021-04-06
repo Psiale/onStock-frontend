@@ -4,6 +4,7 @@ This project is part of a series of projects to be completed by students of [Mic
 
 This project focuses on creating a tracking app where the user can measure something over time.
 
+You can also visit the [Backend](https://github.com/Psiale/coffetory) repository.
 ## 🧮 The Project Brief
 
 The premise of this project is to create a website that allows the user to create a business and create, see and update the amount of a raw material, see the raw material with the lowest amount on stock and see the list of all the raw materials with a comparision between the initial (or total) and the actual (or remaining) amount on stock.

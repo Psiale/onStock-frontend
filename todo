@@ -2,8 +2,6 @@
 AFTER PROJECT
 
 TODO: Select sort from last created, less remaining amount, more amount. MEDIUM
-TODO: Check text sizes for tablet and beyond EASY modal style missing
-TODO: change the modal component MEDIUM
 TODO: Add a top bar notification for user action on materials MEDIUM
 TODO: Add push notifications HARD 
 TODO: Delete materials EASY
