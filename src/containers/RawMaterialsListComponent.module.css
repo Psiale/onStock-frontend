@@ -12,11 +12,11 @@
 
 .childContainer {
   width: 100%;
-  height: 92vh;
+  height: 100%;
   display: flex;
   flex-flow: column;
   justify-content: space-around;
-  margin-bottom: 20px;
+  padding-bottom: 25px;
 }
 
 .circularBar {
@@ -43,7 +43,6 @@
   width: 100%;
   display: flex;
   justify-content: space-around;
-  padding-bottom: 30px;
 }
 
 .buttonContainer > button {
