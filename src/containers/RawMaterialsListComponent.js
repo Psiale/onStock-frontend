@@ -12,7 +12,9 @@ import RawMaterialComponent from '../components/setters/RawMaterialComponent';
 import ModalComponent from '../components/Modal';
 import GlobalCircularProgressComponent from '../components/getters/GlobalCircularProgress';
 import NavBar from '../components/NavBar';
-import { setNavBarModal, setDecreaseModal, setIncreaseModal } from '../redux/actions/modal';
+import {
+  setNavBarModal, setDecreaseModal, setIncreaseModal, setDeleteModal,
+} from '../redux/actions/modal';
 import { retrieveItem } from '../helpers';
 import styles from './RawMaterialsListComponent.module.css';
 
@@ -22,8 +24,10 @@ const RawMaterialsListComponent = ({
   authenticated,
   setNavBarModal,
   setDecreaseModal, setIncreaseModal,
+  setDeleteModal,
   navBarIsShowing,
   increaseIsShowing,
+  deleteIsShowing,
   decreaseIsShowing,
 }) => {
   let businessID;
@@ -31,12 +35,24 @@ const RawMaterialsListComponent = ({
 
   const [rawMaterial, setRawMaterial] = useState('');
   const [showIncrease, setShowIncrease] = useState(false);
+  const [remove, setRemove] = useState(false);
+
   const handleClose = () => setNavBarModal(false);
   const handleShow = () => setNavBarModal(true);
   const [showDecrease, setShowDecrease] = useState(false);
   const handleCloseIncrease = () => {
     setIncreaseModal(false);
     setShowIncrease(false);
+  };
+  const handleShowRemove = rawMaterialSelected => {
+    setRawMaterial(rawMaterialSelected);
+    setDeleteModal(true);
+    setRemove(true);
+  };
+
+  const handleCloseRemove = rawMaterialSelected => {
+    setDeleteModal(false);
+    setRemove(false);
   };
   const handleShowIncrease = rawMaterialSelected => {
     setRawMaterial(rawMaterialSelected);
@@ -83,6 +99,7 @@ const RawMaterialsListComponent = ({
           <div className={styles.buttonContainer}>
             <ModalComponent show={increaseIsShowing} handleClose={handleCloseIncrease} handleShow={() => handleShowIncrease(item)} title="Increase" modalTitle="Increase quantity" child={<RawMaterialComponent update item={rawMaterial} />} />
             <ModalComponent id={styles.test} show={decreaseIsShowing} handleClose={handleCloseDecrease} handleShow={() => handleShowDecrease(item)} title="Decrease" modalTitle="Decrease quantity" child={<RawMaterialComponent update decrease item={rawMaterial} />} />
+            <ModalComponent show={deleteIsShowing} handleClose={handleCloseRemove} handleShow={() => handleShowRemove(item)} title="Delete" modalTitle="Delete item" child={<RawMaterialComponent remove item={rawMaterial} />} />
           </div>
         </div>
       ))}
@@ -101,10 +118,12 @@ RawMaterialsListComponent.propTypes = {
   decreaseIsShowing: Proptypes.bool.isRequired,
   increaseIsShowing: Proptypes.bool.isRequired,
   navBarIsShowing: Proptypes.bool.isRequired,
+  deleteIsShowing: Proptypes.bool.isRequired,
   authenticated: Proptypes.bool.isRequired,
   setNavBarModal: Proptypes.func.isRequired,
   setDecreaseModal: Proptypes.func.isRequired,
   setIncreaseModal: Proptypes.func.isRequired,
+  setDeleteModal: Proptypes.func.isRequired,
   getRawMaterials: Proptypes.func.isRequired,
   rawMaterials: Proptypes.arrayOf(Proptypes.shape({
     name: Proptypes.string,
@@ -126,6 +145,7 @@ const mapStateToProps = state => ({
   navBarIsShowing: state.modalStore.navBarIsShowing,
   decreaseIsShowing: state.modalStore.decreaseIsShowing,
   increaseIsShowing: state.modalStore.increaseIsShowing,
+  deleteIsShowing: state.modalStore.deleteIsShowing,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -134,6 +154,7 @@ const mapDispatchToProps = dispatch => ({
   setNavBarModal: isShowing => dispatch(setNavBarModal(isShowing)),
   setDecreaseModal: isShowing => dispatch(setDecreaseModal(isShowing)),
   setIncreaseModal: isShowing => dispatch(setIncreaseModal(isShowing)),
+  setDeleteModal: isShowing => dispatch(setDeleteModal(isShowing)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RawMaterialsListComponent);
