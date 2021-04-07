@@ -10,6 +10,8 @@ export const putRequest = async (endpoint, data) => axios.put(`${BASE_URL}${endp
 
 export const getRequest = async endpoint => axios.get(`${BASE_URL}${endpoint}`);
 
+export const deleteRequest = async endpoint => axios.delete(`${BASE_URL}${endpoint}`);
+
 export const statusRequest = response => {
   if (response !== null) {
     return true;

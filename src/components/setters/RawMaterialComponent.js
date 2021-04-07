@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { postRawMaterials, putRawMaterial } from '../../redux/actions/materials';
+import { postRawMaterials, putRawMaterial, deleteRawMaterials } from '../../redux/actions/materials';
 import { createInput } from '../../helpers';
 import { setNavBarModal, setDecreaseModal, setIncreaseModal } from '../../redux/actions/modal';
 
@@ -14,6 +14,7 @@ const RawMaterialComponent = ({
   business, putRawMaterial, update,
   item,
   decrease,
+  delete,
   setNavBarModal,
   setDecreaseModal, setIncreaseModal,
 }) => {
@@ -128,6 +129,7 @@ RawMaterialComponent.propTypes = {
     remaining_amount: PropTypes.number,
   }),
   decrease: PropTypes.bool,
+  delete: PropTypes.bool,
   setDecreaseModal: PropTypes.func.isRequired,
   setIncreaseModal: PropTypes.func.isRequired,
 };
@@ -136,6 +138,7 @@ RawMaterialComponent.defaultProps = {
   update: false,
   item: '',
   decrease: false,
+  delete: false,
 };
 
 const mapStateToProps = state => ({
