@@ -14,7 +14,7 @@ const RawMaterialComponent = ({
   business, putRawMaterial, update,
   item,
   decrease,
-  delete,
+  remove,
   setNavBarModal,
   setDecreaseModal, setIncreaseModal,
 }) => {
@@ -66,6 +66,13 @@ const RawMaterialComponent = ({
           setValues({ pressed: true }),
         );
       }
+      return;
+    }
+    if (remove) {
+      deleteRawMaterials(`business/${business.id}/raw_materials/${item.id}`).then(
+        event.preventDefault(),
+        setValues({ pressed: true }),
+      );
       return;
     }
     postRawMaterials(`business/${business.id}/raw_materials`,
@@ -129,7 +136,7 @@ RawMaterialComponent.propTypes = {
     remaining_amount: PropTypes.number,
   }),
   decrease: PropTypes.bool,
-  delete: PropTypes.bool,
+  remove: PropTypes.bool,
   setDecreaseModal: PropTypes.func.isRequired,
   setIncreaseModal: PropTypes.func.isRequired,
 };
@@ -138,7 +145,7 @@ RawMaterialComponent.defaultProps = {
   update: false,
   item: '',
   decrease: false,
-  delete: false,
+  remove: false,
 };
 
 const mapStateToProps = state => ({
