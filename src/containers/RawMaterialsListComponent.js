@@ -85,6 +85,7 @@ const RawMaterialsListComponent = ({
           <div className={styles.progressMainInfoContainer}>
             <GlobalCircularProgressComponent width="100%" rawMaterial={item} />
             <h2 className={styles.title} key={item.id}>{item.name}</h2>
+            <ModalComponent show={deleteIsShowing} handleClose={handleCloseRemove} handleShow={() => handleShowRemove(item)} title="Delete" modalTitle="Delete item" child={<RawMaterialComponent remove item={rawMaterial} />} />
           </div>
           <div className={styles.amountsContainer}>
             <div className={styles.pAmountContainer}>
@@ -99,7 +100,7 @@ const RawMaterialsListComponent = ({
           <div className={styles.buttonContainer}>
             <ModalComponent show={increaseIsShowing} handleClose={handleCloseIncrease} handleShow={() => handleShowIncrease(item)} title="Increase" modalTitle="Increase quantity" child={<RawMaterialComponent update item={rawMaterial} />} />
             <ModalComponent id={styles.test} show={decreaseIsShowing} handleClose={handleCloseDecrease} handleShow={() => handleShowDecrease(item)} title="Decrease" modalTitle="Decrease quantity" child={<RawMaterialComponent update decrease item={rawMaterial} />} />
-            <ModalComponent show={deleteIsShowing} handleClose={handleCloseRemove} handleShow={() => handleShowRemove(item)} title="Delete" modalTitle="Delete item" child={<RawMaterialComponent remove item={rawMaterial} />} />
+
           </div>
         </div>
       ))}

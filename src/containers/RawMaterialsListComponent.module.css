@@ -39,6 +39,15 @@
   align-items: center;
 }
 
+.progressMainInfoContainer > button {
+  width: 40%;
+  background-color: red;
+  color: white;
+  padding: 8px;
+  border: 1px solid white;
+  border-radius: 8px;
+}
+
 .buttonContainer {
   width: 100%;
   display: flex;
