@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-console */
 /* eslint-disable no-return-assign */
@@ -7,16 +8,20 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { postRawMaterials, putRawMaterial, deleteRawMaterials } from '../../redux/actions/materials';
 import { createInput } from '../../helpers';
-import { setNavBarModal, setDecreaseModal, setIncreaseModal } from '../../redux/actions/modal';
+import {
+  setNavBarModal, setDecreaseModal, setIncreaseModal, setDeleteModal,
+} from '../../redux/actions/modal';
 
 const RawMaterialComponent = ({
   postRawMaterials,
+  deleteRawMaterials,
   business, putRawMaterial, update,
   item,
   decrease,
-  delete,
+  remove,
   setNavBarModal,
   setDecreaseModal, setIncreaseModal,
+  setDeleteModal,
 }) => {
   const history = useHistory();
   const [values, setValues] = useState({
@@ -68,6 +73,14 @@ const RawMaterialComponent = ({
       }
       return;
     }
+    if (remove) {
+      deleteRawMaterials(`business/${business.id}/raw_materials/${item.id}`).then(
+        event.preventDefault(),
+        setValues({ pressed: true }),
+        setDeleteModal(false),
+      );
+      return;
+    }
     postRawMaterials(`business/${business.id}/raw_materials`,
       {
         name: values.name,
@@ -99,6 +112,19 @@ const RawMaterialComponent = ({
       </>
     );
   }
+
+  if (remove) {
+    return (
+      <>
+        <form onSubmit={handleSubmit}>
+          <p>
+            Are you sure you want to delete <strong> {item.name} </strong>
+          </p>
+          <input type="submit" value="Delete" disabled={values.pressed} />
+        </form>
+      </>
+    );
+  }
   return (
     <>
       <span> Add a new Raw Material </span>
@@ -114,6 +140,7 @@ const RawMaterialComponent = ({
 RawMaterialComponent.propTypes = {
   postRawMaterials: PropTypes.func.isRequired,
   putRawMaterial: PropTypes.func.isRequired,
+  deleteRawMaterials: PropTypes.func.isRequired,
   setNavBarModal: PropTypes.func.isRequired,
   business: PropTypes.shape({
     id: PropTypes.number,
@@ -129,16 +156,17 @@ RawMaterialComponent.propTypes = {
     remaining_amount: PropTypes.number,
   }),
   decrease: PropTypes.bool,
-  delete: PropTypes.bool,
+  remove: PropTypes.bool,
   setDecreaseModal: PropTypes.func.isRequired,
   setIncreaseModal: PropTypes.func.isRequired,
+  setDeleteModal: PropTypes.func.isRequired,
 };
 
 RawMaterialComponent.defaultProps = {
   update: false,
   item: '',
   decrease: false,
-  delete: false,
+  remove: false,
 };
 
 const mapStateToProps = state => ({
@@ -148,9 +176,11 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   postRawMaterials: (endpoint, data) => dispatch(postRawMaterials(endpoint, data)),
   putRawMaterial: (endpoint, data) => dispatch(putRawMaterial(endpoint, data)),
+  deleteRawMaterials: endpoint => dispatch(deleteRawMaterials(endpoint)),
   setNavBarModal: isShowing => dispatch(setNavBarModal(isShowing)),
   setDecreaseModal: isShowing => dispatch(setDecreaseModal(isShowing)),
   setIncreaseModal: isShowing => dispatch(setIncreaseModal(isShowing)),
+  setDeleteModal: isShowing => dispatch(setDeleteModal(isShowing)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RawMaterialComponent);

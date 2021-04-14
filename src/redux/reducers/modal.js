@@ -2,6 +2,7 @@ const initialState = {
   navBarIsShowing: false,
   increaseIsShowing: false,
   decreaseIsShowing: false,
+  deleteIsShowing: false,
 };
 
 const modalReducer = (state = initialState, action) => {
@@ -20,6 +21,11 @@ const modalReducer = (state = initialState, action) => {
       return {
         ...state,
         decreaseIsShowing: action.isShowing,
+      };
+    case 'DELETE_MODAL':
+      return {
+        ...state,
+        deleteIsShowing: action.isShowing,
       };
     default: return state;
   }

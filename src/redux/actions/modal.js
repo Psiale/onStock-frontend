@@ -12,3 +12,8 @@ export const setDecreaseModal = isShowing => ({
   type: 'DECREASE_MODAL',
   isShowing,
 });
+
+export const setDeleteModal = isShowing => ({
+  type: 'DELETE_MODAL',
+  isShowing,
+});

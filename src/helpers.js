@@ -40,8 +40,10 @@ export const colorProgression = percentage => {
 };
 
 const lowest = (prev, curr) => {
+  const prevPercentage = ((prev.remaining_amount / prev.total_amount) * 100);
+  const currPercentage = ((curr.remaining_amount / curr.total_amount) * 100);
   if (curr.remaining_amount > 0
-    && curr.remaining_amount < prev.remaining_amount) {
+    && currPercentage < prevPercentage) {
     return curr;
   }
   return prev;

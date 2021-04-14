@@ -1,4 +1,6 @@
-import { getRequest, postRequest, putRequest, deleteRequest } from '../../api/helpers';
+import {
+  getRequest, postRequest, putRequest, deleteRequest,
+} from '../../api/helpers';
 import { ADD_MATERIAL, SHOW_MATERIALS } from '../constants/materials';
 import setError from './error';
 
