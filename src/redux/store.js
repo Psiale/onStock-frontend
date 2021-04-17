@@ -30,5 +30,4 @@ const enhancer = composeEnhancers(
 );
 
 const store = createStore(root, enhancer);
-
 export default store;
