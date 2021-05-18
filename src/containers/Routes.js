@@ -1,4 +1,6 @@
-import { HashRouter, Switch, Route } from 'react-router-dom';
+import {
+  HashRouter, Switch, Route,
+} from 'react-router-dom';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 import RawMaterialsListComponent from './RawMaterialsListComponent';

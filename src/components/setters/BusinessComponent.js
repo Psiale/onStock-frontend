@@ -5,9 +5,21 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
+import Joyride from 'react-joyride';
+
 import { postBusiness } from '../../redux/actions/business';
 import { createInput } from '../../helpers';
 
+const steps = [
+  {
+    target: '#noBusiness',
+    content: 'Create a Business first',
+  },
+  {
+    target: '.my-other-step',
+    content: 'This another awesome feature!',
+  },
+];
 const BusinessComponent = ({ postBusiness }) => {
   const [values, setValues] = useState({
     name: '',
@@ -32,7 +44,8 @@ const BusinessComponent = ({ postBusiness }) => {
 
   return (
     <div>
-      <span> No Business Yet :c </span>
+      <Joyride steps={steps} />
+      <span id="noBusiness"> No Business Yet :c </span>
       <form onSubmit={handleSubmit}>
         {createInput('name', values.name, handleChange)}
         <input type="submit" value="Create Business" />
